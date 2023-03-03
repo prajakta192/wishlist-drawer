@@ -25,7 +25,7 @@ const addToWishlist = () => {
   return (
     <Container fluid className='p-0 overflow-hidden'> 
      <Header openCart={openCart} iWishCnt={iWishCnt}/>
-        <section className='d-flex mt-5'>
+        <section className='d-grid mt-5' style={{gridTemplateColumns:'repeat(2, 1fr)'}}>
         
      {
       data.products.map((product) => (

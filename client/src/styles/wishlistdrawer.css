@@ -1,7 +1,7 @@
 
 
 .offcanvas-header{
-	padding: .68rem;
+	padding: 0.68rem ;
 }
 
 .offcanvas > header{
@@ -9,7 +9,7 @@
 }
 .offcanvas-header >.offcanvas-title{
 	width: 100%;
-	height: 30px;
+	height: auto;
 	padding-inline: 1rem;
 	position: relative;
 	overflow:initial;
@@ -32,7 +32,6 @@ header .offcanvas-header + .row{
 }
 header .offcanvas-header + .row .col-sm-12{
 	padding: 5px;
-	letter-spacing: 0.09rem;
 }
 header .offcanvas-header + div a{
 	color: #dd4124;
@@ -95,3 +94,45 @@ padding-inline: 1.3rem;
     color: #363535;
      border: 1px solid rgba(119,136,153,.18);
 }*/
+
+/*wishListAddedList*/
+#dropdown-basic{
+	width:100%;
+	text-align: left;
+  font-size: 15px;
+  font-weight: var(--font-weight-400);
+  color:rgba(var(--color-base-text),.7);
+  border: 1px solid rgba(233,233,232);
+	border-radius: 3px;
+}
+.dropdown-toggle::after{
+	position: absolute;
+	top:50%;
+	right:3%;
+}
+#dropdown-basic.btn:hover, #dropdown-basic.btn:active, #dropdown-basic.btn.show{
+	background-color:transparent;
+}
+.dropdown-menu{
+	width: 100%;
+	border-radius: 3px;
+}
+.dropdown-menu ul{
+	margin: 0 5px 0 0;
+  padding: 0.68em;
+  list-style: none;
+  font-size: 13px;
+  color: rgba(var(--color-base-text),.7);
+  font-weight: var(--font-weight-400);
+}
+.dropdown-menu ul li{
+	margin-bottom: 0.8em;;
+}
+.trash-btn{
+	width: 15px;
+  height: 15px;
+}
+.dropdown-menu ul li:first-child{
+	padding: 0;
+}
+
