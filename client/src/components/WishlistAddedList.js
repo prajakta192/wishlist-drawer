@@ -4,7 +4,7 @@ import {Row, Col, Dropdown} from 'react-bootstrap'
 const WishListAddedList = () => {
 	return(
 			<>
-				<Row>
+				<Row className="mb-1">
 					<Col sm={12} className='p-0'>
 						<Dropdown>
 							 <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">

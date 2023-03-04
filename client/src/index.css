@@ -8,9 +8,11 @@
   --font-body-style: normal;
   --color-base-text: 18, 18, 18;
   --font-weight-400:400;
+  --width-100: 100%;
+  --font-size-12:12px;
+  --bs-offcanvas-width: 450px;
   --bs-offcanvas-padding-x : 1rem;
   --bs-offcanvas-padding-y : 1rem;
-  --width-100: 100%;
 }
 
 body{

@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Container, Navbar } from "react-bootstrap";
 
-const Header = ({ openCart, iWishCnt }) => {
+const Header = ({ openCart, wishlist }) => {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
@@ -20,7 +20,7 @@ const Header = ({ openCart, iWishCnt }) => {
           }}
         >
           <i className="fa-regular fa-heart"></i>
-          {iWishCnt > 0 && (
+          {wishlist.length > 0 && (
             <div
               className="rounded-circle bg-dark d-flex justify-content-center align-items-center"
               style={{
@@ -35,7 +35,7 @@ const Header = ({ openCart, iWishCnt }) => {
                 transform: "translate(25%, 25%)",
               }}
             >
-              {iWishCnt}
+              {wishlist.length}
             </div>
           )}
         </Button>

@@ -1,5 +1,5 @@
 
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Header from './components/Header';
 import ProductsPage from './pages/ProductsPage';
 import WishlistDrawerPage from './pages/WishlistDrawerPage';
@@ -15,26 +15,29 @@ function App() {
     const closeCart = () => {
         setIsOpen(false)
     }
-const [iWishCnt, setiWishCnt] = useState(null);
-const addToWishlist = () => {
-    console.log('added to wishlist');
-    //iWishCnt++;
-    setiWishCnt(iWishCnt + 1);
-  }
+ const[wishlist, setWishlist] = useState([])
 
+const addToWishlist = (product) => {
+    //console.log([...wishlist,product]);
+  setWishlist([...wishlist, product]);
+}
+useEffect(() => {
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  }, [wishlist]);
+ 
   return (
     <Container fluid className='p-0 overflow-hidden'> 
-     <Header openCart={openCart} iWishCnt={iWishCnt}/>
+     <Header openCart={openCart} wishlist={wishlist}/>
         <section className='d-grid mt-5' style={{gridTemplateColumns:'repeat(2, 1fr)'}}>
         
      {
       data.products.map((product) => (
-           <ProductsPage key={product.id} product={product} addToWishlist={addToWishlist} iWishCnt={iWishCnt}/>
+           <ProductsPage key={product.id} product={product} addToWishlist={addToWishlist} wishlist={wishlist}/>
         ))
      }
     
        </section>
-      <WishlistDrawerPage isOpen={isOpen} closeCart={closeCart} iWishCnt={iWishCnt}/>
+      <WishlistDrawerPage isOpen={isOpen} closeCart={closeCart} wishlist={wishlist} setWishlist={setWishlist}/>
     </Container>
   );
 }

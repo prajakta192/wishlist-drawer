@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import data from "../data";
-import { Row, Col, Button } from "react-bootstrap";
+import AddToCartProduct from '../components/AddToCartProduct'
+import { Row, Col, Button, Modal } from "react-bootstrap";
 
-const ProductsPage = ({ product, addToWishlist, iWishCnt }) => {
-  //console.log(product);
-  //const[product, setProduct] = useState({})
-console.log(product);
-  useEffect(() => {
-    localStorage.setItem("wishlist", JSON.stringify(product));
-  }, [product]);
+const ProductsPage = ({ product, addToWishlist, wishlist }) => {
+  const [show, setShow] = useState(false);
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  
   return (
     <>
       <Row
@@ -31,7 +31,7 @@ console.log(product);
               style={{ width: "100%", height: "100%" }}
             />
             <Button
-              onClick={() => addToWishlist(iWishCnt + 1)}
+              onClick={() => addToWishlist(product)}
               variant="outline-dark"
               className="rounded-circle"
               style={{
@@ -43,9 +43,10 @@ console.log(product);
                 alignItems: "center",
               }}
             >
-              <i className="fa-regular fa-heart"></i>
+           
+              <i className="fa-regular fa-heart" onClick={handleShow}></i>
 
-              {iWishCnt > 0 && (
+              {wishlist.lenght > 0 && (
                 <div
                   className="rounded-circle bg-dark d-flex justify-content-center align-items-center"
                   style={{
@@ -60,8 +61,9 @@ console.log(product);
                     transform: "translate(25%, 25%)",
                   }}
                 >
-                  {iWishCnt}
+                  {wishlist.length}
                 </div>
+                
               )}
             </Button>
           </div>
@@ -73,6 +75,22 @@ console.log(product);
           <span>Rs. {product.price}</span>
         </Col>
       </Row>
+      <Modal show={show} onHide={handleClose} animation={false}>
+        <Modal.Header closeButton>
+          <Modal.Title>My Wishlist</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+            <AddToCartProduct/>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
