@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import data from "../data";
+import React, { useState } from "react";
 import AddToCartProduct from '../components/AddToCartProduct'
 import { Row, Col, Button, Modal } from "react-bootstrap";
 
@@ -31,7 +30,7 @@ const ProductsPage = ({ product, addToWishlist, wishlist }) => {
               style={{ width: "100%", height: "100%" }}
             />
             <Button
-              onClick={() => addToWishlist(product)}
+             
               variant="outline-dark"
               className="rounded-circle"
               style={{
@@ -44,9 +43,9 @@ const ProductsPage = ({ product, addToWishlist, wishlist }) => {
               }}
             >
            
-              <i className="fa-regular fa-heart" onClick={handleShow}></i>
+              <i className="fa-regular fa-heart fa-lg" onClick={handleShow}></i>
 
-              {wishlist.lenght > 0 && (
+              {wishlist.lenght > 8 && (
                 <div
                   className="rounded-circle bg-dark d-flex justify-content-center align-items-center"
                   style={{
@@ -86,8 +85,8 @@ const ProductsPage = ({ product, addToWishlist, wishlist }) => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
+          <Button variant="primary" onClick={() => addToWishlist(product)}>
+            Add to wishlist
           </Button>
         </Modal.Footer>
       </Modal>

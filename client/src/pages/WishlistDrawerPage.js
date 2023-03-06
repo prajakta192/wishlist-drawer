@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Offcanvas, Row, Col, Button } from "react-bootstrap";
+import { Offcanvas, Row, Col, Button} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import WishlistAddedList from '../components/WishlistAddedList'
+import EmptyWishlistComponent from '../components/EmptyWishlistComponent'
+import WishlistProducts from '../components/WishlistProducts'
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/wishlistdrawer.css";
@@ -9,19 +11,15 @@ import "../styles/wishlistdrawer.css";
 const WishlistDrawerPage = ({ isOpen, closeCart, wishlist,setWishlist }) => {
  
   
-  const isLoggedIn = true;
-  const [showCategory, setShowCategory] = useState(false);
-  const[showCartHandler, setCartHandler] = useState(false);
-  const [saveCategory, setSaveCategory] = useState("");
-
-  useEffect(() => {
-    setWishlist(
-      localStorage.getItem("wishlist")
+  const isLoggedIn = false;
+  
+ const initialvalue = localStorage.getItem("wishlist")
         ? JSON.parse(localStorage.getItem("wishlist"))
-        : []
-    );
-  }, []);
-
+        : null
+  
+   
+  const [showCategory, setShowCategory] = useState(false);
+   const [saveCategory, setSaveCategory] = useState("");
 
   const addToCategory = () => {
     setShowCategory((prevCategory) => !prevCategory);
@@ -30,20 +28,10 @@ const WishlistDrawerPage = ({ isOpen, closeCart, wishlist,setWishlist }) => {
   const saveToCategory = () => {
     //console.log("save category");
   };
-function cartHandler(product){
-  console.log(product.id)
-    wishlist.forEach((item) => {
-      console.log(item.id)
-      if(item.id === product.id){
-        setCartHandler((prevCart) => !prevCart);
-      }
-    })
-  
-}
 
-function deleteProduct(item){
-  console.log('deleted')
-}
+   
+  
+
 
   return (
     <>
@@ -65,7 +53,7 @@ function deleteProduct(item){
                 </Col>
                 <Col sm={10}>
                   <div>
-                    <strong style={{ fontSize: "14px" }}> My Wishlist ({wishlist.length})</strong>
+                    <strong style={{ fontSize: "14px" }}> My Wishlist ({initialvalue.length})</strong>
                   </div>
                 </Col>
                 {isLoggedIn && (
@@ -96,7 +84,7 @@ function deleteProduct(item){
                       style={{
                         cursor: saveCategory === "" ? "not-allowed" : "pointer",
                       }}
-                      disabled={saveCategory == ""}
+                      disabled={saveCategory === ""}
                       onClick={saveToCategory}
                     >
                       Save
@@ -109,7 +97,7 @@ function deleteProduct(item){
 
           </Offcanvas.Header>
           {!isLoggedIn && (
-            <Row className='mx-1'>
+            <Row className='mx-1 mb-2'>
               <Col sm={12}>
                 Wishlist is not saved permanently yet. Please
                 <Link to="/"> log in</Link> or <Link to="/"> Create Account </Link>
@@ -118,81 +106,12 @@ function deleteProduct(item){
             </Row>
           )}
         </header>
-        <Offcanvas.Body>
-        {wishlist.map((product,id) => (
-             <Row style={{borderBottom:'1px solid rgb(233,233,232', marginBottom:'1.5rem'}} key={id}>
-            <Col sm={2}>
-              <img src={product.img} alt={product.name} />
-            </Col>
-            <Col sm={10} >
-              <Row>
-              {showCartHandler ?(
-              <Col sm={10}>
-            <div className='iwish_qty_box'>
-              <div className='qty_box'>
-                <span>
-                  <i className="fa-solid fa-minus"></i>
-                </span>
-                <span className='iwishProQuantity'><strong>1</strong></span>
-                <span>
-                  <i className="fa-regular fa-plus"></i>
-                </span>
-              </div>
-            </div>
-          </Col>
-                
-              ):
-               <Col sm={10}>
-                  <span className="pTitle">{product.product_title}</span>
-                </Col>
-            }
-             
-                <Col sm={2}>
-                  <span className="add_to_cart" onClick={() => cartHandler(product)}>
-                    <i
-                      className="fa-solid fa-cart-plus"
-                      title="Add to Cart"
-                    ></i>
-                  </span>
-                </Col>
-              </Row>
-              <Row>
-                <Col sm={10}>
-                  <span className="pSize">XS</span>
-                </Col>
-                {isLoggedIn && (
-                  <Col sm={2}>
-                    <span>
-                      <i
-                        className="fa-solid fa-code-compare"
-                        title="Transfer Product"
-                        style={{ transform: "rotate(90deg)" }}
-                      ></i>
-                    </span>
-                  </Col>
-                )}
-              </Row>
-              <Row>
-                <Col sm={10}>
-                  <div>
-                    <span className="pPrice"> ₹{product.price}</span>
-                  </div>
-                </Col>
-                <Col sm={2}>
-                  <span>
-                    <i className="fa-solid fa-trash" title="Delete Product" onClick={() => deleteProduct(product)}></i>
-                  </span>
-                </Col>
-              </Row>
-            </Col>
-
-            <Row className='mt-2'>
-         
-        </Row>
-          </Row>
-        
-        ))}
-           
+        <Offcanvas.Body>{
+          initialvalue.length <= 0 && (
+          <EmptyWishlistComponent closeCart={closeCart}/>
+          )
+        }
+       <WishlistProducts initialvalue={initialvalue} isLoggedIn={isLoggedIn}/>
         </Offcanvas.Body>
       </Offcanvas>
     </>

@@ -19,12 +19,10 @@ function App() {
 
 const addToWishlist = (product) => {
     //console.log([...wishlist,product]);
-  setWishlist([...wishlist, product]);
+  setWishlist([...wishlist, product], localStorage.setItem("wishlist", JSON.stringify(wishlist)));
+    
 }
-useEffect(() => {
-    localStorage.setItem("wishlist", JSON.stringify(wishlist));
-  }, [wishlist]);
- 
+
   return (
     <Container fluid className='p-0 overflow-hidden'> 
      <Header openCart={openCart} wishlist={wishlist}/>

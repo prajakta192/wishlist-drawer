@@ -19,7 +19,7 @@ const Header = ({ openCart, wishlist }) => {
             alignItems: "center",
           }}
         >
-          <i className="fa-regular fa-heart"></i>
+          <i className="fa-regular fa-heart fa-lg"></i>
           {wishlist.length > 0 && (
             <div
               className="rounded-circle bg-dark d-flex justify-content-center align-items-center"

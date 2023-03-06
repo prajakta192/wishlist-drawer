@@ -76,7 +76,7 @@ header .offcanvas-header + div a{
     justify-content: center;
     width: 30px;
     float: left;
-    height: 30px;
+    height: 20px;
     background-color: #f6f6f6;
     cursor: pointer;
 }
@@ -144,4 +144,9 @@ padding-inline: 1.3rem;
 .dropdown-menu ul li:first-child{
 	padding: 0;
 }
-
+.display-n{
+	display: none;
+}
+.display-b{
+	display: block;
+}

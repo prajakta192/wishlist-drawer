@@ -21,7 +21,7 @@ const AddToCartProduct = () => {
 					</Col>
 					<Col sm={6} className='d-flex justify-content-end'>
 												
-						<span className='add_to_cart'><i className="fa-solid fa-cart-plus fa-lg" title='Add To Cart'></i></span>
+						<span className='add_to_cart' ><i className="fa-solid fa-cart-plus fa-lg" title='Add To Cart'></i></span>
 					</Col>
 				</Row>
 			</>
