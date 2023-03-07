@@ -4,13 +4,14 @@ import {Row, Col} from 'react-bootstrap'
 const WishlistProducts = ({initialvalue, isLoggedIn}) => {
 	const[showCartHandler, setCartHandler] = useState(false);
    
-function cartHandler(product){
-  console.log(product)
-  
-    initialvalue.forEach((item) => {
-      //console.log(product.id)
+function cartHandler(product,e){
+  //console.log(e.target.parentNode.parentNode.previousSibling)
+  const toggleElement =e.target.parentNode.parentNode.previousSibling;
+    initialvalue.forEach((item,i) => {
+     
       if(item.id === product.id){
         setCartHandler((prevCart) => !prevCart);
+        
       }
     })
   
@@ -44,16 +45,16 @@ function deleteProduct(item){
           </Col>
                 
               ):
-               <Col sm={10}>
+               <Col sm={10} id={id}>
                   <span className="pTitle">{product.product_title}</span>
                 </Col>
             }
              
                 <Col sm={2}>
-                  <span className="add_to_cart" id={id}  onClick={() => cartHandler(product)}>
+                  <span className="add_to_cart" onClick={(e) => cartHandler(product,e)}>
                     <i
                       className="fa-solid fa-cart-plus"
-                      title="Add to Cart"
+                      title="Add to Cart"  id={id} 
                     ></i>
                   </span>
                 </Col>

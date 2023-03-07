@@ -15,11 +15,15 @@ function App() {
     const closeCart = () => {
         setIsOpen(false)
     }
- const[wishlist, setWishlist] = useState([])
+ const[wishlist, setWishlist] = useState([]);
+
+
 
 const addToWishlist = (product) => {
+  debugger;
     //console.log([...wishlist,product]);
-  setWishlist([...wishlist, product], localStorage.setItem("wishlist", JSON.stringify(wishlist)));
+  setWishlist([...wishlist, product])
+  return localStorage.setItem("wishlist", JSON.stringify(wishlist));
     
 }
 
@@ -35,7 +39,8 @@ const addToWishlist = (product) => {
      }
     
        </section>
-      <WishlistDrawerPage isOpen={isOpen} closeCart={closeCart} wishlist={wishlist} setWishlist={setWishlist}/>
+ 
+      <WishlistDrawerPage isOpen={isOpen} closeCart={closeCart} wishlist={wishlist}/>
     </Container>
   );
 }

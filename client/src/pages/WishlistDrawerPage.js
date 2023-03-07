@@ -4,14 +4,15 @@ import { Link } from "react-router-dom";
 import WishlistAddedList from '../components/WishlistAddedList'
 import EmptyWishlistComponent from '../components/EmptyWishlistComponent'
 import WishlistProducts from '../components/WishlistProducts'
-
+import ProductPagination from "../components/ProductPagination";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/wishlistdrawer.css";
 
-const WishlistDrawerPage = ({ isOpen, closeCart, wishlist,setWishlist }) => {
+
+const WishlistDrawerPage = ({ isOpen, closeCart, wishlist }) => {
  
   
-  const isLoggedIn = false;
+  const isLoggedIn = true;
   
  const initialvalue = localStorage.getItem("wishlist")
         ? JSON.parse(localStorage.getItem("wishlist"))
@@ -29,10 +30,7 @@ const WishlistDrawerPage = ({ isOpen, closeCart, wishlist,setWishlist }) => {
     //console.log("save category");
   };
 
-   
   
-
-
   return (
     <>
       <Offcanvas show={isOpen} onHide={closeCart} placement="end" scroll="true">
@@ -53,7 +51,7 @@ const WishlistDrawerPage = ({ isOpen, closeCart, wishlist,setWishlist }) => {
                 </Col>
                 <Col sm={10}>
                   <div>
-                    <strong style={{ fontSize: "14px" }}> My Wishlist ({initialvalue.length})</strong>
+                    <strong style={{ fontSize: "14px" }}> My Wishlist ({initialvalue?initialvalue.length:wishlist.length})</strong>
                   </div>
                 </Col>
                 {isLoggedIn && (
@@ -106,12 +104,13 @@ const WishlistDrawerPage = ({ isOpen, closeCart, wishlist,setWishlist }) => {
             </Row>
           )}
         </header>
-        <Offcanvas.Body>{
-          initialvalue.length <= 0 && (
+        <Offcanvas.Body>
+          {(initialvalue?initialvalue:wishlist).length <= 0 && (
           <EmptyWishlistComponent closeCart={closeCart}/>
           )
         }
-       <WishlistProducts initialvalue={initialvalue} isLoggedIn={isLoggedIn}/>
+       <WishlistProducts initialvalue={initialvalue} isLoggedIn={isLoggedIn} wishlist={wishlist}/>
+        <ProductPagination wishlist={wishlist} initialvalue={initialvalue}/>
         </Offcanvas.Body>
       </Offcanvas>
     </>

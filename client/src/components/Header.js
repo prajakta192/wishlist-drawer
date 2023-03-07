@@ -20,7 +20,7 @@ const Header = ({ openCart, wishlist }) => {
           }}
         >
           <i className="fa-regular fa-heart fa-lg"></i>
-          {wishlist.length > 0 && (
+          {/*{wishlist.length > 0 && (
             <div
               className="rounded-circle bg-dark d-flex justify-content-center align-items-center"
               style={{
@@ -37,7 +37,7 @@ const Header = ({ openCart, wishlist }) => {
             >
               {wishlist.length}
             </div>
-          )}
+            )}*/}
         </Button>
       </Container>
     </Navbar>
