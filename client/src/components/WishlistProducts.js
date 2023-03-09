@@ -2,56 +2,42 @@ import React, {useState, useEffect} from 'react'
 import {Row, Col} from 'react-bootstrap'
 
 const WishlistProducts = ({initialvalue, isLoggedIn}) => {
-	const[showCartHandler, setCartHandler] = useState(false);
+	const[state, setCartHandler] = useState({
+    cartState : false,
+    cartIndex : -1
+  }
+    );
    
-function cartHandler(product,e){
+function cartHandler(index,state){
   //console.log(e.target.parentNode.parentNode.previousSibling)
-  const toggleElement =e.target.parentNode.parentNode.previousSibling;
-    initialvalue.forEach((item,i) => {
-     
-      if(item.id === product.id){
-        setCartHandler((prevCart) => !prevCart);
-        
-      }
+      
+        setCartHandler({
+          cartState : state,
+          cartIndex:index
+       
     })
   
 }
+console.log(state.cartState)
 
 function deleteProduct(item){
   console.log('deleted')
 }
 	return(
 <>
-        {initialvalue.map((product,id) => (
+        {initialvalue.map((product,id,index) => (
              <Row style={{borderBottom:'1px solid rgb(245,245,244', marginBottom:'1.5rem'}} key={id}>
             <Col sm={2} className='p-1'>
               <img src={product.img} alt={product.name} />
             </Col>
             <Col sm={10} >
               <Row>
-              {showCartHandler ?(
-              <Col sm={10}>
-            <div className='iwish_qty_box'>
-              <div className='qty_box'>
-                <span>
-                  <i className="fa-solid fa-minus"></i>
-                </span>
-                <span className='iwishProQuantity'><strong>1</strong></span>
-                <span>
-                  <i className="fa-regular fa-plus"></i>
-                </span>
-              </div>
-            </div>
-          </Col>
-                
-              ):
                <Col sm={10} id={id}>
                   <span className="pTitle">{product.product_title}</span>
                 </Col>
-            }
-             
+                
                 <Col sm={2}>
-                  <span className="add_to_cart" onClick={(e) => cartHandler(product,e)}>
+                  <span className="add_to_cart" onClick={() => cartHandler(index,true)}>
                     <i
                       className="fa-solid fa-cart-plus"
                       title="Add to Cart"  id={id} 
@@ -88,6 +74,21 @@ function deleteProduct(item){
                 </Col>
               </Row>
             </Col>
+           <Row>
+           <Col sm={10} className={`${state.cartState && index===state.cartIndex ? 'display-b':'display-n'}`}>
+            <div className='iwish_qty_box'>
+              <div className='qty_box'>
+                <span>
+                  <i className="fa-solid fa-minus"></i>
+                </span>
+                <span className='iwishProQuantity'><strong>1</strong></span>
+                <span>
+                  <i className="fa-regular fa-plus"></i>
+                </span>
+              </div>
+            </div>
+          </Col>
+           </Row>
           </Row>
         
         ))}

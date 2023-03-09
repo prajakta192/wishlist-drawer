@@ -12,7 +12,7 @@ import "../styles/wishlistdrawer.css";
 const WishlistDrawerPage = ({ isOpen, closeCart, wishlist }) => {
  
   
-  const isLoggedIn = true;
+  const isLoggedIn = false;
   
  const initialvalue = localStorage.getItem("wishlist")
         ? JSON.parse(localStorage.getItem("wishlist"))
@@ -45,7 +45,6 @@ const WishlistDrawerPage = ({ isOpen, closeCart, wishlist }) => {
                       style={{ cursor: "pointer" }}
                       onClick={closeCart}
                     >
-                      
                     </i>
                   </div>
                 </Col>
@@ -98,7 +97,7 @@ const WishlistDrawerPage = ({ isOpen, closeCart, wishlist }) => {
             <Row className='mx-1 mb-2'>
               <Col sm={12}>
                 Wishlist is not saved permanently yet. Please
-                <Link to="/"> log in</Link> or <Link to="/"> Create Account </Link>
+                <Link to="/signin"> log in</Link> or <Link to="/"> Create Account </Link>
                 to save it.
               </Col>
             </Row>

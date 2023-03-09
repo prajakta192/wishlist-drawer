@@ -1,11 +1,15 @@
 import React from "react";
 import { Button, Container, Navbar } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Header = ({ openCart, wishlist }) => {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand href="/">WishlistDrawer</Navbar.Brand>
+        <Navbar.Brand>
+          <Link to="/">WishlistDrawer
+          </Link>
+          </Navbar.Brand>
         <Button
           variant="outline-dark"
           onClick={openCart}

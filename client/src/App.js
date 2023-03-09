@@ -1,10 +1,13 @@
 
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import Header from './components/Header';
 import ProductsPage from './pages/ProductsPage';
 import WishlistDrawerPage from './pages/WishlistDrawerPage';
 import data from './data'
 import {Container} from 'react-bootstrap'
+import { Route, Routes } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import PaymentPage from './pages/PaymentPage';
 
 function App() {
   //State for cart drawer
@@ -30,6 +33,11 @@ const addToWishlist = (product) => {
   return (
     <Container fluid className='p-0 overflow-hidden'> 
      <Header openCart={openCart} wishlist={wishlist}/>
+     <Routes>
+        
+          <Route path='/signin' element={<LoginPage/>}/>
+          <Route path='/payment' element={<PaymentPage/>}/>
+     <Route path='/' element={
         <section className='d-grid mt-5' style={{gridTemplateColumns:'repeat(2, 1fr)'}}>
         
      {
@@ -38,9 +46,10 @@ const addToWishlist = (product) => {
         ))
      }
     
-       </section>
- 
-      <WishlistDrawerPage isOpen={isOpen} closeCart={closeCart} wishlist={wishlist}/>
+       </section>}/>
+       </Routes>
+      <WishlistDrawerPage isOpen={isOpen} closeCart={closeCart} wishlist={wishlist}/>     
+      
     </Container>
   );
 }
