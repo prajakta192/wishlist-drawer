@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pagination } from 'react-bootstrap';
+import { Col, Pagination, Row } from 'react-bootstrap';
 
 const ProductPagination = ({wishlist,initialvalue}) => {
     let active = 2;
@@ -14,10 +14,13 @@ const ProductPagination = ({wishlist,initialvalue}) => {
       }
 
     return(
-        <Pagination>
-
+      <Row className='mt-4'>
+        <Col sm={12}>
+        <Pagination className='justify-content-center'>
             {items}
         </Pagination>
+        </Col>
+      </Row>
     )
 }
 

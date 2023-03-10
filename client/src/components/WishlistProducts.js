@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
-import {Row, Col} from 'react-bootstrap'
+import {Row, Col, Button} from 'react-bootstrap'
 
-const WishlistProducts = ({initialvalue, isLoggedIn}) => {
+const WishlistProducts = ({initialvalue, isLoggedIn,setWishlist,wishlist}) => {
 	const[state, setCartHandler] = useState({
     cartState : false,
     cartIndex : -1
@@ -20,8 +20,11 @@ function cartHandler(index,state){
 }
 console.log(state.cartState)
 
-function deleteProduct(item){
-  console.log('deleted')
+function deleteProduct(index){
+  
+        setWishlist(wishlist => wishlist.filter((_, i) => i !== index))
+  
+
 }
 	return(
 <>
@@ -69,7 +72,7 @@ function deleteProduct(item){
                 </Col>
                 <Col sm={2}>
                   <span>
-                    <i className="fa-solid fa-trash" title="Delete Product" onClick={() => deleteProduct(product)}></i>
+                    <i className="fa-solid fa-trash" title="Delete Product" onClick={() => deleteProduct(index)}></i>
                   </span>
                 </Col>
               </Row>
@@ -92,6 +95,11 @@ function deleteProduct(item){
           </Row>
         
         ))}
+        <Row>
+          <Col sm={12}>
+              <Button variant='outline-secondary btn-md text-uppercase w-100' className='addToCart'>Add All to cart</Button>
+          </Col>
+        </Row>
         </>
 		)
 }

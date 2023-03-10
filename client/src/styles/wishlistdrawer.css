@@ -29,6 +29,14 @@
 }
 .overlay .col-sm-9 > input{
 	width:var(--width-100);
+	font-size: 14px;
+	padding: .48rem;
+}
+.overlay .col-sm-9 + .col-sm-2 > button{
+	font-size: var( --font-size-12);
+	border-radius: 3px;
+	padding: .38rem;
+	text-transform: uppercase;
 }
 header .offcanvas-header + .row{
 	padding-inline: var(--bs-offcanvas-padding-x);
@@ -90,7 +98,13 @@ header .offcanvas-header + div a{
 	text-decoration: none;
 	color: inherit;
 }
-
+.addToCart.btn{
+	font-size: var( --font-size-12);
+}
+.addToCart.btn:hover{
+	background-color: #e8e6e6;
+    color: #363535;
+}
 /*wishListAddedList*/
 #dropdown-basic{
 	width:var(--width-100);

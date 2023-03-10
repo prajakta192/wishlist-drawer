@@ -42,7 +42,7 @@ const addToWishlist = (product) => {
         
      {
       data.products.map((product) => (
-           <ProductsPage key={product.id} product={product} addToWishlist={addToWishlist} wishlist={wishlist}/>
+           <ProductsPage key={product.id} product={product} addToWishlist={addToWishlist} wishlist={wishlist} setWishlist={setWishlist}/>
         ))
      }
     
