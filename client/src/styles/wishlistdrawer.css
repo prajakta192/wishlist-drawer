@@ -129,11 +129,11 @@ header .offcanvas-header + div a{
 }
 .dropdown-menu ul{
 	margin: 0 5px 0 0;
-  padding: 0.68em;
-  list-style: none;
-  font-size: 13px;
-  color: rgba(var(--color-base-text),.7);
-  font-weight: var(--font-weight-400);
+	padding: 0 0.68em;
+	list-style: none;
+	font-size: 13px;
+	color: rgba(var(--color-base-text),.7);
+	font-weight: var(--font-weight-400);
 }
 .dropdown-menu ul li{
 	margin-bottom: 0.8em;;
@@ -154,4 +154,7 @@ header .offcanvas-header + div a{
 }
 .overlay .col-sm-9 + .col-sm-2 > button:disabled{
 	cursor: not-allowed;
+}
+.display-n{
+	display: none;
 }

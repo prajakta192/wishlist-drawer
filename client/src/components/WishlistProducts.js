@@ -18,13 +18,10 @@ function cartHandler(index,state){
     })
   
 }
-console.log(state.cartState)
+//console.log(state.cartState)
 
-function deleteProduct(index){
-  
-        setWishlist(wishlist => wishlist.filter((_, i) => i !== index))
-  
-
+function deleteProduct(id){
+  //console.log(id)
 }
 	return(
 <>
@@ -72,7 +69,7 @@ function deleteProduct(index){
                 </Col>
                 <Col sm={2}>
                   <span>
-                    <i className="fa-solid fa-trash" title="Delete Product" onClick={() => deleteProduct(index)}></i>
+                    <i className="fa-solid fa-trash" title="Delete Product" onClick={() => deleteProduct(product.id)}></i>
                   </span>
                 </Col>
               </Row>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Col, Dropdown, Row } from "react-bootstrap";
+import { Button, Col, Dropdown, Form, Row, Toast, ToastContainer } from "react-bootstrap";
 
 const AddToCategory = ({ isLoggedIn, initialvalue, wishlist, closeCart }) => {
  
@@ -14,19 +14,32 @@ const AddToCategory = ({ isLoggedIn, initialvalue, wishlist, closeCart }) => {
   //category state
   const [categories, setCategories] = useState([]);
   const [newCategory, setNewCategory] = useState('');
+  const[successMsg, setSuccessMsg] = useState('');
 
-console.log(newCategory);
+///console.log(newCategory);
+// add new category
   const saveToCategory = () => {
-    console.log("save category");
+   // console.log("save category");
   if(newCategory){
         let newId = categories.length + 1;
         let newCatEntry = {id : newId, title:newCategory, status:false}
         setCategories([...categories, newCatEntry])
         setNewCategory('');
+        setSuccessMsg('Category saved successfully');
+        setTimeout(() => {
+         setSuccessMsg('');
+          
+        }, 2000);
+        setShowCategory(false)
     }
-    console.log(categories)
+   // console.log(categories)
   };
-
+// delete category
+const deleteCategory = (id) => {
+  let newCategory = categories.filter(category => category.id !== id);
+  setCategories(newCategory);
+  console.log(id)
+}
   return (
     <>
       <Row className={isLoggedIn ? "title_container mb-2" : "title_container"}>
@@ -60,6 +73,8 @@ console.log(newCategory);
         )}
       </Row>
       {showCategory && (
+        <Form>
+          
         <Row className="overlay">
           <Col sm={9} className="p-0">
             <input
@@ -80,7 +95,18 @@ console.log(newCategory);
             </Button>
           </Col>
         </Row>
+        </Form>
+        
       )}
+      {successMsg !== '' && (
+        <ToastContainer position="top-start">
+        <Toast className="d-inline-block m-1"
+          bg='success'>
+        <Toast.Body className={'success' && 'text-white'} style={{fontSize:'12px',padding:'.28rem'}}>{successMsg}</Toast.Body>
+        </Toast>
+      </ToastContainer>
+      )}
+
       {isLoggedIn && (
         <Row className="mb-1">
           <Col sm={12} className="p-0">
@@ -98,13 +124,13 @@ console.log(newCategory);
                     </Row>
                   </li>
                 </ul>
-                <ul>
+                <ul className={categories.length === 0 && 'display-n'}>
                 {categories && categories.map((category,index) => (
 
                   <li key={index}>
                     <Row>
                       <Col sm={10}>
-                        <span>{category.id} </span>
+                        {/* <span>{category.id} </span> */}
                         <span>{category.title}</span>
                       </Col>
                       <Col sm={1}>
@@ -115,7 +141,7 @@ console.log(newCategory);
                         />
                         {/*<img alt="trash" class="trash-btn" src="https://s3.amazonaws.com/cdn.myshopapps.com/iwish/drawer/saveCat.svg"/>*/}
                       </Col>
-                      <Col sm={1}>
+                      <Col sm={1} onClick={() => deleteCategory(category.id)}>
                         <img
                           alt="delete"
                           className="trash-btn"
