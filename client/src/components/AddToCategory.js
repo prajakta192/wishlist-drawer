@@ -13,14 +13,12 @@ const AddToCategory = ({ isLoggedIn, initialvalue, wishlist, closeCart }) => {
   };
   //category state
   const [categories, setCategories] = useState([]);
-  const [newCategory, setNewCategory] = useState(" ");
+  const [newCategory, setNewCategory] = useState('');
 
 console.log(newCategory);
   const saveToCategory = () => {
     console.log("save category");
-    if(newCategory === ''){
-        alert('please enter valid category');
-    } else if(newCategory){
+  if(newCategory){
         let newId = categories.length + 1;
         let newCatEntry = {id : newId, title:newCategory, status:false}
         setCategories([...categories, newCatEntry])
@@ -75,6 +73,7 @@ console.log(newCategory);
             <Button
               variant="outline-secondary"
               className="btn-sm"
+              disabled={!newCategory}
               onClick={saveToCategory}
             >
               Save
