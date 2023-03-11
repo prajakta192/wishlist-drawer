@@ -158,3 +158,11 @@ header .offcanvas-header + div a{
 .display-n{
 	display: none;
 }
+.display-b{
+	display: block;
+}
+.editCat{
+    border: none;
+    border-bottom: 1px solid #dfdfdf;
+    outline: 0;
+}
