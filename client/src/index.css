@@ -21,7 +21,7 @@ body{
   font-style: var(--font-body-style);
   font-size:1.5rem;
   letter-spacing: 0.06rem;
-  line-height: 1.8;
+  /*line-height: 1.8;*/
 }
 
 @media screen and (min-width: 750px)

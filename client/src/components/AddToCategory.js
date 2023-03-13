@@ -51,12 +51,15 @@ const dropDownHandler = (itemId) => {
 }
 
 const saveCat = (cat_id, index) => {
-  setIsEdit({ id: cat_id, status: !isEdit.status });
+  setIsEdit(
+    { id: cat_id, status: !isEdit.status }
+    );
   console.log('cat',cat_id,'edit',isEdit.id,index);
 }
 const editCat = (cat_id,index) => {
-  
-   setIsEdit({ id: cat_id, status: !isEdit.status });
+   setIsEdit(
+    { id: cat_id, status: !isEdit.status }
+ )
    console.log('cat',cat_id,'edit',isEdit.id,index);
 }
 
@@ -65,6 +68,7 @@ const[catNameChange, setCatNameChange] = useState('');
 // const catNameChange = (e) => {
 //   console.log(e)
 // }
+console.log(catNameChange)
 const category_name = localStorage.getItem('category_name');
   return (
     
@@ -134,7 +138,7 @@ const category_name = localStorage.getItem('category_name');
 
       {isLoggedIn && (
         <Row className="mb-1">
-          <Col sm={12} className="p-0">
+          <Col sm={12} className="p-0 mt-3">
             <Dropdown>
               <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
                 Main wishlist
@@ -156,7 +160,7 @@ const category_name = localStorage.getItem('category_name');
                     <Row>
                       <Col sm={10}>
                         {/* <span>{category.id} </span> */}
-                       {!isEdit.status && category.id === isEdit.id ? (<span onClick={() => dropDownHandler(category.id)}>{category.title}</span>):
+                       {!isEdit.status && category.id === isEdit.id ? (<span onClick={() => dropDownHandler(category.id)}>{category.title?category.title:catNameChange}</span>):
                        (<input type='text' className='editCat' defaultValue={category_name?category_name:category.title}  onChange={(e) => setCatNameChange(e.target.value)}/>)
                        }
                       </Col>

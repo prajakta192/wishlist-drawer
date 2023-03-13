@@ -12,9 +12,7 @@ const ProductsPage = ({ product, addToWishlist, wishlist }) => {
   return (
     <>
       <Row
-        className="product_container d-flex flex-column justify-content-center align-items-center"
-        key={product.id}
-      >
+        className="product_container d-flex flex-column justify-content-center align-items-center">
         <Col sm={6}>
           <div
             style={{
@@ -67,12 +65,11 @@ const ProductsPage = ({ product, addToWishlist, wishlist }) => {
             </Button>
           </div>
         </Col>
-        <Col sm={6}>
+        <Col sm={6} className='mb-4'>
           <p>{product.handle}</p>
+          <p>Rs. {product.price}</p>
         </Col>
-        <Col sm={6}>
-          <span>Rs. {product.price}</span>
-        </Col>
+       
       </Row>
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>

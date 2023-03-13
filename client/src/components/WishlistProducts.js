@@ -1,47 +1,46 @@
 import React, {useState, useEffect} from 'react'
 import {Row, Col, Button} from 'react-bootstrap'
 
-const WishlistProducts = ({initialvalue, isLoggedIn,setWishlist,wishlist}) => {
+const WishlistProducts = ({initialvalue, isLoggedIn,setInitialValue,wishlist}) => {
 	const[state, setCartHandler] = useState({
-    cartState : false,
-    cartIndex : -1
+    cartState : true,
+    cartIndex : "0"
   }
     );
    
-function cartHandler(index,state){
-  //console.log(e.target.parentNode.parentNode.previousSibling)
-      
+function cartHandler(id){
+  console.log(id)
         setCartHandler({
-          cartState : state,
-          cartIndex:index
+          cartState : !state.cartState,
+          cartIndex:id
        
     })
-  
+  console.log(state)
 }
-//console.log(state.cartState)
 
 function deleteProduct(id){
-  //console.log(id)
+  console.log(id)
+  //let deletedProduct = initialvalue.filter((product) => product.id !== id);
+  
 }
 	return(
 <>
         {initialvalue.map((product,id,index) => (
-             <Row style={{borderBottom:'1px solid rgb(245,245,244', marginBottom:'1.5rem'}} key={id}>
+             <Row style={{borderBottom:'1px solid rgb(245,245,244',position:'relative'}} className='pb-2 mb-2' key={id}>
             <Col sm={2} className='p-1'>
               <img src={product.img} alt={product.name} />
             </Col>
             <Col sm={10} >
               <Row>
-               <Col sm={10} id={id}>
+               <Col sm={10} style={{opacity : !state.cartState && id===state.cartIndex ? 0:1}}>
                   <span className="pTitle">{product.product_title}</span>
                 </Col>
                 
                 <Col sm={2}>
-                  <span className="add_to_cart" onClick={() => cartHandler(index,true)}>
+                  <span className="add_to_cart" onClick={() => cartHandler(id)}>
                     <i
                       className="fa-solid fa-cart-plus"
-                      title="Add to Cart"  id={id} 
-                    ></i>
+                      title="Add to Cart"></i>
                   </span>
                 </Col>
               </Row>
@@ -74,8 +73,8 @@ function deleteProduct(id){
                 </Col>
               </Row>
             </Col>
-           <Row>
-           <Col sm={10} className={`${state.cartState && index===state.cartIndex ? 'display-b':'display-n'}`}>
+           <Row className='qtyContainer'>
+           <Col sm={10} className={`${!state.cartState && id===state.cartIndex ? 'display-b':'display-n'}`}>
             <div className='iwish_qty_box'>
               <div className='qty_box'>
                 <span>

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { Offcanvas, Row, Col} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import EmptyWishlistComponent from '../components/EmptyWishlistComponent'
@@ -11,11 +11,10 @@ import "../styles/wishlistdrawer.css";
 
 
 const WishlistDrawerPage = ({ isOpen, closeCart, wishlist,setWishlist }) => {
- 
-  
   const isLoggedIn = true;
   
- const initialvalue = localStorage.getItem("wishlist")
+ let [initialvalue, setInitialValue] = useState([]);
+ initialvalue = localStorage.getItem("wishlist")
         ? JSON.parse(localStorage.getItem("wishlist"))
         : null
   
@@ -47,7 +46,7 @@ const WishlistDrawerPage = ({ isOpen, closeCart, wishlist,setWishlist }) => {
           <EmptyWishlistComponent closeCart={closeCart}/>
           )
         }
-       <WishlistProducts initialvalue={initialvalue} setWishlist={setWishlist} isLoggedIn={isLoggedIn} wishlist={wishlist}/>
+       <WishlistProducts initialvalue={initialvalue} setInitialValue={setInitialValue} isLoggedIn={isLoggedIn} wishlist={wishlist}/>
         <ProductPagination wishlist={wishlist} initialvalue={initialvalue}/>
         </Offcanvas.Body>
       </Offcanvas>
