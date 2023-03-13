@@ -54,6 +54,7 @@ const saveCat = (cat_id, index) => {
   setIsEdit(
     { id: cat_id, status: !isEdit.status }
     );
+  
   console.log('cat',cat_id,'edit',isEdit.id,index);
 }
 const editCat = (cat_id,index) => {
@@ -63,8 +64,9 @@ const editCat = (cat_id,index) => {
    console.log('cat',cat_id,'edit',isEdit.id,index);
 }
 
-//console.log(isEdit)
 const[catNameChange, setCatNameChange] = useState('');
+
+//console.log(isEdit)
 // const catNameChange = (e) => {
 //   console.log(e)
 // }
@@ -160,8 +162,8 @@ const category_name = localStorage.getItem('category_name');
                     <Row>
                       <Col sm={10}>
                         {/* <span>{category.id} </span> */}
-                       {!isEdit.status && category.id === isEdit.id ? (<span onClick={() => dropDownHandler(category.id)}>{category.title?category.title:catNameChange}</span>):
-                       (<input type='text' className='editCat' defaultValue={category_name?category_name:category.title}  onChange={(e) => setCatNameChange(e.target.value)}/>)
+                       {!isEdit.status && category.id === isEdit.id ? (<span onClick={() => dropDownHandler(category.id)}>{category.title?category.title:category_name}</span>):
+                       (<input type='text' className='editCat' value={category.title?category.title:category_name}  onChange={(e) => setCatNameChange(e.target.value)}/>)
                        }
                       </Col>
                       <Col sm={1}>
