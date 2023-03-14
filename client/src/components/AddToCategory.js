@@ -13,11 +13,10 @@ import { Button, Col, Dropdown, Row, Toast, ToastContainer } from "react-bootstr
   };
   //category state
   const [categories, setCategories] = useState([]);
-  const[isEdit, setIsEdit] = useState({id: 1, status:false});
-  const Stateindex = -1;
+  const[isEdit, setIsEdit] = useState({id: 0, status:false, index:-1});
   const [newCategory, setNewCategory] = useState('');
   const[successMsg, setSuccessMsg] = useState('');
-
+  const[catnameChange, setCatNameChange] = useState('');
   const[curDropItem, setCurDropItem] = useState('');
 // add new category
   const saveToCategory = () => {
@@ -36,7 +35,27 @@ import { Button, Col, Dropdown, Row, Toast, ToastContainer } from "react-bootstr
     localStorage.setItem('category_id',newId);
     localStorage.setItem('category_name', newCategory)
   };
-
+  let catName;
+  const catNameChange = (e) => {
+    setCatNameChange(e.target.value);
+    }
+const getCurState = (index) => {
+  if(!isEdit.status){
+    if(isEdit.index === index){
+      return true;
+    }
+    else{
+      return false
+    }
+  }
+}
+const editCat = (index,name) => {
+  setIsEdit(
+   {status: !isEdit.status,index:index}
+)
+  console.log('edit',isEdit.index, 'index',index,'status',isEdit.status);
+  localStorage.setItem('category_name', name)
+}
 // delete category
 const deleteCategory = (id) => {
   let newCategory = categories.filter(category => category.id !== id);
@@ -51,26 +70,25 @@ const dropDownHandler = (itemId) => {
 }
 
 const saveCat = (cat_id, index) => {
+ catName = catnameChange;
+  console.log(catName)
+  let isNameExist = categories.filter((item) => {
+    console.log(item.title);
+    return item.name == catName;
+   
+  })
+  
   setIsEdit(
-    { id: cat_id, status: !isEdit.status }
+    {status: !isEdit.status, index: index }
     );
   
-  console.log('cat',cat_id,'edit',isEdit.id,index);
-}
-const editCat = (cat_id,index) => {
-   setIsEdit(
-    { id: cat_id, status: !isEdit.status }
- )
-   console.log('cat',cat_id,'edit',isEdit.id,index);
+  console.log('edit',isEdit.index,'index',index);
 }
 
-const[catNameChange, setCatNameChange] = useState('');
 
-//console.log(isEdit)
-// const catNameChange = (e) => {
-//   console.log(e)
-// }
-console.log(catNameChange)
+
+
+//console.log(catNameChange)
 const category_name = localStorage.getItem('category_name');
   return (
     
@@ -158,17 +176,17 @@ const category_name = localStorage.getItem('category_name');
                 <ul className={categories.length === 0 ? 'display-n':'display-b'}>
                 {categories && categories.map((category,index) => (
 
-                  <li key={index}>
+                  <li key={category.id} id={index} className={`${!getCurState(index)}`}>
                     <Row>
                       <Col sm={10}>
                         {/* <span>{category.id} </span> */}
-                       {!isEdit.status && category.id === isEdit.id ? (<span onClick={() => dropDownHandler(category.id)}>{category.title?category.title:category_name}</span>):
-                       (<input type='text' className='editCat' value={category.title?category.title:category_name}  onChange={(e) => setCatNameChange(e.target.value)}/>)
+                       {!getCurState(index) ? (<span onClick={() => dropDownHandler(category.id)}>{category.title}</span>):
+                       (<input type='text' className='editCat' value={catnameChange}  onChange={catNameChange}/>)
                        }
                       </Col>
                       <Col sm={1}>
-                        {!isEdit.status && category.id === isEdit.id ?
-                        <img alt="trash" className="trash-btn" onClick={()=>editCat(category.id,index)}  src="https://s3.amazonaws.com/cdn.myshopapps.com/iwish/drawer/editCat.svg" /> : <img alt="trash" className="trash-btn" onClick={()=>saveCat(category.id,index )}  src="https://s3.amazonaws.com/cdn.myshopapps.com/iwish/drawer/saveCat.svg" />}
+                        {!getCurState(index)?
+                        <img alt="trash" className="trash-btn" onClick={()=>editCat(index,category.title)}  src="https://s3.amazonaws.com/cdn.myshopapps.com/iwish/drawer/editCat.svg" /> : <img alt="trash" className="trash-btn" onClick={()=>saveCat(category.id, index )}  src="https://s3.amazonaws.com/cdn.myshopapps.com/iwish/drawer/saveCat.svg" />}
                         
                         {/*<img alt="trash" class="trash-btn" src="https://s3.amazonaws.com/cdn.myshopapps.com/iwish/drawer/saveCat.svg"/>*/}
                       </Col>
