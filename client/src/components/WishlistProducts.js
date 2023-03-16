@@ -1,6 +1,7 @@
 import React, {useState, useMemo} from 'react'
 import {Row, Col, Button} from 'react-bootstrap'
 import ProductPagination from './ProductPagination';
+import SocialMediaIcons from './SocialMediaIcons';
 
 const WishlistProducts = ({initialvalue, isLoggedIn}) => {
 	const[state, setCartHandler] = useState({
@@ -114,6 +115,7 @@ function deleteProduct(id){
         pageSize={pageSize}
         onPageChange={page => setCurrentPage(page)}
       />
+      <SocialMediaIcons/>
         </>
 		)
 }
