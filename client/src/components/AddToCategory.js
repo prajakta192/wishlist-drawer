@@ -71,24 +71,22 @@ const dropDownHandler = (itemId) => {
 
 const saveCat = (cat_id, index) => {
  catName = catnameChange;
-  console.log(catName)
+ setIsEdit(
+  {status: !isEdit.status, index: index }
+  );
+
+  console.log(index,isEdit.index)
+  if(index=== isEdit.index){
   let isNameExist = categories.filter((item) => {
-    console.log(item.title);
+    console.log(item.title,catName);
     return item.name == catName;
-   
+ 
   })
-  
-  setIsEdit(
-    {status: !isEdit.status, index: index }
-    );
-  
-  console.log('edit',isEdit.index,'index',index);
+}
+ 
+  //console.log('edit',isEdit.index,'index',index);
 }
 
-
-
-
-//console.log(catNameChange)
 const category_name = localStorage.getItem('category_name');
   return (
     

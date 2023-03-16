@@ -1,27 +1,76 @@
 import React from 'react';
-import { Col, Pagination, Row } from 'react-bootstrap';
+import classnames from 'classnames';
+import { usePagination, DOTS } from './usePagination';
+import '../styles/pagination.scss';
 
-const ProductPagination = ({wishlist,initialvalue}) => {
-    let active = 2;
-    let items = [];
+const ProductPagination = props => {
+  const {
+    onPageChange,
+    totalCount,
+    siblingCount = 1,
+    currentPage,
+    pageSize,
+    className
+  } = props;
 
-    for (let number = 1; number <= initialvalue.length; number++) {
-        items.push(
-          <Pagination.Item key={number} active={number === active}>
-            {number}
-          </Pagination.Item>,
+  const paginationRange = usePagination({
+    currentPage,
+    totalCount,
+    siblingCount,
+    pageSize
+  });
+
+  if (currentPage === 0 || paginationRange.length < 2) {
+    return null;
+  }
+
+  const onNext = () => {
+    onPageChange(currentPage + 1);
+  };
+
+  const onPrevious = () => {
+    onPageChange(currentPage - 1);
+  };
+
+  let lastPage = paginationRange[paginationRange.length - 1];
+  return (
+    <ul
+      className={classnames('pagination-container mt-3', { [className]: className })}
+    >
+      <li
+        className={classnames('pagination-item', {
+          disabled: currentPage === 1
+        })}
+        onClick={onPrevious}
+      >
+        <div className="arrow left" />
+      </li>
+      {paginationRange.map(pageNumber => {
+        if (pageNumber === DOTS) {
+          return <li className="pagination-item dots">&#8230;</li>;
+        }
+
+        return (
+          <li
+            className={classnames('pagination-item', {
+              selected: pageNumber === currentPage
+            })}
+            onClick={() => onPageChange(pageNumber)}
+          >
+            {pageNumber}
+          </li>
         );
-      }
+      })}
+      <li
+        className={classnames('pagination-item', {
+          disabled: currentPage === lastPage
+        })}
+        onClick={onNext}
+      >
+        <div className="arrow right" />
+      </li>
+    </ul>
+  );
+};
 
-    return(
-      <Row className='mt-4'>
-        <Col sm={12}>
-        <Pagination className='justify-content-center'>
-            {items}
-        </Pagination>
-        </Col>
-      </Row>
-    )
-}
-
-export default ProductPagination
+export default ProductPagination;

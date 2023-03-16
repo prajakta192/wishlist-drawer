@@ -3,7 +3,6 @@ import { Offcanvas, Row, Col} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import EmptyWishlistComponent from '../components/EmptyWishlistComponent'
 import WishlistProducts from '../components/WishlistProducts'
-import ProductPagination from "../components/ProductPagination";
 import AddToCategory from "../components/AddToCategory";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/wishlistdrawer.css";
@@ -47,7 +46,7 @@ const WishlistDrawerPage = ({ isOpen, closeCart, wishlist,setWishlist }) => {
           )
         }
        <WishlistProducts initialvalue={initialvalue} setInitialValue={setInitialValue} isLoggedIn={isLoggedIn} wishlist={wishlist}/>
-        <ProductPagination wishlist={wishlist} initialvalue={initialvalue}/>
+        
         </Offcanvas.Body>
       </Offcanvas>
     </>

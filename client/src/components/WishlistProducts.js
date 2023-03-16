@@ -1,15 +1,26 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useMemo} from 'react'
 import {Row, Col, Button} from 'react-bootstrap'
+import ProductPagination from './ProductPagination';
 
-const WishlistProducts = ({initialvalue, isLoggedIn,setInitialValue,wishlist}) => {
+const WishlistProducts = ({initialvalue, isLoggedIn}) => {
 	const[state, setCartHandler] = useState({
     cartState : true,
     cartIndex : "0"
   }
     );
-   
-function cartHandler(id){
-  console.log(id)
+
+    let pageSize = 10;
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const currentWishListData = useMemo(() => {
+      const firstPageIndex = (currentPage - 1) * pageSize;
+      const lastPageIndex = firstPageIndex + pageSize;
+      return initialvalue.slice(firstPageIndex, lastPageIndex);
+    }, [currentPage]);
+
+console.log(currentWishListData);
+function cartHandler(id,index){
+  console.log(id,index)
         setCartHandler({
           cartState : !state.cartState,
           cartIndex:id
@@ -25,8 +36,8 @@ function deleteProduct(id){
 }
 	return(
 <>
-        {initialvalue.map((product,id,index) => (
-             <Row style={{borderBottom:'1px solid rgb(245,245,244',position:'relative'}} className='pb-2 mb-2' key={id}>
+        {currentWishListData.map((product,id,index) => (
+             <Row style={{borderBottom:'1px solid rgb(245,245,244',position:'relative'}} className='pb-2 mb-3' key={id}>
             <Col sm={2} className='p-1'>
               <img src={product.img} alt={product.name} />
             </Col>
@@ -37,7 +48,7 @@ function deleteProduct(id){
                 </Col>
                 
                 <Col sm={2}>
-                  <span className="add_to_cart" onClick={() => cartHandler(id)}>
+                  <span className="add_to_cart" onClick={() => cartHandler(id,index)}>
                     <i
                       className="fa-solid fa-cart-plus"
                       title="Add to Cart"></i>
@@ -96,6 +107,13 @@ function deleteProduct(id){
               <Button variant='outline-secondary btn-md text-uppercase w-100' className='addToCart'>Add All to cart</Button>
           </Col>
         </Row>
+        <ProductPagination
+        className="pagination-bar"
+        currentPage={currentPage}
+        totalCount={initialvalue.length}
+        pageSize={pageSize}
+        onPageChange={page => setCurrentPage(page)}
+      />
         </>
 		)
 }
