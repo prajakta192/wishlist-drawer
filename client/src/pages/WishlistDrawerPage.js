@@ -16,7 +16,7 @@ const WishlistDrawerPage = ({ isOpen, closeCart, wishlist,setWishlist }) => {
  initialvalue = localStorage.getItem("wishlist")
         ? JSON.parse(localStorage.getItem("wishlist"))
         : null
-  
+  console.log(wishlist)
    
   return (
     <>

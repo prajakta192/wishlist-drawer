@@ -8,6 +8,7 @@ import {Container} from 'react-bootstrap'
 import { Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import PaymentPage from './pages/PaymentPage';
+import SampleProductPage from './pages/SampleProductPage'
 
 function App() {
   //State for cart drawer
@@ -37,6 +38,7 @@ const addToWishlist = (product) => {
         
           <Route path='/signin' element={<LoginPage/>}/>
           <Route path='/payment' element={<PaymentPage/>}/>
+          <Route path='/sample' element={<SampleProductPage/>}/>
      <Route path='/' element={
         <section className='d-grid mt-5' style={{gridTemplateColumns:'repeat(2, 1fr)'}}>
         

@@ -36,7 +36,7 @@ const ProductPagination = props => {
   
   return (
     <ul
-      className={classnames('pagination-container mt-3', { [className]: className })}
+      className={classnames('pagination-container', { [className]: className })}
     >
       <li
         className={classnames('pagination-item', {

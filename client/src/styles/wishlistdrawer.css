@@ -61,7 +61,9 @@ header .offcanvas-header + div a{
 	cursor: pointer;
 	text-decoration: none;
 }
-
+offcanvas-body{
+	position: relative;
+}
 .offcanvas-body .col-sm-2 img{
 	width:var(--width-100);
 }
@@ -182,4 +184,11 @@ header .offcanvas-header + div a{
 	z-index: 1000;
 	opacity: 1;
 	width: 70%
+}
+.fixed-bottom{
+		position: sticky;
+    bottom: 0;
+    transform: translate(30px, 10px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }

@@ -19,7 +19,7 @@ const WishlistProducts = ({initialvalue, isLoggedIn}) => {
       return initialvalue.slice(firstPageIndex, lastPageIndex);
     }, [currentPage]);
 
-console.log(currentWishListData);
+console.log(initialvalue);
 function cartHandler(id,index){
   console.log(id,index)
         setCartHandler({
@@ -108,6 +108,12 @@ function deleteProduct(id){
               <Button variant='outline-secondary btn-md text-uppercase w-100' className='addToCart'>Add All to cart</Button>
           </Col>
         </Row>
+
+        <Row className='fixed-bottom'>
+        <Col sm={6}>
+        <SocialMediaIcons/>
+      </Col>
+      <Col sm={6}>
         <ProductPagination
         className="pagination-bar"
         currentPage={currentPage}
@@ -115,7 +121,8 @@ function deleteProduct(id){
         pageSize={pageSize}
         onPageChange={page => setCurrentPage(page)}
       />
-      <SocialMediaIcons/>
+      </Col>
+      </Row>
         </>
 		)
 }

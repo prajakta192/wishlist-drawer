@@ -1,13 +1,16 @@
 import React from "react";
 import { Button, Container, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import {useGlobalContext} from '../context/ProductContext'
 
 const Header = ({ openCart, wishlist }) => {
+  const name = useGlobalContext();
+
   return (
     <Navbar bg="light" expand="lg">
       <Container>
         <Navbar.Brand>
-          <Link to="/">WishlistDrawer
+          <Link to="/">WishlistDrawer 
           </Link>
           </Navbar.Brand>
         <Button
