@@ -7,7 +7,7 @@ const Header = ({ openCart, wishlist }) => {
   const name = useGlobalContext();
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="lg" fixed="top">
       <Container>
         <Navbar.Brand>
           <Link to="/">WishlistDrawer 

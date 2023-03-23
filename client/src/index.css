@@ -22,6 +22,7 @@ body{
   font-size:1.5rem;
   letter-spacing: 0.06rem;
   /*line-height: 1.8;*/
+  padding-top: 3rem;
 }
 
 @media screen and (min-width: 750px)

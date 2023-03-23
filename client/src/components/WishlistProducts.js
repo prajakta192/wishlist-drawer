@@ -3,7 +3,7 @@ import {Row, Col, Button} from 'react-bootstrap'
 import ProductPagination from './ProductPagination';
 import SocialMediaIcons from './SocialMediaIcons';
 
-const WishlistProducts = ({initialvalue, isLoggedIn}) => {
+const WishlistProducts = ({initialvalue, isLoggedIn,setInitialValue}) => {
 	const[state, setCartHandler] = useState({
     cartState : true,
     cartIndex : "0"
@@ -19,22 +19,25 @@ const WishlistProducts = ({initialvalue, isLoggedIn}) => {
       return initialvalue.slice(firstPageIndex, lastPageIndex);
     }, [currentPage]);
 
-console.log(initialvalue);
+//console.log(initialvalue);
 function cartHandler(id,index){
-  console.log(id,index)
+ // console.log(id,index)
         setCartHandler({
           cartState : !state.cartState,
           cartIndex:id
        
     })
-  console.log(state)
+  //console.log(state)
 }
 
 function deleteProduct(id){
-  console.log(id)
-  //let deletedProduct = initialvalue.filter((product) => product.id !== id);
-  
+  console.log(id, initialvalue)
+  let remainedProduct = initialvalue.filter((product) => product.id !== id);
+  console.log(remainedProduct)
+  initialvalue = remainedProduct
+  console.log(initialvalue)
 }
+
 	return(
 <>
         {currentWishListData.map((product,id,index) => (
@@ -44,10 +47,32 @@ function deleteProduct(id){
             </Col>
             <Col sm={10} >
               <Row>
-               <Col sm={10} style={{opacity : !state.cartState && id===state.cartIndex ? 0:1}}>
+               {/* <Col sm={10} style={{opacity : !state.cartState && id===state.cartIndex ? 0:1}}>
                   <span className="pTitle">{product.id} {product.product_title}</span>
+                </Col> */}
+                <Col sm={10}>
+                  <Row>
+                    <Col sm={8}>
+
+                  <span className="pTitle" title={product.product_title}>{product.product_title}</span>
+                    </Col>
+                    <Col sm={4}>
+                      <div className={`${!state.cartState && id===state.cartIndex ? 'display-b':'display-n'}`}>
+                        <div className='iwish_qty_box'>
+                          <div className='qty_box'>
+                            <span>
+                              <i className="fa-solid fa-minus"></i>
+                            </span>
+                            <span className='iwishProQuantity'><strong>1</strong></span>
+                            <span>
+                              <i className="fa-regular fa-plus"></i>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </Col>
+                  </Row>
                 </Col>
-                
                 <Col sm={2}>
                   <span className="add_to_cart" onClick={() => cartHandler(id,index)}>
                     <i
@@ -79,13 +104,13 @@ function deleteProduct(id){
                   </div>
                 </Col>
                 <Col sm={2}>
-                  <span>
-                    <i className="fa-solid fa-trash" title="Delete Product" onClick={() => deleteProduct(product.id)}></i>
+                  <span  onClick={() => deleteProduct(product.id)}>
+                    <i className="fa-solid fa-trash" title="Delete Product"></i>
                   </span>
                 </Col>
               </Row>
             </Col>
-           <Row className='qtyContainer'>
+           {/* <Row className='qtyContainer'>
            <Col sm={10} className={`${!state.cartState && id===state.cartIndex ? 'display-b':'display-n'}`}>
             <div className='iwish_qty_box'>
               <div className='qty_box'>
@@ -99,7 +124,7 @@ function deleteProduct(id){
               </div>
             </div>
           </Col>
-           </Row>
+           </Row> */}
           </Row>
         
         ))}
@@ -109,7 +134,7 @@ function deleteProduct(id){
           </Col>
         </Row>
 
-        <Row className='fixed-bottom'>
+        <Row className='fixed-bottom mt-3'>
         <Col sm={6}>
         <SocialMediaIcons/>
       </Col>
