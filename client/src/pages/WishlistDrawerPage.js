@@ -9,7 +9,7 @@ import "../styles/wishlistdrawer.css";
 
 
 
-const WishlistDrawerPage = ({ isOpen, closeCart, wishlist,setWishlist }) => {
+const WishlistDrawerPage = ({ isOpen, closeCart, wishlist }) => {
   const isLoggedIn = true;
   
  let [initialvalue, setInitialValue] = useState([]);

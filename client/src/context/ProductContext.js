@@ -13,12 +13,13 @@ const ProductContextProvider = ({children}) => {
 	 const initialValue = {
 	 	isLoading : false,
 	 	isLogin : false,
+		showModal : false,
 	 	products : []
 	 }
 
 	 //Reduce for sate management
      const [state, dispatch] = useReducer(reducer, initialValue);
-
+	 
 	 const GetAllProducts = async() => {
 	 	dispatch({type:"LOADING_PRODUCTS"})
 	 	console.log('isLoading')
@@ -37,6 +38,7 @@ const ProductContextProvider = ({children}) => {
 	 useEffect(() => {
 	 	GetAllProducts();
 	 },[])
+
 
 	//should always return the context wrapped in Provider
 	 return <GlobalProductContext.Provider value={{...state}}>{children}</GlobalProductContext.Provider>

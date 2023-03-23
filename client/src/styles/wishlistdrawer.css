@@ -192,3 +192,9 @@ offcanvas-body{
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
+.warning{
+	position: absolute;
+	top:10%;
+	right:0;
+	color: red;
+}

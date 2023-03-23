@@ -2,15 +2,20 @@ import React, { useState } from "react";
 import AddToCartProduct from '../components/AddToCartProduct'
 import { Row, Col, Button, Modal } from "react-bootstrap";
 
-const ProductsPage = ({ product, addToWishlist, wishlist }) => {
-  const [show, setShow] = useState(false);
+const ProductsPage = ({ warning, product, addToWishlist, wishlist }) => {
+  const [showModal, setShowModal] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
 
   
   return (
     <>
+    {
+      warning &&
+      <div className="warning">The product is already added to your wishlist</div>
+    }
+    
       <Row
         className="product_container d-flex flex-column justify-content-center align-items-center">
         <Col sm={6}>
@@ -71,7 +76,7 @@ const ProductsPage = ({ product, addToWishlist, wishlist }) => {
         </Col>
        
       </Row>
-      <Modal show={show} onHide={handleClose} animation={false}>
+      <Modal show={showModal} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
           <Modal.Title>My Wishlist</Modal.Title>
         </Modal.Header>

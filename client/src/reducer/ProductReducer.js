@@ -18,9 +18,11 @@ const ProductReducer = (state, action) => {
 				isLoading : false,
 				isError : true
 			}	
+			
 		default : 
 			return state
 		}
 }
+
 
 export default ProductReducer

@@ -45,7 +45,7 @@ function deleteProduct(id){
             <Col sm={10} >
               <Row>
                <Col sm={10} style={{opacity : !state.cartState && id===state.cartIndex ? 0:1}}>
-                  <span className="pTitle">{product.product_title}</span>
+                  <span className="pTitle">{product.id} {product.product_title}</span>
                 </Col>
                 
                 <Col sm={2}>
