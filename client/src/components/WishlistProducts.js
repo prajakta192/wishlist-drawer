@@ -1,43 +1,55 @@
 import React, {useState, useMemo} from 'react'
-import {Row, Col, Button} from 'react-bootstrap'
+import {Row, Col, Button, Dropdown} from 'react-bootstrap'
 import ProductPagination from './ProductPagination';
 import SocialMediaIcons from './SocialMediaIcons';
 
-const WishlistProducts = ({initialvalue, isLoggedIn,setInitialValue}) => {
+const WishlistProducts = ({initialvalue, isLoggedIn}) => {
 	const[state, setCartHandler] = useState({
     cartState : true,
     cartIndex : "0"
   }
     );
 
+    const [transferPrdctState, setTrnsferPrdctState] = useState({
+      productState : false,
+      productIndex : 0
+})
     let pageSize = 10;
     const [currentPage, setCurrentPage] = useState(1);
+
+    const[productInpagination, setProductInPagination] = useState(initialvalue)
 
     const currentWishListData = useMemo(() => {
       const firstPageIndex = (currentPage - 1) * pageSize;
       const lastPageIndex = firstPageIndex + pageSize;
-      return initialvalue.slice(firstPageIndex, lastPageIndex);
-    }, [currentPage]);
+      return productInpagination.slice(firstPageIndex, lastPageIndex);
+    }, [pageSize, currentPage,productInpagination]);
 
-//console.log(initialvalue);
-function cartHandler(id,index){
- // console.log(id,index)
+  
+  function cartHandler(id,index){
         setCartHandler({
           cartState : !state.cartState,
           cartIndex:id
        
     })
-  //console.log(state)
+}
+// transfer Product
+function transferProductHandler(id){
+    console.log(id)
+    setTrnsferPrdctState({
+      productState : !transferPrdctState.productState,
+      productIndex : id
+    })
 }
 
 function deleteProduct(id){
-  console.log(id, initialvalue)
-  let remainedProduct = initialvalue.filter((product) => product.id !== id);
+  //console.log(id, initialvalue)
+  let remainedProduct = productInpagination.filter((product) => product.id !== id);
   console.log(remainedProduct)
-  initialvalue = remainedProduct
-  console.log(initialvalue)
+  setProductInPagination(remainedProduct)
+  //console.log(initialvalue)
 }
-
+console.log(productInpagination)
 	return(
 <>
         {currentWishListData.map((product,id,index) => (
@@ -83,11 +95,28 @@ function deleteProduct(id){
               </Row>
               <Row>
                 <Col sm={10}>
-                  <span className="pSize">XS</span>
+                  <Row>
+                    <Col sm={2}>
+                      <span className="pSize">XS</span>
+                    </Col>
+                    <Col sm={10}>
+                    <Dropdown className={`transferMenu ${transferPrdctState.productState && id=== transferPrdctState.productIndex ? 'display-b' : 'display-n'}`}>
+                    <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
+                          Main Wishlist
+                      </Dropdown.Toggle>
+
+                      <Dropdown.Menu>
+                        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                    </Col>
+                  </Row>
                 </Col>
                 {isLoggedIn && (
                   <Col sm={2}>
-                    <span>
+                    <span onClick={() => {transferProductHandler(id, index)}}>
                       <i
                         className="fa-solid fa-code-compare"
                         title="Transfer Product"
@@ -142,7 +171,7 @@ function deleteProduct(id){
         <ProductPagination
         className="pagination-bar"
         currentPage={currentPage}
-        totalCount={initialvalue.length}
+        totalCount={productInpagination.length}
         pageSize={pageSize}
         onPageChange={page => setCurrentPage(page)}
       />

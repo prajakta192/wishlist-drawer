@@ -197,9 +197,10 @@ offcanvas-body{
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
-.warning{
-	position: absolute;
-	top:10%;
-	right:0;
-	color: red;
+.transferMenu a{
+	font-size: 13px;
+}
+.transferMenu > button#dropdown-basic {
+	font-size: 13px;
+	padding: .25rem;
 }

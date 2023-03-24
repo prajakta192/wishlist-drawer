@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AddToCartProduct from '../components/AddToCartProduct'
-import { Row, Col, Button, Modal } from "react-bootstrap";
+import { Row, Col, Button, Modal, ToastContainer, Toast } from "react-bootstrap";
 
 const ProductsPage = ({ warning, product, addToWishlist, wishlist }) => {
   const [showModal, setShowModal] = useState(false);
@@ -13,7 +13,13 @@ const ProductsPage = ({ warning, product, addToWishlist, wishlist }) => {
     <>
     {
       warning &&
-      <div className="warning">The product is already added to your wishlist</div>
+      // <div className="warning">The product is already added to your wishlist</div>
+      <ToastContainer position="top-end">
+      <Toast className="d-inline-block m-1"
+        bg='warning'>
+      <Toast.Body  style={{fontSize:'12px',padding:'.28rem'}}>The product is already added to your wishlist</Toast.Body>
+      </Toast>
+    </ToastContainer>
     }
     
       <Row
