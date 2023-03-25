@@ -11,11 +11,12 @@ import { Button, Col, Dropdown, Row, Toast, ToastContainer } from "react-bootstr
     //console.log(showCategory);
   };
   //category state
+  const initialDropVal = 'Main Wishlist';
   const [categories, setCategories] = useState([]);
   const[isEdit, setIsEdit] = useState({id: 0, status:false, index:-1});
   const [newCategory, setNewCategory] = useState('');
   const[successMsg, setSuccessMsg] = useState('');
-  const[curDropItem, setCurDropItem] = useState('');
+  const[curDropItem, setCurDropItem] = useState(initialDropVal);
 
 // add new category
   const saveToCategory = () => {
@@ -35,15 +36,14 @@ import { Button, Col, Dropdown, Row, Toast, ToastContainer } from "react-bootstr
     localStorage.setItem('category_name', newCategory);
     localStorage.setItem('categories', JSON.stringify(categories))
   };
-  let catName;
+  //let catName;
   const catNameChange = (updatedTitle, id) => {
     console.log(updatedTitle, id);
     setCategories(
       categories.map((item) => {
-        debugger;
         if(item.id === id){
           item.title = updatedTitle
-          
+          localStorage.setItem('category_name', updatedTitle);
         }
         return item
       })
@@ -73,12 +73,14 @@ const deleteCategory = (id) => {
 }
 
 //handling drop down item
-const dropDownHandler = (itemId) => {
-  console.log(itemId);
-  let curItem = categories.filter(category => category.id === itemId);
-  setCurDropItem(curItem[0].title)
+const dropDownHandler = (curdropItem) => {
+  console.log(curdropItem);
+  setCurDropItem(curdropItem)
+  
 }
-
+const initialDropValue = () =>{
+ setCurDropItem(initialDropVal)
+}
 const saveCat = (cat_id, index) => {
  setIsEdit(
   {status: !isEdit.status, index: index }
@@ -166,10 +168,10 @@ const category_name = localStorage.getItem('category_name');
           <Col sm={12} className="p-0 mt-3">
             <Dropdown>
               <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
-                Main wishlist
+                { curDropItem }
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <ul>
+                {/* <ul>
                   <li>
                     <Row>
                       <Col sm={10}>
@@ -177,15 +179,21 @@ const category_name = localStorage.getItem('category_name');
                       </Col>
                     </Row>
                   </li>
-                </ul>
-                <ul className={categories.length === 0 ? 'display-n':'display-b'}>
+                </ul> */}
+                {/* <ul className={categories.length === 0 ? 'display-n':'display-b'}> */}
+                <ul>
                 {categories && categories.map((category,index) => (
 
                   <li key={category.id} id={index} className={`${!getCurState(index)}`}>
                     <Row>
                       <Col sm={10}>
+                      <span style={{cursor:'pointer'}} onClick={initialDropValue}>Main Wishlist</span>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col sm={10}>
                         {/* <span>{category.id} </span> */}
-                       {!getCurState(index) ? (<span onClick={() => dropDownHandler(category.id)}>{category.title}</span>):
+                       {!getCurState(index) ? (<span onClick={() => dropDownHandler(category.title)} style={{cursor:'pointer'}} >{category.title}</span>):
                        (<input type='text' className='editCat' value={category.title} onChange={(e) => catNameChange(e.target.value, category.id)}/>)
                        }
                       </Col>
