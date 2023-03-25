@@ -5,7 +5,6 @@ import { Button, Col, Dropdown, Row, Toast, ToastContainer } from "react-bootstr
  
   const [showCategory, setShowCategory] = useState(false);
    
-  //const [saveCategory, setSaveCategory] = useState("");
 
   const addToCategory = () => {
     setShowCategory((prevCategory) => !prevCategory);
@@ -16,8 +15,8 @@ import { Button, Col, Dropdown, Row, Toast, ToastContainer } from "react-bootstr
   const[isEdit, setIsEdit] = useState({id: 0, status:false, index:-1});
   const [newCategory, setNewCategory] = useState('');
   const[successMsg, setSuccessMsg] = useState('');
-  const[catnameChange, setCatNameChange] = useState('');
   const[curDropItem, setCurDropItem] = useState('');
+
 // add new category
   const saveToCategory = () => {
     let newId;
@@ -33,11 +32,22 @@ import { Button, Col, Dropdown, Row, Toast, ToastContainer } from "react-bootstr
         setShowCategory(false)
     }
     localStorage.setItem('category_id',newId);
-    localStorage.setItem('category_name', newCategory)
+    localStorage.setItem('category_name', newCategory);
+    localStorage.setItem('categories', JSON.stringify(categories))
   };
   let catName;
-  const catNameChange = (e) => {
-    setCatNameChange(e.target.value);
+  const catNameChange = (updatedTitle, id) => {
+    console.log(updatedTitle, id);
+    setCategories(
+      categories.map((item) => {
+        debugger;
+        if(item.id === id){
+          item.title = updatedTitle
+          
+        }
+        return item
+      })
+    )
     }
 const getCurState = (index) => {
   if(!isEdit.status){
@@ -70,21 +80,18 @@ const dropDownHandler = (itemId) => {
 }
 
 const saveCat = (cat_id, index) => {
- catName = catnameChange;
  setIsEdit(
   {status: !isEdit.status, index: index }
   );
-
   console.log(index,isEdit.index)
-  if(index=== isEdit.index){
-  let isNameExist = categories.filter((item) => {
-    console.log(item.title,catName);
-    return item.name == catName;
+//   if(index=== isEdit.index){
+//   let isNameExist = categories.filter((item) => {
+//     console.log(item.title,catName);
+//     return item.name == catName;
  
-  })
-}
+//   })
+// }
  
-  //console.log('edit',isEdit.index,'index',index);
 }
 
 const category_name = localStorage.getItem('category_name');
@@ -179,7 +186,7 @@ const category_name = localStorage.getItem('category_name');
                       <Col sm={10}>
                         {/* <span>{category.id} </span> */}
                        {!getCurState(index) ? (<span onClick={() => dropDownHandler(category.id)}>{category.title}</span>):
-                       (<input type='text' className='editCat' value={catnameChange}  onChange={catNameChange}/>)
+                       (<input type='text' className='editCat' value={category.title} onChange={(e) => catNameChange(e.target.value, category.id)}/>)
                        }
                       </Col>
                       <Col sm={1}>

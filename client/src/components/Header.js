@@ -22,12 +22,7 @@ const Header = ({ openCart, wishlist }) => {
     }, []);
 
   return (
-    <Navbar bg="light" expand="lg" fixed="top"  style={{
-      transform:
-        innerWidth <= 500
-          ? "translateY(100vh)"
-          : "translateY(0%)",
-    }}>
+    <Navbar bg="light" expand="lg" fixed="top">
       <Container>
         <Navbar.Brand>
           <Link to="/">WishlistDrawer 
