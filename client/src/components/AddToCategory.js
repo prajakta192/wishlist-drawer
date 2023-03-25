@@ -171,25 +171,20 @@ const category_name = localStorage.getItem('category_name');
                 { curDropItem }
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                {/* <ul>
+                 <ul>
                   <li>
                     <Row>
-                      <Col sm={10}>
-                        <span>Main Wishlist</span>
-                      </Col>
-                    </Row>
-                  </li>
-                </ul> */}
-                {/* <ul className={categories.length === 0 ? 'display-n':'display-b'}> */}
-                <ul>
-                {categories && categories.map((category,index) => (
-
-                  <li key={category.id} id={index} className={`${!getCurState(index)}`}>
-                    <Row>
-                      <Col sm={10}>
+                    <Col sm={10}>
                       <span style={{cursor:'pointer'}} onClick={initialDropValue}>Main Wishlist</span>
                       </Col>
                     </Row>
+                  </li>
+                </ul> 
+              <ul className={categories.length === 0 ? 'display-n':'display-b'}> 
+                {categories && categories.map((category,index) => (
+
+                  <li key={category.id} id={index} className={`${!getCurState(index)}`}>
+                    
                     <Row>
                       <Col sm={10}>
                         {/* <span>{category.id} </span> */}
