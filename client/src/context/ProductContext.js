@@ -1,52 +1,29 @@
 
-import {createContext, useContext, useEffect, useReducer} from 'react'
-import axios from 'axios'
-import reducer from '../reducer/ProductReducer'
+import {createContext, useContext, useReducer,useEffect} from 'react'
+import {wishlistReducer} from '../reducer/ProductReducer'
 
-//creating context
-const GlobalProductContext = createContext()
+const WishlistContext = createContext()
 
+const initialValue = {
+	cart : [localStorage.getItem('wishlist')?JSON.parse(localStorage.getItem('wishlist')) : []]
+}
+ 
+const ContextProvider = ({children}) => {
 
-//providing the context
-const ProductContextProvider = ({children}) => {
-//All logic goes Herereeeeeeeeeeeee
-	 const initialValue = {
-	 	isLoading : false,
-	 	isLogin : false,
-		showModal : false,
-	 	products : []
-	 }
+const[state, dispatch] = useReducer(wishlistReducer, initialValue)
+console.log('context', state.cart);
 
-	 //Reduce for sate management
-     const [state, dispatch] = useReducer(reducer, initialValue);
-	 
-	 const GetAllProducts = async() => {
-	 	dispatch({type:"LOADING_PRODUCTS"})
-	 	console.log('isLoading')
-	 	try{
-	 	const res = await axios.get('./data.json');
-	 	const products = await res.data.products
-	 	//console.log(products)
-	 	dispatch({type:"GET_ALL_PRODUCTS", payload:products})
-	    }
-	    catch(error){
-	    dispatch({type:"PRODUCT_NOT_FOUND"})
-	    console.log(error.message)
-	    }
-	 }
-
-	 useEffect(() => {
-	 	GetAllProducts();
-	 },[])
+useEffect(() => {
+	localStorage.setItem('wishlist', JSON.stringify(state.cart));
+},[state.cart])
 
 
-	//should always return the context wrapped in Provider
-	 return <GlobalProductContext.Provider value={{...state}}>{children}</GlobalProductContext.Provider>
+	return <WishlistContext.Provider value={{state, dispatch}}>{children}</WishlistContext.Provider>
 }
 
-//consuming the context
-const useGlobalContext = () => {
-	return useContext(GlobalProductContext)
+const useWishlistContext = () => {
+	return useContext(WishlistContext)
 }
 
-export{ProductContextProvider, useGlobalContext}
+
+export {ContextProvider, useWishlistContext}

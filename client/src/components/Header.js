@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Button, Container, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import {useWishlistContext} from '../context/ProductContext'
 
+const Header = ({ openCart }) => {
+ const {state:{cart}} = useWishlistContext()
+//console.log(cart);
 
-const Header = ({ openCart, wishlist }) => {
- 
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
   console.log(innerWidth)
 
@@ -25,7 +27,7 @@ const Header = ({ openCart, wishlist }) => {
     <Navbar bg="light" expand="lg" fixed="top">
       <Container>
         <Navbar.Brand>
-          <Link to="/">WishlistDrawer 
+          <Link to="/">WishlistDrawer  
           </Link>
           </Navbar.Brand>
         <Button
@@ -42,7 +44,7 @@ const Header = ({ openCart, wishlist }) => {
           }}
         >
           <i className="fa-regular fa-heart fa-lg"></i>
-          {/*{wishlist.length > 0 && (
+          {/*{cart.length > 0 && (
             <div
               className="rounded-circle bg-dark d-flex justify-content-center align-items-center"
               style={{
@@ -57,7 +59,7 @@ const Header = ({ openCart, wishlist }) => {
                 transform: "translate(25%, 25%)",
               }}
             >
-              {wishlist.length}
+              {cart.length}
             </div>
             )}*/}
         </Button>

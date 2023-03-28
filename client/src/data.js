@@ -18,7 +18,7 @@ const data = {
 		{
 			"id" : "2",
 			"img": "https://cdn.shopify.com/s/files/1/0134/5149/3434/products/02-15_Mens_WIP_226_1024x1024_2x_9b926955-d533-4055-a09a-0a79a1a178ee.jpg?v=1530356981",
-			"price": "198.0",
+			"price": "256.0",
 			"handle": "seersucker-camp-shirt-in-white",
 			"inventory_qty": 1,
 			"inv_managment": "NOT_MANAGED",
@@ -32,7 +32,7 @@ const data = {
 		{
 			"id" : "3",
 			"img": "https://cdn.shopify.com/s/files/1/0134/5149/3434/products/02-15_Mens_WIP_226_1024x1024_2x_9b926955-d533-4055-a09a-0a79a1a178ee.jpg?v=1530356981",
-			"price": "198.0",
+			"price": "345.0",
 			"handle": "seersucker-camp-shirt-in-white",
 			"inventory_qty": 1,
 			"inv_managment": "NOT_MANAGED",
@@ -46,7 +46,7 @@ const data = {
 		{
 			"id" : "4",
 			"img": "https://cdn.shopify.com/s/files/1/0134/5149/3434/products/02-15_Mens_WIP_226_1024x1024_2x_9b926955-d533-4055-a09a-0a79a1a178ee.jpg?v=1530356981",
-			"price": "198.0",
+			"price": "412.0",
 			"handle": "seersucker-camp-shirt-in-white",
 			"inventory_qty": 1,
 			"inv_managment": "NOT_MANAGED",
@@ -60,7 +60,7 @@ const data = {
 		{
 			"id" : "5",
 			"img": "https://cdn.shopify.com/s/files/1/0134/5149/3434/products/02-15_Mens_WIP_226_1024x1024_2x_9b926955-d533-4055-a09a-0a79a1a178ee.jpg?v=1530356981",
-			"price": "198.0",
+			"price": "502.0",
 			"handle": "seersucker-camp-shirt-in-white",
 			"inventory_qty": 1,
 			"inv_managment": "NOT_MANAGED",
@@ -74,7 +74,7 @@ const data = {
 		{
 			"id" : "6",
 			"img": "https://cdn.shopify.com/s/files/1/0134/5149/3434/products/02-15_Mens_WIP_226_1024x1024_2x_9b926955-d533-4055-a09a-0a79a1a178ee.jpg?v=1530356981",
-			"price": "198.0",
+			"price": "611.0",
 			"handle": "seersucker-camp-shirt-in-white",
 			"inventory_qty": 1,
 			"inv_managment": "NOT_MANAGED",
@@ -88,7 +88,7 @@ const data = {
 		{
 			"id" : "7",
 			"img": "https://cdn.shopify.com/s/files/1/0134/5149/3434/products/02-15_Mens_WIP_226_1024x1024_2x_9b926955-d533-4055-a09a-0a79a1a178ee.jpg?v=1530356981",
-			"price": "198.0",
+			"price": "703.0",
 			"handle": "seersucker-camp-shirt-in-white",
 			"inventory_qty": 1,
 			"inv_managment": "NOT_MANAGED",
@@ -102,7 +102,7 @@ const data = {
 		{
 			"id" : "8",
 			"img": "https://cdn.shopify.com/s/files/1/0134/5149/3434/products/02-15_Mens_WIP_226_1024x1024_2x_9b926955-d533-4055-a09a-0a79a1a178ee.jpg?v=1530356981",
-			"price": "198.0",
+			"price": "821.0",
 			"handle": "seersucker-camp-shirt-in-white",
 			"inventory_qty": 1,
 			"inv_managment": "NOT_MANAGED",
@@ -116,7 +116,7 @@ const data = {
 		{
 			"id" : "9",
 			"img": "https://cdn.shopify.com/s/files/1/0134/5149/3434/products/02-15_Mens_WIP_226_1024x1024_2x_9b926955-d533-4055-a09a-0a79a1a178ee.jpg?v=1530356981",
-			"price": "198.0",
+			"price": "912.0",
 			"handle": "seersucker-camp-shirt-in-white",
 			"inventory_qty": 1,
 			"inv_managment": "NOT_MANAGED",
@@ -130,7 +130,7 @@ const data = {
 		{
 			"id" : "10",
 			"img": "https://cdn.shopify.com/s/files/1/0134/5149/3434/products/02-15_Mens_WIP_226_1024x1024_2x_9b926955-d533-4055-a09a-0a79a1a178ee.jpg?v=1530356981",
-			"price": "198.0",
+			"price": "1010.0",
 			"handle": "seersucker-camp-shirt-in-white",
 			"inventory_qty": 1,
 			"inv_managment": "NOT_MANAGED",
@@ -144,7 +144,7 @@ const data = {
 		{
 			"id" : "11",
 			"img": "https://cdn.shopify.com/s/files/1/0134/5149/3434/products/02-15_Mens_WIP_226_1024x1024_2x_9b926955-d533-4055-a09a-0a79a1a178ee.jpg?v=1530356981",
-			"price": "198.0",
+			"price": "1111.0",
 			"handle": "seersucker-camp-shirt-in-white",
 			"inventory_qty": 1,
 			"inv_managment": "NOT_MANAGED",
@@ -158,7 +158,7 @@ const data = {
 		{
 			"id" : "12",
 			"img": "https://cdn.shopify.com/s/files/1/0134/5149/3434/products/02-15_Mens_WIP_226_1024x1024_2x_9b926955-d533-4055-a09a-0a79a1a178ee.jpg?v=1530356981",
-			"price": "198.0",
+			"price": "1212.0",
 			"handle": "seersucker-camp-shirt-in-white",
 			"inventory_qty": 1,
 			"inv_managment": "NOT_MANAGED",
@@ -172,7 +172,7 @@ const data = {
 		{
 			"id" : "13",
 			"img": "https://cdn.shopify.com/s/files/1/0134/5149/3434/products/02-15_Mens_WIP_226_1024x1024_2x_9b926955-d533-4055-a09a-0a79a1a178ee.jpg?v=1530356981",
-			"price": "198.0",
+			"price": "1313.0",
 			"handle": "seersucker-camp-shirt-in-white",
 			"inventory_qty": 1,
 			"inv_managment": "NOT_MANAGED",

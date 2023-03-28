@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Button, Col, Dropdown, Row, Toast, ToastContainer } from "react-bootstrap";
+import {useWishlistContext} from '../context/ProductContext'
 
-  const AddToCategory = ({ isLoggedIn, initialvalue, wishlist, closeCart }) => {
- 
+  const AddToCategory = ({ isLoggedIn,closeCart }) => {
+ const{state:{cart}} = useWishlistContext()
   const [showCategory, setShowCategory] = useState(false);
    
 
@@ -114,7 +115,7 @@ const category_name = localStorage.getItem('category_name');
           <div>
             <strong style={{ fontSize: "14px" }}>
               My Wishlist (
-              {initialvalue ? initialvalue.length : wishlist.length})
+              {cart.length})
             </strong>
           </div>
         </Col>

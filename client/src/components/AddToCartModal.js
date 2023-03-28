@@ -1,11 +1,18 @@
 import { Button, Modal } from "react-bootstrap"
 import AddToCartProduct from "./AddToCartProduct"
+import {useWishlistContext} from '../context/ProductContext'
 
-const AddToCartModal = ({handleClose, handleShow}) => {
+const AddToCartModal = ({handleClose, showModal,product}) => {
+    const{state : {cart}, dispatch} = useWishlistContext();
+    const addToWishlist = (product) => {
   
+  dispatch({type:'ADD_TO_WISHLIST', payload:product})
+}
+  console.log('productpage', cart)
+
     return (
         <>
-    <Modal show={handleShow} onHide={handleClose} animation={false}>
+    <Modal show={showModal} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
           <Modal.Title>My Wishlist</Modal.Title>
         </Modal.Header>
@@ -16,7 +23,7 @@ const AddToCartModal = ({handleClose, handleShow}) => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary">
+          <Button variant="primary" onClick={() => addToWishlist(product)}>
             Add to wishlist
           </Button>
         </Modal.Footer>

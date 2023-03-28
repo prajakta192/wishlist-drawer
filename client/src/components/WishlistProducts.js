@@ -2,9 +2,11 @@ import React, {useState, useMemo} from 'react'
 import {Row, Col, Button, Dropdown} from 'react-bootstrap'
 import ProductPagination from './ProductPagination';
 import SocialMediaIcons from './SocialMediaIcons';
+import {useWishlistContext} from '../context/ProductContext'
 
-const WishlistProducts = ({initialvalue, isLoggedIn}) => {
-	const[state, setCartHandler] = useState({
+const WishlistProducts = ({ isLoggedIn}) => {
+  const{state:{cart}} = useWishlistContext()
+	const[State, setCartHandler] = useState({
     cartState : true,
     cartIndex : "0"
   }
@@ -17,7 +19,7 @@ const WishlistProducts = ({initialvalue, isLoggedIn}) => {
     let pageSize = 10;
     const [currentPage, setCurrentPage] = useState(1);
 
-    const[productInpagination, setProductInPagination] = useState(initialvalue)
+    const[productInpagination, setProductInPagination] = useState(cart)
 
     const currentWishListData = useMemo(() => {
       const firstPageIndex = (currentPage - 1) * pageSize;
@@ -28,7 +30,7 @@ const WishlistProducts = ({initialvalue, isLoggedIn}) => {
   
   function cartHandler(id,index){
         setCartHandler({
-          cartState : !state.cartState,
+          cartState : !State.cartState,
           cartIndex:id
        
     })
@@ -43,11 +45,9 @@ function transferProductHandler(id){
 }
 
 function deleteProduct(id){
-  //console.log(id, initialvalue)
   let remainedProduct = productInpagination.filter((product) => product.id !== id);
   console.log(remainedProduct)
   setProductInPagination(remainedProduct)
-  //console.log(initialvalue)
 }
 console.log(productInpagination)
 	return(
@@ -59,7 +59,7 @@ console.log(productInpagination)
             </Col>
             <Col sm={10} >
               <Row>
-               {/* <Col sm={10} style={{opacity : !state.cartState && id===state.cartIndex ? 0:1}}>
+               {/* <Col sm={10} style={{opacity : !State.cartState && id===State.cartIndex ? 0:1}}>
                   <span className="pTitle">{product.id} {product.product_title}</span>
                 </Col> */}
                 <Col sm={10}>
@@ -69,7 +69,7 @@ console.log(productInpagination)
                   <span className="pTitle" title={product.product_title}>{product.product_title}</span>
                     </Col>
                     <Col sm={4}>
-                      <div className={`${!state.cartState && id===state.cartIndex ? 'display-b':'display-n'}`}>
+                      <div className={`${!State.cartState && id===State.cartIndex ? 'display-b':'display-n'}`}>
                         <div className='iwish_qty_box'>
                           <div className='qty_box'>
                             <span>
@@ -140,7 +140,7 @@ console.log(productInpagination)
               </Row>
             </Col>
            {/* <Row className='qtyContainer'>
-           <Col sm={10} className={`${!state.cartState && id===state.cartIndex ? 'display-b':'display-n'}`}>
+           <Col sm={10} className={`${!State.cartState && id===State.cartIndex ? 'display-b':'display-n'}`}>
             <div className='iwish_qty_box'>
               <div className='qty_box'>
                 <span>

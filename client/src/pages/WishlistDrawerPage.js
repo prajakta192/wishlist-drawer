@@ -4,18 +4,19 @@ import { Link } from "react-router-dom";
 import EmptyWishlistComponent from '../components/EmptyWishlistComponent'
 import WishlistProducts from '../components/WishlistProducts'
 import AddToCategory from "../components/AddToCategory";
-import "bootstrap/dist/css/bootstrap.min.css";
+import {useWishlistContext} from '../context/ProductContext'
 import "../styles/wishlistdrawer.css";
 
 
 
-const WishlistDrawerPage = ({ isOpen, closeCart, wishlist }) => {
+const WishlistDrawerPage = ({ isOpen, closeCart }) => {
   const isLoggedIn = true;
-  
- let [initialvalue, setInitialValue] = useState([]);
- initialvalue = localStorage.getItem("wishlist")
-        ? JSON.parse(localStorage.getItem("wishlist"))
-        : null
+  const{state:{cart}} = useWishlistContext()
+
+ // let [initialvalue, setInitialValue] = useState([]);
+ // initialvalue = localStorage.getItem("wishlist")
+ //        ? JSON.parse(localStorage.getItem("wishlist"))
+ //        : null
   //console.log(wishlist)
    
   return (
@@ -25,7 +26,7 @@ const WishlistDrawerPage = ({ isOpen, closeCart, wishlist }) => {
           <Offcanvas.Header style={{ cursor: "pointer" }}>
             <Offcanvas.Title>
              
-              <AddToCategory initialvalue={initialvalue} wishlist={wishlist} closeCart={closeCart} isLoggedIn={isLoggedIn}/>
+              <AddToCategory closeCart={closeCart} isLoggedIn={isLoggedIn}/>
           
             </Offcanvas.Title>
 
@@ -41,11 +42,11 @@ const WishlistDrawerPage = ({ isOpen, closeCart, wishlist }) => {
           )}
         </header>
         <Offcanvas.Body>
-          {(initialvalue?initialvalue:wishlist).length <= 0 && (
+          {cart.length <= 0 && (
           <EmptyWishlistComponent closeCart={closeCart}/>
           )
         }
-       <WishlistProducts initialvalue={initialvalue} setInitialValue={setInitialValue} isLoggedIn={isLoggedIn} wishlist={wishlist}/>
+       <WishlistProducts isLoggedIn={isLoggedIn}/>
         
         </Offcanvas.Body>
       </Offcanvas>

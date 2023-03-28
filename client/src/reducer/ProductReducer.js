@@ -1,23 +1,14 @@
 
-const ProductReducer = (state, action) => {
+export const wishlistReducer = (state, action) => {
 		switch(action.type){
-		case "LOADING_PRODUCTS" : 
-			return{
-				...state,
-				isLoading : true
-			}	
-		case "GET_ALL_PRODUCTS" :
-			return{
-				...state,
-				isLoading : false,
-				products : action.payload
-			}	
-		case "PRODUCT_NOT_FOUND" : 
-			return{
-				...state,
-				isLoading : false,
-				isError : true
-			}	
+		case "ADD_TO_WISHLIST" : 
+			const {id} = action.payload;
+			const isItemExist = state.cart.find((item) => item.id === id)
+
+				return{
+					...state,
+					cart:[...state.cart, {...action.payload, qty:1}]
+				}
 			
 		default : 
 			return state
@@ -25,4 +16,3 @@ const ProductReducer = (state, action) => {
 }
 
 
-export default ProductReducer

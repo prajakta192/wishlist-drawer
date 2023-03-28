@@ -20,38 +20,38 @@ function App() {
         setIsOpen(false)
     }
 
- const[wishlist, setWishlist] = useState(JSON.parse(localStorage.getItem("wishlist")) || []);
+ // const[wishlist, setWishlist] = useState(JSON.parse(localStorage.getItem("wishlist")) || []);
 
 
 
-const addToWishlist = (product) => {
-  //debugger;
-    //console.log([...wishlist,product]);
-    let isExist = false;
+// const addToWishlist = (product) => {
+//   //debugger;
+//     //console.log([...wishlist,product]);
+//     let isExist = false;
     
-    wishlist.map((item) =>
-    { 
-      if(item.id === product.id)
-      isExist = true
-    })
-    if(isExist){
-      setWishlist([...wishlist])
-     setWarning(true);
-     setTimeout(() => {
-        setWarning(false)
-     },2000)
-    }else{
+//     wishlist.map((item) =>
+//     { 
+//       if(item.id === product.id)
+//       isExist = true
+//     })
+//     if(isExist){
+//       setWishlist([...wishlist])
+//      setWarning(true);
+//      setTimeout(() => {
+//         setWarning(false)
+//      },2000)
+//     }else{
 
-      setWishlist([...wishlist, product])
-    }
-}
-useEffect(() => {
-  return localStorage.setItem("wishlist", JSON.stringify(wishlist));
-}, [wishlist])
+//       setWishlist([...wishlist, product])
+//     }
+// }
+// useEffect(() => {
+//   return localStorage.setItem("wishlist", JSON.stringify(wishlist));
+// }, [wishlist])
 
   return (
     <Container fluid className='p-0 overflow-hidden'> 
-     <Header openCart={openCart} wishlist={wishlist}/>
+     <Header openCart={openCart}/>
      <Routes>
         
           <Route path='/signin' element={<LoginPage/>}/>
@@ -62,13 +62,13 @@ useEffect(() => {
         
      {
       data.products.map((product) => (
-           <ProductsPage key={product.id} product={product} addToWishlist={addToWishlist} wishlist={wishlist} setWishlist={setWishlist}  warning={warning}/>
+           <ProductsPage key={product.id} product={product}  warning={warning}/>
         ))
      }
     
        </section>}/>
        </Routes>
-      <WishlistDrawerPage isOpen={isOpen} closeCart={closeCart} wishlist={wishlist}/>     
+      <WishlistDrawerPage isOpen={isOpen} closeCart={closeCart}/>     
       
     </Container>
   );

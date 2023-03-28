@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import AddToCartProduct from '../components/AddToCartProduct'
 import { Row, Col, Button, Modal, ToastContainer, Toast } from "react-bootstrap";
+import {useWishlistContext} from '../context/ProductContext'
+import AddToCartModal from '../components/AddToCartModal'
 
-const ProductsPage = ({ warning, product, addToWishlist, wishlist }) => {
+const ProductsPage = ({ warning, product }) => {
+  const {state:{cart}} = useWishlistContext()
+
   const [showModal, setShowModal] = useState(false);
 
-  const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
+  const handleClose = () => {setShowModal(false)};
+  //const handleShow = () => setShowModal(true);
 
-  
+console.log(showModal)
+
   return (
     <>
     {
@@ -52,9 +57,9 @@ const ProductsPage = ({ warning, product, addToWishlist, wishlist }) => {
               }}
             >
            
-              <i className="fa-regular fa-heart fa-lg" onClick={handleShow}></i>
+              <i className="fa-regular fa-heart fa-lg" onClick={()  => setShowModal(true)}></i>
 
-              {wishlist.lenght > 8 && (
+              {cart.lenght > 8 && (
                 <div
                   className="rounded-circle bg-dark d-flex justify-content-center align-items-center"
                   style={{
@@ -69,7 +74,7 @@ const ProductsPage = ({ warning, product, addToWishlist, wishlist }) => {
                     transform: "translate(25%, 25%)",
                   }}
                 >
-                  {wishlist.length}
+                  {cart.length}
                 </div>
                 
               )}
@@ -82,22 +87,10 @@ const ProductsPage = ({ warning, product, addToWishlist, wishlist }) => {
         </Col>
        
       </Row>
-      <Modal show={showModal} onHide={handleClose} animation={false}>
-        <Modal.Header closeButton>
-          <Modal.Title>My Wishlist</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-            <AddToCartProduct/>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={() => addToWishlist(product)}>
-            Add to wishlist
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      { showModal &&
+       <AddToCartModal handleClose={handleClose} showModal = {showModal} product={product}/>
+     }
+      
     </>
   );
 };
