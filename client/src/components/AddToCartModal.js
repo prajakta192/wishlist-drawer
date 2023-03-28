@@ -1,14 +1,25 @@
+
+import React,{useEffect} from 'react'
 import { Button, Modal } from "react-bootstrap"
 import AddToCartProduct from "./AddToCartProduct"
 import {useWishlistContext} from '../context/ProductContext'
 
-const AddToCartModal = ({handleClose, showModal,product}) => {
+const AddToCartModal = ({handleClose, showModal,setShowModal,product}) => {
     const{state : {cart}, dispatch} = useWishlistContext();
+    
+
     const addToWishlist = (product) => {
-  
-  dispatch({type:'ADD_TO_WISHLIST', payload:product})
+        dispatch({type:'ADD_TO_WISHLIST', payload:product});
+        //localStorage.setItem('wishlist', JSON.stringify(cart));
+        setTimeout(() => {
+            setShowModal(false);
+        },2000)
 }
   console.log('productpage', cart)
+
+useEffect(() => {
+    localStorage.setItem('wishlist', JSON.stringify(cart));
+},[cart])
 
     return (
         <>

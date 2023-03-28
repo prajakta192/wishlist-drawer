@@ -4,16 +4,13 @@ import { Row, Col, Button, Modal, ToastContainer, Toast } from "react-bootstrap"
 import {useWishlistContext} from '../context/ProductContext'
 import AddToCartModal from '../components/AddToCartModal'
 
-const ProductsPage = ({ warning, product }) => {
-  const {state:{cart}} = useWishlistContext()
+const ProductsPage = ({ product }) => {
+  const {state:{cart,warning}} = useWishlistContext()
 
   const [showModal, setShowModal] = useState(false);
 
   const handleClose = () => {setShowModal(false)};
-  //const handleShow = () => setShowModal(true);
-
-console.log(showModal)
-
+  console.log(warning)
   return (
     <>
     {
@@ -88,7 +85,7 @@ console.log(showModal)
        
       </Row>
       { showModal &&
-       <AddToCartModal handleClose={handleClose} showModal = {showModal} product={product}/>
+       <AddToCartModal handleClose={handleClose} showModal={showModal} setShowModal={setShowModal} product={product}/>
      }
       
     </>

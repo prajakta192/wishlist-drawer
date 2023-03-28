@@ -10,7 +10,7 @@ import LoginPage from './pages/LoginPage';
 import PaymentPage from './pages/PaymentPage';
 
 function App() {
-  const [warning, setWarning] = useState(false)
+  
   //State for cart drawer
     const [isOpen, setIsOpen] = useState(false);
     const openCart = () => {
@@ -62,7 +62,7 @@ function App() {
         
      {
       data.products.map((product) => (
-           <ProductsPage key={product.id} product={product}  warning={warning}/>
+           <ProductsPage key={product.id} product={product}/>
         ))
      }
     
