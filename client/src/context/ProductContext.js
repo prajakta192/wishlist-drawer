@@ -1,17 +1,16 @@
 
-import {createContext, useContext, useReducer,useEffect,useState} from 'react'
+import {createContext, useContext, useReducer,} from 'react'
 import {wishlistReducer} from '../reducer/ProductReducer'
 
 const WishlistContext = createContext()
 
 const getLocalWishlistData = () => {
-	const localWishlist = localStorage.getItem('wishlist');
+	const localWishlist = JSON.parse(localStorage.getItem('wishlist'));
 	if(localWishlist === []){
 		return [];
-
 	}
 	else{
-			return JSON.parse(localWishlist)
+			return localWishlist
 		}
 }
 const initialValue = {

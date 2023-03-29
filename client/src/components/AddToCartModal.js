@@ -4,15 +4,20 @@ import { Button, Modal } from "react-bootstrap"
 import AddToCartProduct from "./AddToCartProduct"
 import {useWishlistContext} from '../context/ProductContext'
 
-const AddToCartModal = ({handleClose, showModal,setShowModal,product}) => {
+const AddToCartModal = ({handleClose,setWarning, showModal,setShowModal,product}) => {
     const{state : {cart}, dispatch} = useWishlistContext();
     
 
     const addToWishlist = (product) => {
+        const isExistItem = cart.find((item) => item.id === product.id)
         dispatch({type:'ADD_TO_WISHLIST', payload:product});
-        //localStorage.setItem('wishlist', JSON.stringify(cart));
+        if(isExistItem){
+            setWarning(true)
+        }
+        
         setTimeout(() => {
             setShowModal(false);
+            setWarning(false)
         },2000)
 }
   console.log('productpage', cart)

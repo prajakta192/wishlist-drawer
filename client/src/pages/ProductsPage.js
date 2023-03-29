@@ -1,22 +1,22 @@
 import React, { useState } from "react";
-import AddToCartProduct from '../components/AddToCartProduct'
-import { Row, Col, Button, Modal, ToastContainer, Toast } from "react-bootstrap";
+import { Row, Col, Button, ToastContainer, Toast } from "react-bootstrap";
 import {useWishlistContext} from '../context/ProductContext'
 import AddToCartModal from '../components/AddToCartModal'
 
 const ProductsPage = ({ product }) => {
-  const {state:{cart,warning}} = useWishlistContext()
+  const {state:{cart}} = useWishlistContext()
 
   const [showModal, setShowModal] = useState(false);
+const[warning, setWarning] = useState(false)
 
   const handleClose = () => {setShowModal(false)};
-  console.log(warning)
+  
   return (
     <>
     {
       warning &&
       // <div className="warning">The product is already added to your wishlist</div>
-      <ToastContainer position="top-end">
+      <ToastContainer position="middle-end">
       <Toast className="d-inline-block m-1"
         bg='warning'>
       <Toast.Body  style={{fontSize:'12px',padding:'.28rem'}}>The product is already added to your wishlist</Toast.Body>
@@ -85,7 +85,7 @@ const ProductsPage = ({ product }) => {
        
       </Row>
       { showModal &&
-       <AddToCartModal handleClose={handleClose} showModal={showModal} setShowModal={setShowModal} product={product}/>
+       <AddToCartModal handleClose={handleClose} setWarning={setWarning} showModal={showModal} setShowModal={setShowModal} product={product}/>
      }
       
     </>

@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React from "react";
 import { Offcanvas, Row, Col} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import EmptyWishlistComponent from '../components/EmptyWishlistComponent'
@@ -7,18 +7,10 @@ import AddToCategory from "../components/AddToCategory";
 import {useWishlistContext} from '../context/ProductContext'
 import "../styles/wishlistdrawer.css";
 
-
-
 const WishlistDrawerPage = ({ isOpen, closeCart }) => {
   const isLoggedIn = true;
   const{state:{cart}} = useWishlistContext()
 
- // let [initialvalue, setInitialValue] = useState([]);
- // initialvalue = localStorage.getItem("wishlist")
- //        ? JSON.parse(localStorage.getItem("wishlist"))
- //        : null
-  //console.log(wishlist)
-   
   return (
     <>
       <Offcanvas show={isOpen} onHide={closeCart} placement="end" scroll="true">

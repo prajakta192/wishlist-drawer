@@ -5,7 +5,7 @@ import SocialMediaIcons from './SocialMediaIcons';
 import {useWishlistContext} from '../context/ProductContext'
 
 const WishlistProducts = ({ isLoggedIn}) => {
-  const{state:{cart}} = useWishlistContext()
+  const{state:{cart}, dispatch} = useWishlistContext()
 	const[State, setCartHandler] = useState({
     cartState : true,
     cartIndex : "0"
@@ -19,13 +19,11 @@ const WishlistProducts = ({ isLoggedIn}) => {
     let pageSize = 10;
     const [currentPage, setCurrentPage] = useState(1);
 
-    const[productInpagination, setProductInPagination] = useState(cart)
-
     const currentWishListData = useMemo(() => {
       const firstPageIndex = (currentPage - 1) * pageSize;
       const lastPageIndex = firstPageIndex + pageSize;
-      return productInpagination.slice(firstPageIndex, lastPageIndex);
-    }, [pageSize, currentPage,productInpagination]);
+      return cart.slice(firstPageIndex, lastPageIndex);
+    }, [pageSize, currentPage,cart]);
 
   
   function cartHandler(id,index){
@@ -44,24 +42,20 @@ function transferProductHandler(id){
     })
 }
 
-function deleteProduct(id){
-  let remainedProduct = productInpagination.filter((product) => product.id !== id);
-  console.log(remainedProduct)
-  setProductInPagination(remainedProduct)
+function deleteProduct(product){
+  dispatch({type:"REMOVE_PRODUCT", payload:product})
 }
-console.log(productInpagination)
+console.log(cart);
+console.log(currentWishListData)
 	return(
 <>
-        {currentWishListData.map((product,id,index) => (
+        {pageSize >= 10 && currentWishListData.map((product,id,index) => (
              <Row style={{borderBottom:'1px solid rgb(245,245,244',position:'relative'}} className='pb-2 mb-3' key={id}>
             <Col sm={2} className='p-1'>
               <img src={product.img} alt={product.name} />
             </Col>
             <Col sm={10} >
               <Row>
-               {/* <Col sm={10} style={{opacity : !State.cartState && id===State.cartIndex ? 0:1}}>
-                  <span className="pTitle">{product.id} {product.product_title}</span>
-                </Col> */}
                 <Col sm={10}>
                   <Row>
                     <Col sm={8}>
@@ -133,7 +127,7 @@ console.log(productInpagination)
                   </div>
                 </Col>
                 <Col sm={2}>
-                  <span  onClick={() => deleteProduct(product.id)}>
+                  <span  onClick={() => deleteProduct(product)}>
                     <i className="fa-solid fa-trash" title="Delete Product"></i>
                   </span>
                 </Col>
@@ -171,7 +165,7 @@ console.log(productInpagination)
         <ProductPagination
         className="pagination-bar"
         currentPage={currentPage}
-        totalCount={productInpagination.length}
+        totalCount={cart.length}
         pageSize={pageSize}
         onPageChange={page => setCurrentPage(page)}
       />
