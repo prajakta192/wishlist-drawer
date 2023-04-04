@@ -1,7 +1,7 @@
 
 
 .offcanvas.offcanvas-end{
-	width:500px
+	width:450px
 }
 
 .modal,.offcanvas i{
@@ -27,21 +27,21 @@
 
 .overlay{
   position: absolute;
-  top:0;
+  top:55%;
   height: 100%;
-  width: 90%;
+  width: 85%;
   z-index: 999;
 }
 .overlay .col-sm-9 > input{
 	width:var(--width-100);
 	font-size: 14px;
-	padding: .48rem;
+	padding: .45rem;
 	border: 1px solid rgb(233,233,232);
 }
 .overlay .col-sm-9 + .col-sm-2 > button{
 	font-size: var( --font-size-12);
 	border-radius: 3px;
-	padding: .38rem;
+/*	padding: .38rem;*/
 	text-transform: uppercase;
 	border: 1px solid rgb(233,233,232);
 }
@@ -66,6 +66,8 @@ offcanvas-body{
 }
 .offcanvas-body .col-sm-2 img{
 	width:var(--width-100);
+	height: 100%;
+	object-fit:contain;
 }
 .pTitle{
 	font-size: 12px;
@@ -95,7 +97,7 @@ offcanvas-body{
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 25px;
+    width: 30px;
     float: left;
     height: 25px;
     background-color: #f6f6f6;
@@ -168,6 +170,7 @@ offcanvas-body{
 }
 .overlay .col-sm-9 + .col-sm-2 > button:disabled{
 	cursor: not-allowed;
+	color:#363636;
 }
  .display-n{
 	display: none;

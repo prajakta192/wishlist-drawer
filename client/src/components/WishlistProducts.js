@@ -3,6 +3,9 @@ import {Row, Col, Button, Dropdown} from 'react-bootstrap'
 import ProductPagination from './ProductPagination';
 import SocialMediaIcons from './SocialMediaIcons';
 import {useWishlistContext} from '../context/ProductContext'
+import { BiTransfer} from "react-icons/bi";
+import {AiOutlineShoppingCart} from 'react-icons/ai'
+import {RiDeleteBin5Line} from 'react-icons/ri'
 
 const WishlistProducts = ({ isLoggedIn}) => {
   const{state:{cart}, dispatch} = useWishlistContext()
@@ -56,36 +59,21 @@ console.log(currentWishListData)
             </Col>
             <Col sm={10} >
               <Row>
-                <Col sm={10}>
-                  <Row>
-                    <Col sm={8}>
+                <Col sm={10} className="align-items-center">
+                  <Row className="align-items-center">
+                    <Col sm={10}>
 
                   <span className="pTitle" title={product.product_title}>{product.product_title}</span>
                     </Col>
-                    <Col sm={4}>
-                      <div className={`${!State.cartState && id===State.cartIndex ? 'display-b':'display-n'}`}>
-                        <div className='iwish_qty_box'>
-                          <div className='qty_box'>
-                            <span>
-                              <i className="fa-solid fa-minus"></i>
-                            </span>
-                            <span className='iwishProQuantity'><strong>1</strong></span>
-                            <span>
-                              <i className="fa-regular fa-plus"></i>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </Col>
+                    
                   </Row>
                 </Col>
-                <Col sm={2}>
-                  <span className="add_to_cart" onClick={() => cartHandler(id,index)}>
-                    <i
-                      className="fa-solid fa-cart-plus"
-                      title="Add to Cart"></i>
+                 <Col sm={2}>
+                  <span className='fs-5'  onClick={() => deleteProduct(product)}>
+                   <RiDeleteBin5Line/>
                   </span>
                 </Col>
+               
               </Row>
               <Row>
                 <Col sm={10}>
@@ -110,25 +98,38 @@ console.log(currentWishListData)
                 </Col>
                 {isLoggedIn && (
                   <Col sm={2}>
-                    <span onClick={() => {transferProductHandler(id, index)}}>
-                      <i
-                        className="fa-solid fa-code-compare"
-                        title="Transfer Product"
-                        style={{ transform: "rotate(90deg)" }}
-                      ></i>
+                    <span className='fs-5' onClick={() => {transferProductHandler(id, index)}}>
+                      <BiTransfer/>
                     </span>
                   </Col>
                 )}
               </Row>
               <Row>
                 <Col sm={10}>
-                  <div>
+                <Row className="align-items-end">
+                  <Col sm={4}>
                     <span className="pPrice"> ₹{product.price}</span>
-                  </div>
+                  </Col>
+                  <Col sm={8} className="p-0">
+                      <div className={`${!State.cartState && id===State.cartIndex ? 'display-b':'display-n'}`}>
+                        <div className='iwish_qty_box'>
+                          <div className='qty_box'>
+                            <span>
+                              <i className="fa-solid fa-minus"></i>
+                            </span>
+                            <span className='iwishProQuantity'><strong>1</strong></span>
+                            <span>
+                              <i className="fa-regular fa-plus"></i>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </Col>
+                  </Row>
                 </Col>
-                <Col sm={2}>
-                  <span  onClick={() => deleteProduct(product)}>
-                    <i className="fa-solid fa-trash" title="Delete Product"></i>
+               <Col sm={2}>
+                  <span className="add_to_cart fs-5" onClick={() => cartHandler(id,index)}>
+                   <AiOutlineShoppingCart/>
                   </span>
                 </Col>
               </Row>

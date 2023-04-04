@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Button, Col, Dropdown, Row, Toast, ToastContainer } from "react-bootstrap";
 import {useWishlistContext} from '../context/ProductContext'
+// import {BiPlus} from 'react-icons/bi'
+import {IconName} from 'react-icons/io'
+import{BiPlusCircle, BiXCircle} from 'react-icons/bi'
 
   const AddToCategory = ({ isLoggedIn,closeCart }) => {
  const{state:{cart}} = useWishlistContext()
@@ -111,7 +114,7 @@ const category_name = localStorage.getItem('category_name');
             ></i>
           </div>
         </Col>
-        <Col sm={10}>
+        <Col sm={11}>
           <div>
             <strong style={{ fontSize: "14px" }}>
               My Wishlist (
@@ -119,54 +122,21 @@ const category_name = localStorage.getItem('category_name');
             </strong>
           </div>
         </Col>
-        {isLoggedIn && (
-          <Col sm={1}>
-            <span>
-              <i
-                className="fa-regular fa-plus fa-sm"
-                title="Add New List"
-                onClick={addToCategory}
-              ></i>
-            </span>
-          </Col>
-        )}
+        
       </Row>
-      {showCategory && (
-       
-        <Row className="overlay">
-          <Col sm={9} className="p-0">
-            <input
-              type="text"
-              placeholder="Category name"
-              value={newCategory}
-              onChange={(e) => setNewCategory(e.target.value)}
-            />
-          </Col>
-          <Col sm={2}>
-            <Button
-              variant="outline-secondary"
-              className="btn-sm"
-              disabled={!newCategory}
-              onClick={saveToCategory}
-            >
-              Save
-            </Button>
-          </Col>
-        </Row>
-       
-      )}
+      
       {successMsg !== '' && (
         <ToastContainer position="top-start">
         <Toast className="d-inline-block m-1"
-          bg='success'>
-        <Toast.Body className={'success' && 'text-white'} style={{fontSize:'12px',padding:'.28rem'}}>{successMsg}</Toast.Body>
+          bg='success' style={{opacity:'.9'}}>
+        <Toast.Body className={'success' && 'text-white'} style={{fontSize:'14px',padding:'.30rem'}}>{successMsg}</Toast.Body>
         </Toast>
       </ToastContainer>
       )}
 
       {isLoggedIn && (
-        <Row className="mb-1">
-          <Col sm={12} className="p-0 mt-3">
+        <Row className="align-items-center">
+          <Col sm={11} className={!showCategory ? 'opacity-1' : 'opacity-0'}>
             <Dropdown>
               <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
                 { curDropItem }
@@ -213,7 +183,37 @@ const category_name = localStorage.getItem('category_name');
               </Dropdown.Menu>
             </Dropdown>
           </Col>
+          <Col sm={1} className="text-center p-0"  onClick={addToCategory}>
+          {showCategory ? <BiXCircle title='close category'/> : <BiPlusCircle title='Add to category'/>}
+          {/*<BiPlus title='Add to category' />*/}
+          
+         
+          </Col>
         </Row>
+      )}
+      {showCategory && (
+       
+        <Row className="overlay">
+          <Col sm={9} className="p-0">
+            <input
+              type="text"
+              placeholder="Category name"
+              value={newCategory}
+              onChange={(e) => setNewCategory(e.target.value)}
+            />
+          </Col>
+          <Col sm={2}>
+            <Button
+              variant="outline-success"
+              className="btn-lg"
+              disabled={!newCategory}
+              onClick={saveToCategory}
+            >
+              Save
+            </Button>
+          </Col>
+        </Row>
+       
       )}
     </>
   );

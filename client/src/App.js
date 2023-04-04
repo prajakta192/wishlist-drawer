@@ -6,8 +6,7 @@ import WishlistDrawerPage from './pages/WishlistDrawerPage';
 import data from './data'
 import {Container} from 'react-bootstrap'
 import { Route, Routes } from 'react-router-dom';
-import LoginPage from './pages/LoginPage';
-import PaymentPage from './pages/PaymentPage';
+import {IconName} from 'react-icons/bi';
 
 function App() {
   
@@ -22,7 +21,7 @@ function App() {
 
  // const[wishlist, setWishlist] = useState(JSON.parse(localStorage.getItem("wishlist")) || []);
 
-
+//add to cart with useState
 
 // const addToWishlist = (product) => {
 //   //debugger;
@@ -53,10 +52,6 @@ function App() {
     <Container fluid className='p-0 overflow-hidden'> 
      <Header openCart={openCart}/>
      <Routes>
-        
-          <Route path='/signin' element={<LoginPage/>}/>
-          <Route path='/payment' element={<PaymentPage/>}/>
-        
      <Route path='/' element={
         <section className='d-grid mt-5' style={{gridTemplateColumns:'repeat(2, 1fr)'}}>
         

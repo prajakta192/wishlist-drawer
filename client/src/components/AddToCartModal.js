@@ -23,7 +23,7 @@ const AddToCartModal = ({handleClose,setWarning, showModal,setShowModal,product}
   console.log('productpage', cart)
 
 useEffect(() => {
-    localStorage.setItem('wishlist', JSON.stringify(cart));
+    //localStorage.setItem('wishlist', JSON.stringify(cart));
 },[cart])
 
     return (

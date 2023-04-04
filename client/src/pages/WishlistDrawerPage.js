@@ -27,7 +27,7 @@ const WishlistDrawerPage = ({ isOpen, closeCart }) => {
             <Row className='mx-1 mb-2'>
               <Col sm={12}>
                 Wishlist is not saved permanently yet. Please
-                <Link to="/signin"> log in</Link> or <Link to="/"> Create Account </Link>
+                <Link to="/signin"> log in </Link> or <Link to="/"> Create Account </Link>
                 to save it.
               </Col>
             </Row>
