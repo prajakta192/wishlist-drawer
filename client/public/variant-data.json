@@ -88,7 +88,7 @@
         "availableForSale": true,
         "price": "0.00",
         "compareAtPrice": "10.00",
-        "inventoryQuantity": -1,
+        "inventoryQuantity": 1,
         "image": "null",
         "sku": null
       }

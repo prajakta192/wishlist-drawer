@@ -8,7 +8,7 @@ const Header = ({ openCart }) => {
 //console.log(cart);
 
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
-  console.log(innerWidth)
+  //console.log(innerWidth)
 
    // Get Screen Size
     useEffect(() => {

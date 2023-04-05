@@ -48,14 +48,14 @@ function transferProductHandler(id){
 function deleteProduct(product){
   dispatch({type:"REMOVE_PRODUCT", payload:product})
 }
-console.log(cart);
-console.log(currentWishListData)
+//console.log(cart);
+//console.log(currentWishListData)
 	return(
 <>
         {pageSize >= 10 && currentWishListData.map((product,id,index) => (
              <Row style={{borderBottom:'1px solid rgb(245,245,244',position:'relative'}} className='pb-2 mb-3' key={id}>
             <Col sm={2} className='p-1'>
-              <img src={product.img} alt={product.name} />
+              <img src={product.featuredImage} alt={product.title} />
             </Col>
             <Col sm={10} >
               <Row>
@@ -63,7 +63,7 @@ console.log(currentWishListData)
                   <Row className="align-items-center">
                     <Col sm={10}>
 
-                  <span className="pTitle" title={product.product_title}>{product.product_title}</span>
+                  <span className="pTitle" title={product.title}>{product.title}</span>
                     </Col>
                     
                   </Row>
@@ -108,7 +108,7 @@ console.log(currentWishListData)
                 <Col sm={10}>
                 <Row className="align-items-end">
                   <Col sm={4}>
-                    <span className="pPrice"> ₹{product.price}</span>
+                    <span className="pPrice"> ₹{product.variant.price}</span>
                   </Col>
                   <Col sm={8} className="p-0">
                       <div className={`${!State.cartState && id===State.cartIndex ? 'display-b':'display-n'}`}>

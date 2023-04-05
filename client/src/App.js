@@ -1,15 +1,46 @@
 
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState,useReducer} from 'react'
 import Header from './components/Header';
 import ProductsPage from './pages/ProductsPage';
 import WishlistDrawerPage from './pages/WishlistDrawerPage';
-import data from './data'
+// import data from './data'
 import {Container} from 'react-bootstrap'
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom'
 import {IconName} from 'react-icons/bi';
+import{fetchVariantData} from './reducer/ProductReducer'
+
+import axios from 'axios'
 
 function App() {
-  
+  const [{loading,products,error}, dispatch] = useReducer(fetchVariantData, {
+    loading:true,
+    products:[],
+    error:""
+  })
+
+
+//fetching data 
+  const GetVariantData = async () => {
+  dispatch({type:'FETCH_REQUEST'})
+  try{
+  const res = await axios.get('./variant-data.json');
+  const data = await res.data
+  //console.log(data);
+  dispatch({type : 'FETCH_SUCCESS', payload:data.result})
+  //localStorage.setItem('Wishlist' , JSON.stringify(data.result))
+}
+catch(err){
+  dispatch({type:'FETCH_FAIL', payload:err.message})
+  console.log(err.message)
+}
+}
+
+useEffect(() => {
+  GetVariantData();
+
+ }, [])
+//console.log(products)
+
   //State for cart drawer
     const [isOpen, setIsOpen] = useState(false);
     const openCart = () => {
@@ -49,20 +80,21 @@ function App() {
 // }, [wishlist])
 
   return (
+
     <Container fluid className='p-0 overflow-hidden'> 
      <Header openCart={openCart}/>
-     <Routes>
-     <Route path='/' element={
+    
         <section className='d-grid mt-5' style={{gridTemplateColumns:'repeat(2, 1fr)'}}>
         
      {
-      data.products.map((product) => (
-           <ProductsPage key={product.id} product={product}/>
+     
+      products.map((product,id) => (
+           <ProductsPage key={id} product={product} openCart={openCart}/>
         ))
      }
     
-       </section>}/>
-       </Routes>
+       </section>
+     
       <WishlistDrawerPage isOpen={isOpen} closeCart={closeCart}/>     
       
     </Container>
