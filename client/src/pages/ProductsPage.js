@@ -1,31 +1,31 @@
 import React, { useState,useEffect } from "react";
 import { Row, Col, Button, ToastContainer, Toast } from "react-bootstrap";
 import {useWishlistContext} from '../context/ProductContext'
-import AddToCartModal from '../components/AddToCartModal'
+
 
 
 const ProductsPage = ({ product,openCart }) => {
-   const{state : {cart , iWishList}, dispatch} = useWishlistContext();
-//console.log(product)
+   const{state : {cart , iWishList}} = useWishlistContext();
+
   const [showModal, setShowModal] = useState(false);
 const[warning, setWarning] = useState(false)
 
-  const handleClose = () => {setShowModal(false)};
+  //const handleClose = () => {setShowModal(false)};
   
-    const addToWishlist = (product) => {
-        const isExistItem = cart.find((item) => item.id === product.id)
-        dispatch({type:'ADD_TO_WISHLIST', payload:product});
-        //console.log(product.variant.id)
-        openCart();
-        if(isExistItem){
-            setWarning(true)
-        }
+//     const addToWishlist = (product) => {
+//         const isExistItem = cart.find((item) => item.id === product.id)
+//         dispatch({type:'ADD_TO_WISHLIST', payload:product});
+//         //console.log(product.variant.id)
+//         openCart();
+//         if(isExistItem){
+//             setWarning(true)
+//         }
         
-        setTimeout(() => {
-            setShowModal(false);
-            setWarning(false)
-        },2000)
-}
+//         setTimeout(() => {
+//             setShowModal(false);
+//             setWarning(false)
+//         },2000)
+// }
   //console.log('productpage', cart)
 
     useEffect(() => {
@@ -77,7 +77,7 @@ const[warning, setWarning] = useState(false)
             >
            
              {/* <i className="fa-regular fa-heart fa-lg" onClick={()  => setShowModal(true)}></i>*/}
-             <i className="fa-regular fa-heart fa-lg" onClick={()  => addToWishlist(product)}></i>
+             <i className="fa-regular fa-heart fa-lg" onClick={()  => window.addToWishlist(32195848503330, 32195832545314)}></i>
 
               {cart.lenght > 8 && (
                 <div

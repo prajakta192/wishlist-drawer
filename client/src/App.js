@@ -1,11 +1,12 @@
 
 import React, {useEffect, useState,useReducer} from 'react'
 import Header from './components/Header';
+// import {getWishlist} from '/sample'
 import ProductsPage from './pages/ProductsPage';
 import WishlistDrawerPage from './pages/WishlistDrawerPage';
 import {Container,Button} from 'react-bootstrap'
 import{fetchVariantData} from './reducer/ProductReducer'
-import {getCounter} from './script/sample'
+// import {getCounter} from './script/sample'
 import{useWishlistContext} from './context/ProductContext'
 import axios from 'axios'
 
@@ -51,7 +52,7 @@ useEffect(() => {
  return (
     <Container fluid className='p-0 overflow-hidden'> 
      <Header openCart={openCart}/>
-       <Button className='mt-3' onClick={() => getCounter(iWishList)}>get iWish count</Button>
+       <Button className='mt-3' onClick={() => window.getWishlist(iWishList)}>get iWish count</Button>
         <section className='d-grid mt-5' style={{gridTemplateColumns:'repeat(2, 1fr)'}}>
      {products.map((product,id) => (
            <ProductsPage key={id} product={product} openCart={openCart}/>
