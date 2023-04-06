@@ -8,5 +8,6 @@ alert('hello')
 }
 
 export function getCounter(iWishlist) {
-		console.log(iWishlist.length)
+	alert(`iWishlist length is ${iWishlist.length}`)
+		console.log(Array.from(iWishlist), iWishlist.length);
 	}

@@ -3,6 +3,7 @@ import { Row, Col, Button, ToastContainer, Toast } from "react-bootstrap";
 import {useWishlistContext} from '../context/ProductContext'
 import AddToCartModal from '../components/AddToCartModal'
 
+
 const ProductsPage = ({ product,openCart }) => {
    const{state : {cart , iWishList}, dispatch} = useWishlistContext();
 //console.log(product)
@@ -44,7 +45,7 @@ const[warning, setWarning] = useState(false)
       </Toast>
     </ToastContainer>
     }
-    
+      
       <Row
         className="product_container d-flex flex-column justify-content-center align-items-center">
         <Col sm={6}>
@@ -103,6 +104,7 @@ const[warning, setWarning] = useState(false)
         <Col sm={6} className='mb-4'>
           <p>{product.handle}</p>
           <p>Rs. {product.variant.price}</p>
+         
         </Col>
        
       </Row>
