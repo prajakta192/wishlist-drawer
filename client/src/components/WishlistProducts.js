@@ -7,14 +7,14 @@ import { BiTransfer} from "react-icons/bi";
 import {AiOutlineShoppingCart} from 'react-icons/ai'
 import {RiDeleteBin5Line} from 'react-icons/ri'
 
-const WishlistProducts = ({ isLoggedIn}) => {
+const WishlistProducts = ({ isLoggedIn, iWishListData}) => {
   const{state:{cart}, dispatch} = useWishlistContext()
 	const[State, setCartHandler] = useState({
     cartState : true,
     cartIndex : "0"
   }
     );
-
+//console.log(iWishListData)
     const [transferPrdctState, setTrnsferPrdctState] = useState({
       productState : false,
       productIndex : 0
@@ -26,7 +26,7 @@ const WishlistProducts = ({ isLoggedIn}) => {
       const firstPageIndex = (currentPage - 1) * pageSize;
       const lastPageIndex = firstPageIndex + pageSize;
       return cart.slice(firstPageIndex, lastPageIndex);
-    }, [pageSize, currentPage,cart]);
+    }, [pageSize, currentPage]);
 
   
   function cartHandler(id,index){

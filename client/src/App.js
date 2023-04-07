@@ -9,25 +9,28 @@ import{useWishlistContext} from './context/ProductContext'
 
 function App() {
     const{state : {iWishList}} = useWishlistContext();
-
     const[products, setProducts] = useState([])
+    const[iWishListData, setiWishlistData] = useState([])
 
-useEffect( () => {
-  async function fetchWishlistData() {
+async function fetchWishlistData() {
     const res = await window.fetchWishlist(10,1,0)
     const data = await res.result
     //console.log(data)
     setProducts(data)
+    setiWishlistData(res)
 }
+
+useEffect( () => {
 fetchWishlistData()
  }, [])
 
-console.log('product',products)
+//console.log('product',products)
 
   //State for cart drawer
     const [isOpen, setIsOpen] = useState(false);
     const openCart = () => {
         setIsOpen(true);
+        fetchWishlistData()
     }
     const closeCart = () => {
         setIsOpen(false)
@@ -47,7 +50,7 @@ console.log('product',products)
      }
     
        </section>
-      <WishlistDrawerPage isOpen={isOpen} closeCart={closeCart}/>  
+      <WishlistDrawerPage isOpen={isOpen} closeCart={closeCart} iWishListData={iWishListData}/>  
       <div>
       
       </div>

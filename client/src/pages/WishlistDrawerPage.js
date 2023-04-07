@@ -7,7 +7,7 @@ import AddToCategory from "../components/AddToCategory";
 import {useWishlistContext} from '../context/ProductContext'
 import "../styles/wishlistdrawer.css";
 
-const WishlistDrawerPage = ({ isOpen, closeCart }) => {
+const WishlistDrawerPage = ({ isOpen, closeCart, iWishListData}) => {
   const isLoggedIn = true;
   const{state:{cart}} = useWishlistContext()
 
@@ -38,7 +38,7 @@ const WishlistDrawerPage = ({ isOpen, closeCart }) => {
           <EmptyWishlistComponent closeCart={closeCart}/>
           )
         }
-       <WishlistProducts isLoggedIn={isLoggedIn}/>
+       <WishlistProducts isLoggedIn={isLoggedIn} iWishListData={iWishListData}/>
         
         </Offcanvas.Body>
       </Offcanvas>

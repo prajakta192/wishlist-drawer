@@ -27,13 +27,13 @@ async function requestToSever(page, body, method='POST')  {
 	}
 }
  function getWishlist(){
-		//return JSON.parse(iWishlist);
- 		console.log(iWishlist)
+ 	debugger;
+		return JSON.parse(iWishlist);
+ 		console.log(JSON.parse(iWishlist))
 	}
 
 
 	function setWishlist() {
-		
 		localStorage.iWishlist = JSON.stringify(Array.from(iWishlist));
 		console.log(localStorage.iWishlist);
 	}
@@ -52,6 +52,7 @@ async function requestToSever(page, body, method='POST')  {
 		if(!isInWishlist(vId)) {
 			iWishlist.set(vId, qty);
 			setWishlist(); // update storage
+			
 			console.log(iWishCust);
 			if(iWishCust>0) {
 				let data = "customer_id="+iWishCust+"&product_id="+pId+"&variant_id="+vId+"&product_qty="+qty+"&category_id="+catId;
@@ -59,6 +60,7 @@ async function requestToSever(page, body, method='POST')  {
 			}
 		}
 		openCart;
+
 	}
 
 	function removeFromWishlist(pId, vId, catId=null) {
@@ -80,3 +82,23 @@ async function requestToSever(page, body, method='POST')  {
 		return requestToSever("fetchWishlistData/"+iWishCust+"?page="+page+"&limit="+limit, data,'POST');
 	}
 }
+
+	function fetchCategory() {
+		let data = "";
+		return requestToSever("fetchCategory/"+iWishCust, data, 'POST');
+	}
+
+	function addCategory(catName) {
+		let data = "category_name="+catName;
+		return requestToSever("addCategory/"+iWishCust, data, 'POST');
+	}
+
+	function updateCategory(catId, catName) {
+		let data = "category_id="+catId+"&category_name="+catName;
+		return requestToSever("updateCategory/"+iWishCust, data, 'POST');
+	}
+
+	function removeCategory(catId) {
+		let data = "category_id="+catId;
+		return requestToSever("removeCategory/"+iWishCust, data, 'POST');
+	}
