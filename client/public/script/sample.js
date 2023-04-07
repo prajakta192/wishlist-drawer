@@ -2,12 +2,14 @@
 
 
 
-const iWishUrl = "https://api.myshopapps.com/iwish/V1/";
+const iWishUrl = "https://api.myshopapps.com/iwish/V1";
 var iWishlist = localStorage.iWishlist ? new Map(JSON.parse(localStorage.iWishlist)) : new Map();
 var iWishCust = parseInt(window.iwish_cid);
-async function requestToSever(page, body, method='POST', cFunction=null)  {
+async function requestToSever(page, body, method='POST')  {
+	
 	const url = iWishUrl+"/"+page;
-	console.log(new URLSearchParams(body));
+	//console.log(url)
+	//console.log(new URLSearchParams(body));
 	const options = {
 		method: method,
 		headers: {'Content-Type': 'application/x-www-form-urlencoded', domain: window.iwish_shop, Authorization:''},
@@ -15,7 +17,10 @@ async function requestToSever(page, body, method='POST', cFunction=null)  {
 	};
 	try {
 		const response = await fetch(url, options);
-		return await response.json();
+		const data =  await response.json();
+		//console.log(data.result);
+		return data;
+		
 	} catch (error) {
 		console.error(error);
 		return error;
@@ -28,6 +33,7 @@ async function requestToSever(page, body, method='POST', cFunction=null)  {
 
 
 	function setWishlist() {
+		
 		localStorage.iWishlist = JSON.stringify(Array.from(iWishlist));
 		console.log(localStorage.iWishlist);
 	}
@@ -37,10 +43,11 @@ async function requestToSever(page, body, method='POST', cFunction=null)  {
 	}
 
 	function isInWishlist(vId) {
+		
 		return iWishlist.has(vId) ? true : false;
 	}
 
-	function addToWishlist(pId, vId, qty=1, catId=0) {
+	function addToWishlist(pId, vId, qty=1, catId=0, openCart) {
 		
 		if(!isInWishlist(vId)) {
 			iWishlist.set(vId, qty);
@@ -48,9 +55,10 @@ async function requestToSever(page, body, method='POST', cFunction=null)  {
 			console.log(iWishCust);
 			if(iWishCust>0) {
 				let data = "customer_id="+iWishCust+"&product_id="+pId+"&variant_id="+vId+"&product_qty="+qty+"&category_id="+catId;
-				return requestToSever("addToWishlist", 'POST', data);
+				return requestToSever("addToWishlist", data,'POST');
 			}
 		}
+		openCart;
 	}
 
 	function removeFromWishlist(pId, vId, catId=null) {
@@ -60,14 +68,15 @@ async function requestToSever(page, body, method='POST', cFunction=null)  {
 				
 			if(iWishCust>0) {
 				let data = "customer_id="+iWishCust+"&product_id="+pId+"&variant_id="+vId+"&category_id="+catId;
-				return requestToSever("removeWishlist", 'POST', data);
+				return requestToSever("removeWishlist", data,'POST');
 			}
 		}
 	}
 
-	function fetchWishlist(limit=10, page=1, catId=null) {
-		if(iWishCust>0) {
-			let data = "category_id="+catId;
-			return requestToSever("fetchWishlistData/"+iWishCust+"&limit="+limit+"&page="+page, 'POST', data);
-		}
+	 function fetchWishlist(limit=10, page=1, catId=null) {
+	
+	if(iWishCust>0) {
+		let data = catId!=null ? "category_id="+catId : '';
+		return requestToSever("fetchWishlistData/"+iWishCust+"?page="+page+"&limit="+limit, data,'POST');
 	}
+}

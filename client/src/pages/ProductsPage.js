@@ -8,36 +8,17 @@ const ProductsPage = ({ product,openCart }) => {
    const{state : {cart , iWishList}} = useWishlistContext();
 
   const [showModal, setShowModal] = useState(false);
-const[warning, setWarning] = useState(false)
-
-  //const handleClose = () => {setShowModal(false)};
-  
-//     const addToWishlist = (product) => {
-//         const isExistItem = cart.find((item) => item.id === product.id)
-//         dispatch({type:'ADD_TO_WISHLIST', payload:product});
-//         //console.log(product.variant.id)
-//         openCart();
-//         if(isExistItem){
-//             setWarning(true)
-//         }
-        
-//         setTimeout(() => {
-//             setShowModal(false);
-//             setWarning(false)
-//         },2000)
-// }
-  //console.log('productpage', cart)
+  const[warning, setWarning] = useState(false)
 
     useEffect(() => {
       localStorage.setItem('Wishlist', JSON.stringify(cart));
       localStorage.setItem('iWishlist', JSON.stringify(iWishList))
     },[cart, iWishList])
-//console.log(iWishList)
+
   return (
     <>
     {
       warning &&
-      // <div className="warning">The product is already added to your wishlist</div>
       <ToastContainer position="top-start">
       <Toast className="d-inline-block m-1"
         bg='warning'>
@@ -55,6 +36,7 @@ const[warning, setWarning] = useState(false)
               gridTemplateColumns: "repeat(2, auto)",
               padding: "1rem",
               backgroundColor: "#F1F1F0",
+              gap:'20px'
             }}
           >
             <img
@@ -75,9 +57,7 @@ const[warning, setWarning] = useState(false)
                 alignItems: "center",
               }}
             >
-           
-             {/* <i className="fa-regular fa-heart fa-lg" onClick={()  => setShowModal(true)}></i>*/}
-             <i className="fa-regular fa-heart fa-lg" onClick={()  => window.addToWishlist(32195848503330, 32195832545314)}></i>
+             <i className="fa-regular fa-heart fa-lg" onClick={()  => window.addToWishlist(product.id, product.variant.id, openCart())}></i>
 
               {cart.lenght > 8 && (
                 <div
@@ -108,10 +88,7 @@ const[warning, setWarning] = useState(false)
         </Col>
        
       </Row>
-    {/*}  { showModal &&
-       <AddToCartModal handleClose={handleClose} setWarning={setWarning} showModal={showModal} setShowModal={setShowModal} product={product}/>
-     }*/}
-      
+   
     </>
   );
 };
