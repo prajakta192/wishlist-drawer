@@ -2,19 +2,17 @@ import React, {useState, useMemo} from 'react'
 import {Row, Col, Button, Dropdown} from 'react-bootstrap'
 import ProductPagination from './ProductPagination';
 import SocialMediaIcons from './SocialMediaIcons';
-import {useWishlistContext} from '../context/ProductContext'
 import { BiTransfer} from "react-icons/bi";
 import {AiOutlineShoppingCart} from 'react-icons/ai'
 import {RiDeleteBin5Line} from 'react-icons/ri'
 
-const WishlistProducts = ({ isLoggedIn, iWishListData}) => {
-  const{state:{cart}, dispatch} = useWishlistContext()
+const WishlistProducts = ({ isLoggedIn, products}) => {
 	const[State, setCartHandler] = useState({
     cartState : true,
     cartIndex : "0"
   }
     );
-//console.log(iWishListData)
+//console.log(products)
     const [transferPrdctState, setTrnsferPrdctState] = useState({
       productState : false,
       productIndex : 0
@@ -25,7 +23,7 @@ const WishlistProducts = ({ isLoggedIn, iWishListData}) => {
     const currentWishListData = useMemo(() => {
       const firstPageIndex = (currentPage - 1) * pageSize;
       const lastPageIndex = firstPageIndex + pageSize;
-      return cart.slice(firstPageIndex, lastPageIndex);
+      return products.slice(firstPageIndex, lastPageIndex);
     }, [pageSize, currentPage]);
 
   
@@ -46,13 +44,12 @@ function transferProductHandler(id){
 }
 
 function deleteProduct(product){
-  dispatch({type:"REMOVE_PRODUCT", payload:product})
+  //dispatch({type:"REMOVE_PRODUCT", payload:product})
 }
-//console.log(cart);
-//console.log(currentWishListData)
+
 	return(
 <>
-        {pageSize >= 10 && currentWishListData.map((product,id,index) => (
+        {currentWishListData.map((product,id,index) => (
              <Row style={{borderBottom:'1px solid rgb(245,245,244',position:'relative'}} className='pb-2 mb-3' key={id}>
             <Col sm={2} className='p-1'>
               <img src={product.featuredImage} alt={product.title} />
@@ -69,7 +66,7 @@ function deleteProduct(product){
                   </Row>
                 </Col>
                  <Col sm={2}>
-                  <span className='fs-5'  onClick={() => deleteProduct(product)}>
+                  <span className='fs-5'  onClick={() => window.removeFromWishlist(product.id, product.variant.id)}>
                    <RiDeleteBin5Line/>
                   </span>
                 </Col>
@@ -166,7 +163,7 @@ function deleteProduct(product){
         <ProductPagination
         className="pagination-bar"
         currentPage={currentPage}
-        totalCount={cart.length}
+        totalCount={products.length}
         pageSize={pageSize}
         onPageChange={page => setCurrentPage(page)}
       />

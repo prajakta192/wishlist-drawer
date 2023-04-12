@@ -1,19 +1,12 @@
 import React, { useState,useEffect } from "react";
 import { Row, Col, Button, ToastContainer, Toast } from "react-bootstrap";
-import {useWishlistContext} from '../context/ProductContext'
+
 
 
 
 const ProductsPage = ({ product,openCart }) => {
-   const{state : {cart , iWishList}} = useWishlistContext();
-
-  const [showModal, setShowModal] = useState(false);
+  //const [showModal, setShowModal] = useState(false);
   const[warning, setWarning] = useState(false)
-
-    useEffect(() => {
-      localStorage.setItem('Wishlist', JSON.stringify(cart));
-      localStorage.setItem('iWishlist', JSON.stringify(iWishList))
-    },[cart, iWishList])
 
   return (
     <>
@@ -59,7 +52,7 @@ const ProductsPage = ({ product,openCart }) => {
             >
              <i className="fa-regular fa-heart fa-lg" onClick={()  => window.addToWishlist(product.id, product.variant.id, openCart())}></i>
 
-              {cart.lenght > 8 && (
+              {product.lenght > 8 && (
                 <div
                   className="rounded-circle bg-dark d-flex justify-content-center align-items-center"
                   style={{
@@ -74,7 +67,7 @@ const ProductsPage = ({ product,openCart }) => {
                     transform: "translate(25%, 25%)",
                   }}
                 >
-                  {cart.length}
+                  {product.length}
                 </div>
                 
               )}

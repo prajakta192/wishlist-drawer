@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Button, Container, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import {useWishlistContext} from '../context/ProductContext'
 
 const Header = ({ openCart }) => {
- const {state:{cart}} = useWishlistContext()
-//console.log(cart);
+ 
 
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
   //console.log(innerWidth)

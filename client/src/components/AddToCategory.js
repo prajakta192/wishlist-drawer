@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Button, Col, Dropdown, Row, Toast, ToastContainer } from "react-bootstrap";
-import {useWishlistContext} from '../context/ProductContext'
 // import {BiPlus} from 'react-icons/bi'
 import {IconName} from 'react-icons/io'
 import{BiPlusCircle, BiXCircle} from 'react-icons/bi'
 
-  const AddToCategory = ({ isLoggedIn,closeCart }) => {
- const{state:{cart}} = useWishlistContext()
+  const AddToCategory = ({ isLoggedIn,closeCart,products }) => {
+ 
   const [showCategory, setShowCategory] = useState(false);
    
 
@@ -118,7 +117,7 @@ const category_name = localStorage.getItem('category_name');
           <div>
             <strong style={{ fontSize: "14px" }}>
               My Wishlist (
-              {cart.length})
+              {products.length})
             </strong>
           </div>
         </Col>
@@ -157,7 +156,7 @@ const category_name = localStorage.getItem('category_name');
                   <li key={category.id} id={index} className={`${!getCurState(index)}`}>
                     
                     <Row>
-                      <Col sm={10}>
+                      <Col sm={9}>
                         {/* <span>{category.id} </span> */}
                        {!getCurState(index) ? (<span onClick={() => dropDownHandler(category.title)} style={{cursor:'pointer'}} >{category.title}</span>):
                        (<input type='text' className='editCat' value={category.title} onChange={(e) => catNameChange(e.target.value, category.id)}/>)

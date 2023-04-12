@@ -4,12 +4,10 @@ import { Link } from "react-router-dom";
 import EmptyWishlistComponent from '../components/EmptyWishlistComponent'
 import WishlistProducts from '../components/WishlistProducts'
 import AddToCategory from "../components/AddToCategory";
-import {useWishlistContext} from '../context/ProductContext'
 import "../styles/wishlistdrawer.css";
 
-const WishlistDrawerPage = ({ isOpen, closeCart, iWishListData}) => {
+const WishlistDrawerPage = ({ isOpen, closeCart, products}) => {
   const isLoggedIn = true;
-  const{state:{cart}} = useWishlistContext()
 
   return (
     <>
@@ -17,11 +15,8 @@ const WishlistDrawerPage = ({ isOpen, closeCart, iWishListData}) => {
         <header className="customCanavasHeader">
           <Offcanvas.Header style={{ cursor: "pointer" }}>
             <Offcanvas.Title>
-             
-              <AddToCategory closeCart={closeCart} isLoggedIn={isLoggedIn}/>
-          
+              <AddToCategory closeCart={closeCart} isLoggedIn={isLoggedIn} products={products}/>
             </Offcanvas.Title>
-
           </Offcanvas.Header>
           {!isLoggedIn && (
             <Row className='mx-1 mb-2'>
@@ -34,12 +29,11 @@ const WishlistDrawerPage = ({ isOpen, closeCart, iWishListData}) => {
           )}
         </header>
         <Offcanvas.Body>
-          {cart.length <= 0 && (
+          {products.length <= 0 && (
           <EmptyWishlistComponent closeCart={closeCart}/>
           )
         }
-       <WishlistProducts isLoggedIn={isLoggedIn} iWishListData={iWishListData}/>
-        
+          <WishlistProducts isLoggedIn={isLoggedIn} products={products}/>
         </Offcanvas.Body>
       </Offcanvas>
     </>

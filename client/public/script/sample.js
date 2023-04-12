@@ -1,14 +1,11 @@
 
-
-
-
 const iWishUrl = "https://api.myshopapps.com/iwish/V1";
 var iWishlist = localStorage.iWishlist ? new Map(JSON.parse(localStorage.iWishlist)) : new Map();
 var iWishCust = parseInt(window.iwish_cid);
 async function requestToSever(page, body, method='POST')  {
-	
+	debugger;
 	const url = iWishUrl+"/"+page;
-	//console.log(url)
+	console.log(url)
 	//console.log(new URLSearchParams(body));
 	const options = {
 		method: method,
@@ -26,14 +23,15 @@ async function requestToSever(page, body, method='POST')  {
 		return error;
 	}
 }
- function getWishlist(){
- 	debugger;
+ 	function getWishlist(){
+ 		debugger;
 		return JSON.parse(iWishlist);
  		console.log(JSON.parse(iWishlist))
-	}
+}
 
 
 	function setWishlist() {
+		debugger;
 		localStorage.iWishlist = JSON.stringify(Array.from(iWishlist));
 		console.log(localStorage.iWishlist);
 	}
@@ -45,7 +43,7 @@ async function requestToSever(page, body, method='POST')  {
 	function isInWishlist(vId) {
 		
 		return iWishlist.has(vId) ? true : false;
-	}
+}
 
 	function addToWishlist(pId, vId, qty=1, catId=0, openCart) {
 		
@@ -57,26 +55,30 @@ async function requestToSever(page, body, method='POST')  {
 			if(iWishCust>0) {
 				let data = "customer_id="+iWishCust+"&product_id="+pId+"&variant_id="+vId+"&product_qty="+qty+"&category_id="+catId;
 				return requestToSever("addToWishlist", data,'POST');
+				
 			}
 		}
 		openCart;
 
-	}
+}
 
-	function removeFromWishlist(pId, vId, catId=null) {
+	function removeFromWishlist(pId, vId, catId=0) {
+		debugger;
 		if(isInWishlist(vId)) {
 			iWishlist.delete(vId);
 			setWishlist(); // update storage
-				
+			
 			if(iWishCust>0) {
 				let data = "customer_id="+iWishCust+"&product_id="+pId+"&variant_id="+vId+"&category_id="+catId;
 				return requestToSever("removeWishlist", data,'POST');
-			}
+				}
+				console.log(data)
 		}
+		
 	}
 
-	 function fetchWishlist(limit=10, page=1, catId=null) {
-	
+	function fetchWishlist(limit=10, page=1, catId=null) {
+		debugger;
 	if(iWishCust>0) {
 		let data = catId!=null ? "category_id="+catId : '';
 		return requestToSever("fetchWishlistData/"+iWishCust+"?page="+page+"&limit="+limit, data,'POST');
@@ -86,19 +88,19 @@ async function requestToSever(page, body, method='POST')  {
 	function fetchCategory() {
 		let data = "";
 		return requestToSever("fetchCategory/"+iWishCust, data, 'POST');
-	}
+}
 
 	function addCategory(catName) {
 		let data = "category_name="+catName;
 		return requestToSever("addCategory/"+iWishCust, data, 'POST');
-	}
+}
 
 	function updateCategory(catId, catName) {
 		let data = "category_id="+catId+"&category_name="+catName;
 		return requestToSever("updateCategory/"+iWishCust, data, 'POST');
-	}
+}
 
 	function removeCategory(catId) {
 		let data = "category_id="+catId;
 		return requestToSever("removeCategory/"+iWishCust, data, 'POST');
-	}
+}
