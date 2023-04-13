@@ -28,7 +28,8 @@ fetchWishlistData()
     const [isOpen, setIsOpen] = useState(false);
     const openCart = () => {
         setIsOpen(true);
-        fetchWishlistData()
+        fetchWishlistData();
+        window.fetchCategory()
     }
     const closeCart = () => {
         setIsOpen(false)

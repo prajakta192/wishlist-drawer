@@ -9,18 +9,20 @@ import{BiPlusCircle, BiXCircle} from 'react-icons/bi'
   const [showCategory, setShowCategory] = useState(false);
    
 
-  const addToCategory = () => {
-    setShowCategory((prevCategory) => !prevCategory);
-    //console.log(showCategory);
-  };
+  
   //category state
   const initialDropVal = 'Main Wishlist';
   const [categories, setCategories] = useState([]);
-  const[isEdit, setIsEdit] = useState({id: 0, status:false, index:-1});
+  const[isEdit, setIsEdit] = useState({id: 0, status:false, index:0});
   const [newCategory, setNewCategory] = useState('');
   const[successMsg, setSuccessMsg] = useState('');
   const[curDropItem, setCurDropItem] = useState(initialDropVal);
 
+  const addToCategory = () => {
+    setShowCategory((prevCategory) => !prevCategory);
+    window.addCategory(curDropItem)
+    //console.log(showCategory);
+  };
 // add new category
   const saveToCategory = () => {
     let newId;
@@ -53,7 +55,8 @@ import{BiPlusCircle, BiXCircle} from 'react-icons/bi'
     )
     }
 const getCurState = (index) => {
-  if(!isEdit.status){
+  //debugger;
+  if(isEdit.status){
     if(isEdit.index === index){
       return true;
     }
@@ -63,6 +66,7 @@ const getCurState = (index) => {
   }
 }
 const editCat = (index,name) => {
+  //debugger;
   setIsEdit(
    {status: !isEdit.status,index:index}
 )
@@ -73,6 +77,7 @@ const editCat = (index,name) => {
 const deleteCategory = (id) => {
   let newCategory = categories.filter(category => category.id !== id);
   setCategories(newCategory);
+  window.removeCategory(id)
 }
 
 //handling drop down item
@@ -84,20 +89,13 @@ const dropDownHandler = (curdropItem) => {
 const initialDropValue = () =>{
  setCurDropItem(initialDropVal)
 }
-const saveCat = (cat_id, index) => {
- setIsEdit(
-  {status: !isEdit.status, index: index }
-  );
-  console.log(index,isEdit.index)
-//   if(index=== isEdit.index){
-//   let isNameExist = categories.filter((item) => {
-//     console.log(item.title,catName);
-//     return item.name == catName;
- 
-//   })
+// const saveCat = (cat_id, index) => {
+//  setIsEdit(
+//   {status: !isEdit.status, index: index }
+//   );
+//   console.log(index,isEdit.index)
+
 // }
- 
-}
 
 const category_name = localStorage.getItem('category_name');
   return (
@@ -156,19 +154,19 @@ const category_name = localStorage.getItem('category_name');
                   <li key={category.id} id={index} className={`${!getCurState(index)}`}>
                     
                     <Row>
-                      <Col sm={9}>
+                      <Col sm={10}>
                         {/* <span>{category.id} </span> */}
                        {!getCurState(index) ? (<span onClick={() => dropDownHandler(category.title)} style={{cursor:'pointer'}} >{category.title}</span>):
                        (<input type='text' className='editCat' value={category.title} onChange={(e) => catNameChange(e.target.value, category.id)}/>)
                        }
                       </Col>
-                      <Col sm={1}>
+                      <Col sm={1} className='p-0'>
                         {!getCurState(index)?
-                        <img alt="trash" className="trash-btn" onClick={()=>editCat(index,category.title)}  src="https://s3.amazonaws.com/cdn.myshopapps.com/iwish/drawer/editCat.svg" /> : <img alt="trash" className="trash-btn" onClick={()=>saveCat(category.id, index )}  src="https://s3.amazonaws.com/cdn.myshopapps.com/iwish/drawer/saveCat.svg" />}
+                        <img alt="trash" className="trash-btn" onClick={()=>editCat(index,category.title)}  src="https://s3.amazonaws.com/cdn.myshopapps.com/iwish/drawer/editCat.svg" /> : <img alt="trash" className="trash-btn" onClick={()=>editCat(category.id, index )}  src="https://s3.amazonaws.com/cdn.myshopapps.com/iwish/drawer/saveCat.svg" />}
                         
                         {/*<img alt="trash" class="trash-btn" src="https://s3.amazonaws.com/cdn.myshopapps.com/iwish/drawer/saveCat.svg"/>*/}
                       </Col>
-                      <Col sm={1} onClick={() => deleteCategory(category.id)}>
+                      <Col sm={1} className='p-0' onClick={() => deleteCategory(category.id)}>
                         <img
                           alt="delete"
                           className="trash-btn"
