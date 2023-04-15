@@ -1,20 +1,20 @@
 
-import React, {useEffect, useState,useReducer} from 'react'
+import React, {useEffect, useState} from 'react'
 import Header from './components/Header';
 import ProductsPage from './pages/ProductsPage';
 import WishlistDrawerPage from './pages/WishlistDrawerPage';
-import {Container,Button} from 'react-bootstrap'
-import{useWishlistContext} from './context/ProductContext'
+import {Container} from 'react-bootstrap'
+// import{useWishlistContext} from './context/ProductContext'
 
 
 function App() {
-    const{state : {iWishList}} = useWishlistContext();
+    //const{state : {iWishList}} = useWishlistContext();
     const[products, setProducts] = useState([])
 
 async function fetchWishlistData() {
-    const res = await window.fetchWishlist(10,1,0)
+    const res = await window.fetchWishlist(10,1)
     const data = await res.result
-    //console.log(data)
+    console.log(data)
     setProducts(data)
 }
 

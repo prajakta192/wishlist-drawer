@@ -15,7 +15,7 @@ async function requestToSever(page, body, method='POST')  {
 	try {
 		const response = await fetch(url, options);
 		const data =  await response.json();
-		//console.log(data.result);
+		console.log(url, data);
 		return data;
 		
 	} catch (error) {
@@ -45,7 +45,7 @@ async function requestToSever(page, body, method='POST')  {
 		return iWishlist.has(vId) ? true : false;
 }
 
-	function addToWishlist(pId, vId, qty=1, catId=0, openCart) {
+	function addToWishlist(pId, vId, qty=1, catId=null, openCart) {
 		
 		if(!isInWishlist(vId)) {
 			iWishlist.set(vId, qty);
@@ -61,7 +61,7 @@ async function requestToSever(page, body, method='POST')  {
 		openCart;
 }
 
-	function removeFromWishlist(pId, vId, catId=0) {
+	function removeFromWishlist(pId, vId, catId=null) {
 		//debugger;
 		if(isInWishlist(vId)) {
 			iWishlist.delete(vId);
@@ -98,6 +98,7 @@ async function requestToSever(page, body, method='POST')  {
 }
 
 	function updateCategory(catId, catName) {
+		console.log(catId, catName)
 		let data = "category_id="+catId+"&category_name="+catName;
 		return requestToSever("updateCategory/"+iWishCust, data, 'POST');
 }
@@ -107,3 +108,8 @@ async function requestToSever(page, body, method='POST')  {
 		let data = "category_id="+catId;
 		return requestToSever("removeCategory/"+iWishCust, data, 'POST');
 }
+
+
+  
+  
+ 

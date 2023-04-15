@@ -20,7 +20,7 @@ import{BiPlusCircle, BiXCircle} from 'react-icons/bi'
 
   const addToCategory = () => {
     setShowCategory((prevCategory) => !prevCategory);
-    window.addCategory(curDropItem)
+    //window.addCategory(curDropItem)
     //console.log(showCategory);
   };
 // add new category
@@ -35,7 +35,8 @@ import{BiPlusCircle, BiXCircle} from 'react-icons/bi'
         setTimeout(() => {
          setSuccessMsg('');
         }, 2000);
-        setShowCategory(false)
+        setShowCategory(false);
+        window.addCategory(newCategory)
     }
     localStorage.setItem('category_id',newId);
     localStorage.setItem('category_name', newCategory);
@@ -44,6 +45,7 @@ import{BiPlusCircle, BiXCircle} from 'react-icons/bi'
   //let catName;
   const catNameChange = (updatedTitle, id) => {
     console.log(updatedTitle, id);
+    window.updateCategory(updatedTitle, id)
     setCategories(
       categories.map((item) => {
         if(item.id === id){
@@ -75,8 +77,8 @@ const editCat = (index,name) => {
 }
 // delete category
 const deleteCategory = (id) => {
-  let newCategory = categories.filter(category => category.id !== id);
-  setCategories(newCategory);
+  //let newCategory = categories.filter(category => category.id !== id);
+  //setCategories(newCategory);
   window.removeCategory(id)
 }
 
