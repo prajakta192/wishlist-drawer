@@ -8,11 +8,8 @@ import{BiPlusCircle, BiXCircle} from 'react-icons/bi'
  
   const [showCategory, setShowCategory] = useState(false);
    
-
-  
   //category state
   const initialDropVal = 'Main Wishlist';
-  //const [categories, setCategories] = useState([]);
   const[isEdit, setIsEdit] = useState({id: 0, status:false, index:0});
   const [newCategory, setNewCategory] = useState('');
   const[successMsg, setSuccessMsg] = useState('');
@@ -20,9 +17,8 @@ import{BiPlusCircle, BiXCircle} from 'react-icons/bi'
 
   const addToCategory = () => {
     setShowCategory((prevCategory) => !prevCategory);
-    //window.addCategory(curDropItem)
-    //console.log(showCategory);
   };
+
 // add new category
   const saveToCategory = () => {
     let newId;
@@ -42,21 +38,25 @@ import{BiPlusCircle, BiXCircle} from 'react-icons/bi'
     localStorage.setItem('category_name', newCategory);
     localStorage.setItem('categories', JSON.stringify(categories))
   };
-  //let catName;
-  const catNameChange = (updatedTitle, id) => {
+
+  //change category name
+  const catNameChange = (id, updatedTitle) => {
     debugger;
     console.log(updatedTitle, id);
-    window.updateCategory(id,updatedTitle)
+   
     setCategories(
       categories.map((item) => {
         if(item.category_id === id){
           item.category_name = updatedTitle
           localStorage.setItem('category_name', updatedTitle);
+           window.updateCategory(id,updatedTitle)
         }
         return item
+
       })
     )
     }
+
 const getCurState = (index) => {
   //debugger;
   if(isEdit.status){
@@ -68,6 +68,8 @@ const getCurState = (index) => {
     }
   }
 }
+
+//edit category
 const editCat = (index,name) => {
   debugger;
   setIsEdit(
@@ -76,15 +78,15 @@ const editCat = (index,name) => {
   console.log('edit',isEdit.index, 'index',index,'status',isEdit.status);
   localStorage.setItem('category_name', name)
 }
+
 // delete category
 const deleteCategory = (id) => {
-  //let newCategory = categories.filter(category => category.id !== id);
-  //setCategories(newCategory);
   window.removeCategory(id)
 }
 
 //handling drop down item
 const dropDownHandler = (curdropItem) => {
+  debugger;
   console.log(curdropItem);
   setCurDropItem(curdropItem)
   
@@ -92,15 +94,8 @@ const dropDownHandler = (curdropItem) => {
 const initialDropValue = () =>{
  setCurDropItem(initialDropVal)
 }
-// const saveCat = (cat_id, index) => {
-//  setIsEdit(
-//   {status: !isEdit.status, index: index }
-//   );
-//   console.log(index,isEdit.index)
-
-// }
-
 const categoryName = localStorage.getItem('category_name');
+
   return (
     
     <>
@@ -142,30 +137,27 @@ const categoryName = localStorage.getItem('category_name');
                 { curDropItem }
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                 <ul>
-                  <li>
-                    <Row>
-                    <Col sm={10}>
-                      <span style={{cursor:'pointer'}} onClick={initialDropValue}>Main Wishlist</span>
-                      </Col>
-                    </Row>
-                  </li>
-                </ul> 
               <ul className={categories.length === 0 ? 'display-n':'display-b'}> 
                 {categories && categories.map((category,index) => (
 
                   <li key={index} id={index} className={`${!getCurState(index)}`}>
-                    
+                  {category.category_name === 'Main Wishlist' && 
+                   <Col sm={10}>
+                      <span style={{cursor:'pointer'}} onClick={initialDropValue}>Main Wishlist</span>
+                  </Col>
+                }
+                  {category.category_name !== 'Main Wishlist' &&
+                  <>
                     <Row>
                       <Col sm={10}>
                         {/* <span>{category.id} </span> */}
                        {!getCurState(index) ? (<span onClick={() => dropDownHandler(category.category_name)} style={{cursor:'pointer'}} >{category.category_name}</span>):
-                       (<input type='text' className='editCat' value={category.category_name} onChange={(e) => catNameChange(e.target.value, category.category_id)}/>)
+                       (<input type='text' className='editCat' value={category.category_name} onChange={(e) => catNameChange(category.category_id, e.target.value)}/>)
                        }
                       </Col>
                       <Col sm={1} className='p-0'>
                         {!getCurState(index)?
-                        <img alt="trash" className="trash-btn" onClick={()=>editCat(index,category.category_name)}  src="https://s3.amazonaws.com/cdn.myshopapps.com/iwish/drawer/editCat.svg" /> : <img alt="trash" className="trash-btn" onClick={()=>editCat(category.category_id, index )}  src="https://s3.amazonaws.com/cdn.myshopapps.com/iwish/drawer/saveCat.svg" />}
+                        <img alt="trash" className="trash-btn" onClick={()=>editCat(index,category.category_name)}  src="https://s3.amazonaws.com/cdn.myshopapps.com/iwish/drawer/editCat.svg" /> : <img alt="trash" className="trash-btn" onClick={()=>editCat(index,category.category_name)}  src="https://s3.amazonaws.com/cdn.myshopapps.com/iwish/drawer/saveCat.svg" />}
                         
                         {/*<img alt="trash" class="trash-btn" src="https://s3.amazonaws.com/cdn.myshopapps.com/iwish/drawer/saveCat.svg"/>*/}
                       </Col>
@@ -177,6 +169,8 @@ const categoryName = localStorage.getItem('category_name');
                         />
                       </Col>
                     </Row>
+                    </>
+                  }
                   </li>
                 ))}
                 </ul>

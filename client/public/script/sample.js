@@ -3,7 +3,7 @@ const iWishUrl = "https://api.myshopapps.com/iwish/V1";
 var iWishlist = localStorage.iWishlist ? new Map(JSON.parse(localStorage.iWishlist)) : new Map();
 var iWishCust = parseInt(window.iwish_cid);
 async function requestToSever(page, body, method='POST')  {
-	//debugger;
+	debugger;
 	const url = iWishUrl+"/"+page;
 	//console.log(url)
 	//console.log(new URLSearchParams(body));
