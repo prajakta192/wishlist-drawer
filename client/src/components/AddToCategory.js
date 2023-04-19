@@ -4,7 +4,7 @@ import { Button, Col, Dropdown, Row, Toast, ToastContainer } from "react-bootstr
 import {IconName} from 'react-icons/io'
 import{BiPlusCircle, BiXCircle} from 'react-icons/bi'
 
-  const AddToCategory = ({ isLoggedIn,closeCart,products }) => {
+  const AddToCategory = ({ isLoggedIn,closeCart,products,setCategories,categories }) => {
  
   const [showCategory, setShowCategory] = useState(false);
    
@@ -12,7 +12,7 @@ import{BiPlusCircle, BiXCircle} from 'react-icons/bi'
   
   //category state
   const initialDropVal = 'Main Wishlist';
-  const [categories, setCategories] = useState([]);
+  //const [categories, setCategories] = useState([]);
   const[isEdit, setIsEdit] = useState({id: 0, status:false, index:0});
   const [newCategory, setNewCategory] = useState('');
   const[successMsg, setSuccessMsg] = useState('');
@@ -28,7 +28,7 @@ import{BiPlusCircle, BiXCircle} from 'react-icons/bi'
     let newId;
   if(newCategory){
         newId = categories.length + 1;
-        let newCatEntry = {id : newId, title:newCategory, status:false}
+        let newCatEntry = {category_id : newId, category_name:newCategory, status:false}
         setCategories([...categories, newCatEntry])
         setNewCategory('');
         setSuccessMsg('Category saved successfully');
@@ -44,12 +44,13 @@ import{BiPlusCircle, BiXCircle} from 'react-icons/bi'
   };
   //let catName;
   const catNameChange = (updatedTitle, id) => {
+    debugger;
     console.log(updatedTitle, id);
-    window.updateCategory(updatedTitle, id)
+    window.updateCategory(id,updatedTitle)
     setCategories(
       categories.map((item) => {
-        if(item.id === id){
-          item.title = updatedTitle
+        if(item.category_id === id){
+          item.category_name = updatedTitle
           localStorage.setItem('category_name', updatedTitle);
         }
         return item
@@ -68,7 +69,7 @@ const getCurState = (index) => {
   }
 }
 const editCat = (index,name) => {
-  //debugger;
+  debugger;
   setIsEdit(
    {status: !isEdit.status,index:index}
 )
@@ -99,7 +100,7 @@ const initialDropValue = () =>{
 
 // }
 
-const category_name = localStorage.getItem('category_name');
+const categoryName = localStorage.getItem('category_name');
   return (
     
     <>
@@ -153,22 +154,22 @@ const category_name = localStorage.getItem('category_name');
               <ul className={categories.length === 0 ? 'display-n':'display-b'}> 
                 {categories && categories.map((category,index) => (
 
-                  <li key={category.id} id={index} className={`${!getCurState(index)}`}>
+                  <li key={index} id={index} className={`${!getCurState(index)}`}>
                     
                     <Row>
                       <Col sm={10}>
                         {/* <span>{category.id} </span> */}
-                       {!getCurState(index) ? (<span onClick={() => dropDownHandler(category.title)} style={{cursor:'pointer'}} >{category.title}</span>):
-                       (<input type='text' className='editCat' value={category.title} onChange={(e) => catNameChange(e.target.value, category.id)}/>)
+                       {!getCurState(index) ? (<span onClick={() => dropDownHandler(category.category_name)} style={{cursor:'pointer'}} >{category.category_name}</span>):
+                       (<input type='text' className='editCat' value={category.category_name} onChange={(e) => catNameChange(e.target.value, category.category_id)}/>)
                        }
                       </Col>
                       <Col sm={1} className='p-0'>
                         {!getCurState(index)?
-                        <img alt="trash" className="trash-btn" onClick={()=>editCat(index,category.title)}  src="https://s3.amazonaws.com/cdn.myshopapps.com/iwish/drawer/editCat.svg" /> : <img alt="trash" className="trash-btn" onClick={()=>editCat(category.id, index )}  src="https://s3.amazonaws.com/cdn.myshopapps.com/iwish/drawer/saveCat.svg" />}
+                        <img alt="trash" className="trash-btn" onClick={()=>editCat(index,category.category_name)}  src="https://s3.amazonaws.com/cdn.myshopapps.com/iwish/drawer/editCat.svg" /> : <img alt="trash" className="trash-btn" onClick={()=>editCat(category.category_id, index )}  src="https://s3.amazonaws.com/cdn.myshopapps.com/iwish/drawer/saveCat.svg" />}
                         
                         {/*<img alt="trash" class="trash-btn" src="https://s3.amazonaws.com/cdn.myshopapps.com/iwish/drawer/saveCat.svg"/>*/}
                       </Col>
-                      <Col sm={1} className='p-0' onClick={() => deleteCategory(category.id)}>
+                      <Col sm={1} className='p-0' onClick={() => deleteCategory(category.category_id)}>
                         <img
                           alt="delete"
                           className="trash-btn"

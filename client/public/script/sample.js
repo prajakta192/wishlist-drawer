@@ -3,9 +3,9 @@ const iWishUrl = "https://api.myshopapps.com/iwish/V1";
 var iWishlist = localStorage.iWishlist ? new Map(JSON.parse(localStorage.iWishlist)) : new Map();
 var iWishCust = parseInt(window.iwish_cid);
 async function requestToSever(page, body, method='POST')  {
-	debugger;
+	//debugger;
 	const url = iWishUrl+"/"+page;
-	console.log(url)
+	//console.log(url)
 	//console.log(new URLSearchParams(body));
 	const options = {
 		method: method,
@@ -26,14 +26,14 @@ async function requestToSever(page, body, method='POST')  {
  	function getWishlist(){
  		//debugger;
 		return JSON.parse(iWishlist);
- 		console.log(JSON.parse(iWishlist))
+ 		//console.log(JSON.parse(iWishlist))
 }
 
 
 	function setWishlist() {
 		//debugger;
 		localStorage.iWishlist = JSON.stringify(Array.from(iWishlist));
-		console.log(localStorage.iWishlist);
+		//console.log(localStorage.iWishlist);
 	}
 
 	function getCounter() {
@@ -71,7 +71,7 @@ async function requestToSever(page, body, method='POST')  {
 				let data = "customer_id="+iWishCust+"&product_id="+pId+"&variant_id="+vId+"&category_id="+catId;
 				return requestToSever("removeWishlist", data,'POST');
 				}
-				console.log(data)
+				//console.log(data)
 		}
 		
 	}
@@ -98,6 +98,7 @@ async function requestToSever(page, body, method='POST')  {
 }
 
 	function updateCategory(catId, catName) {
+		debugger;
 		console.log(catId, catName)
 		let data = "category_id="+catId+"&category_name="+catName;
 		return requestToSever("updateCategory/"+iWishCust, data, 'POST');

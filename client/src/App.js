@@ -10,16 +10,54 @@ import {Container} from 'react-bootstrap'
 function App() {
     //const{state : {iWishList}} = useWishlistContext();
     const[products, setProducts] = useState([])
-
+    const[categories, setCategories] = useState([])
 async function fetchWishlistData() {
     const res = await window.fetchWishlist(10,1)
     const data = await res.result
-    console.log(data)
+    //console.log(data)
     setProducts(data)
 }
+ 
+//   function groupBy(array, property) {
+//     debugger;
+//     const arr = [];
+// array.reduce((acc, curr) => {
+//   if(acc.indexOf(curr.position) === -1) {
+//     acc.push(curr.position);
+//     arr.push(curr);
+//   }
+//   return arr;
+// }, [])
+
+// console.log(arr)
+// }
+
+
+async function fetchCategoryData() {
+    debugger;
+    const res = await window.fetchCategory();
+    const catData = res.result;
+
+    const arr = [];
+    catData.reduce((acc, curr) => {
+        debugger;
+  if(acc.indexOf(curr.category_name) === -1) {
+    acc.push(curr.category_name);
+    arr.push(curr);
+  }
+  return acc;
+}, [])
+    
+    setCategories(arr)
+}
+ 
+ 
+console.log(categories)
+
 
 useEffect( () => {
-fetchWishlistData()
+fetchWishlistData();
+
  }, [])
 
 //console.log('product',products)
@@ -29,7 +67,7 @@ fetchWishlistData()
     const openCart = () => {
         setIsOpen(true);
         fetchWishlistData();
-        window.fetchCategory()
+        fetchCategoryData()
     }
     const closeCart = () => {
         setIsOpen(false)
@@ -48,7 +86,7 @@ fetchWishlistData()
      }
     
        </section>
-      <WishlistDrawerPage isOpen={isOpen} closeCart={closeCart} products={products}/>  
+      <WishlistDrawerPage  categories={categories} setCategories={setCategories} isOpen={isOpen} closeCart={closeCart} products={products}/>  
       <div>
       
       </div>

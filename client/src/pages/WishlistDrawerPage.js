@@ -6,7 +6,7 @@ import WishlistProducts from '../components/WishlistProducts'
 import AddToCategory from "../components/AddToCategory";
 import "../styles/wishlistdrawer.css";
 
-const WishlistDrawerPage = ({ isOpen, closeCart, products}) => {
+const WishlistDrawerPage = ({ isOpen, closeCart, products,setCategories,categories}) => {
   const isLoggedIn = true;
 
   return (
@@ -15,7 +15,7 @@ const WishlistDrawerPage = ({ isOpen, closeCart, products}) => {
         <header className="customCanavasHeader">
           <Offcanvas.Header style={{ cursor: "pointer" }}>
             <Offcanvas.Title>
-              <AddToCategory closeCart={closeCart} isLoggedIn={isLoggedIn} products={products}/>
+              <AddToCategory closeCart={closeCart} isLoggedIn={isLoggedIn} products={products} categories={categories} setCategories={setCategories}/>
             </Offcanvas.Title>
           </Offcanvas.Header>
           {!isLoggedIn && (
