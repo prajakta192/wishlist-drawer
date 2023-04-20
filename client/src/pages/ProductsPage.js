@@ -1,12 +1,9 @@
-import React, { useState,useEffect } from "react";
+import React from "react";
 import { Row, Col, Button, ToastContainer, Toast } from "react-bootstrap";
-
-
-
 
 const ProductsPage = ({ product,openCart }) => {
   //const [showModal, setShowModal] = useState(false);
-  const[warning, setWarning] = useState(false)
+  const warning = false
 
   return (
     <>

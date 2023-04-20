@@ -1,56 +1,41 @@
-import React, {useState, useMemo} from 'react'
-import {Row, Col, Button, Dropdown} from 'react-bootstrap'
-import ProductPagination from './ProductPagination';
-import SocialMediaIcons from './SocialMediaIcons';
+import React, {useState} from 'react'
+import {Row, Col, Dropdown} from 'react-bootstrap'
 import { BiTransfer} from "react-icons/bi";
 import {AiOutlineShoppingCart} from 'react-icons/ai'
 import {RiDeleteBin5Line} from 'react-icons/ri'
 
-const WishlistProducts = ({ isLoggedIn, products}) => {
+const WishlistProducts = ({ isLoggedIn, product,id, paginationData}) => {
 	const[State, setCartHandler] = useState({
     cartState : true,
     cartIndex : "0"
   }
     );
-//console.log(products)
+console.log(paginationData)
     const [transferPrdctState, setTrnsferPrdctState] = useState({
       productState : false,
       productIndex : 0
 })
-    let pageSize = 10;
-    const [currentPage, setCurrentPage] = useState(1);
-
-    const currentWishListData = useMemo(() => {
-      const firstPageIndex = (currentPage - 1) * pageSize;
-      const lastPageIndex = firstPageIndex + pageSize;
-      return products.slice(firstPageIndex, lastPageIndex);
-    }, [pageSize, currentPage]);
-
-  
-  function cartHandler(id,index){
+   
+  function cartHandler(id){
         setCartHandler({
           cartState : !State.cartState,
           cartIndex:id
-       
     })
 }
 // transfer Product
 function transferProductHandler(id){
-    console.log(id)
+  debugger;
+    //console.log(id)
     setTrnsferPrdctState({
       productState : !transferPrdctState.productState,
       productIndex : id
     })
 }
 
-function deleteProduct(product){
-  //dispatch({type:"REMOVE_PRODUCT", payload:product})
-}
 
 	return(
-<>
-        {currentWishListData.map((product,id,index) => (
-             <Row style={{borderBottom:'1px solid rgb(245,245,244',position:'relative'}} className='pb-2 mb-3' key={id}>
+        <>
+             <Row style={{borderBottom:'1px solid rgb(245,245,244',position:'relative'}} className='pb-2 mb-3'>
             <Col sm={2} className='p-1'>
               <img src={product.featuredImage} alt={product.title} />
             </Col>
@@ -95,7 +80,7 @@ function deleteProduct(product){
                 </Col>
                 {isLoggedIn && (
                   <Col sm={2}>
-                    <span className='fs-5' onClick={() => {transferProductHandler(id, index)}}>
+                    <span className='fs-5' onClick={() => {transferProductHandler(id)}}>
                       <BiTransfer/>
                     </span>
                   </Col>
@@ -125,50 +110,14 @@ function deleteProduct(product){
                   </Row>
                 </Col>
                <Col sm={2}>
-                  <span className="add_to_cart fs-5" onClick={() => cartHandler(id,index)}>
+                  <span className="add_to_cart fs-5" onClick={() => cartHandler(id)}>
                    <AiOutlineShoppingCart/>
                   </span>
                 </Col>
               </Row>
             </Col>
-           {/* <Row className='qtyContainer'>
-           <Col sm={10} className={`${!State.cartState && id===State.cartIndex ? 'display-b':'display-n'}`}>
-            <div className='iwish_qty_box'>
-              <div className='qty_box'>
-                <span>
-                  <i className="fa-solid fa-minus"></i>
-                </span>
-                <span className='iwishProQuantity'><strong>1</strong></span>
-                <span>
-                  <i className="fa-regular fa-plus"></i>
-                </span>
-              </div>
-            </div>
-          </Col>
-           </Row> */}
+         
           </Row>
-        
-        ))}
-        <Row>
-          <Col sm={12}>
-              <Button variant='outline-secondary btn-md text-uppercase w-100' className='addToCart'>Add All to cart</Button>
-          </Col>
-        </Row>
-
-        <Row className='fixed-bottom mt-3'>
-        <Col sm={6}>
-        <SocialMediaIcons/>
-      </Col>
-      <Col sm={6}>
-        <ProductPagination
-        className="pagination-bar"
-        currentPage={currentPage}
-        totalCount={products.length}
-        pageSize={pageSize}
-        onPageChange={page => setCurrentPage(page)}
-      />
-      </Col>
-      </Row>
         </>
 		)
 }

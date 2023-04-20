@@ -2,13 +2,14 @@ import React from "react";
 import { Offcanvas, Row, Col} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import EmptyWishlistComponent from '../components/EmptyWishlistComponent'
+import ProductPagination from '../components/ProductPagination'
 import WishlistProducts from '../components/WishlistProducts'
 import AddToCategory from "../components/AddToCategory";
 import "../styles/wishlistdrawer.css";
 
 const WishlistDrawerPage = ({ isOpen, closeCart, products,setCategories,categories}) => {
   const isLoggedIn = true;
-
+//console.log(products)
   return (
     <>
       <Offcanvas show={isOpen} onHide={closeCart} placement="end" scroll="true">
@@ -29,11 +30,20 @@ const WishlistDrawerPage = ({ isOpen, closeCart, products,setCategories,categori
           )}
         </header>
         <Offcanvas.Body>
-          {products.length <= 0 && (
-          <EmptyWishlistComponent closeCart={closeCart}/>
-          )
-        }
-          <WishlistProducts isLoggedIn={isLoggedIn} products={products}/>
+        {products.length < 0 ?  (
+           <EmptyWishlistComponent closeCart={closeCart}/>
+          ):
+       (
+        <ProductPagination
+            data={products}
+            RenderComponent={WishlistProducts}
+            isLoggedIn={isLoggedIn}
+            pageLimit={3}
+            dataLimit={5}
+          />
+         ) 
+          }
+       
         </Offcanvas.Body>
       </Offcanvas>
     </>

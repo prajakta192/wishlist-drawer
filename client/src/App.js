@@ -8,13 +8,15 @@ import {Container} from 'react-bootstrap'
 function App() {
     const[products, setProducts] = useState([])
     const[categories, setCategories] = useState([])
+
+//fetch wishlist data
 async function fetchWishlistData() {
     const res = await window.fetchWishlist(10,1)
     const data = await res.result
     setProducts(data)
 }
 
-
+//fetch category data
 async function fetchCategoryData() {
     debugger;
     const res = await window.fetchCategory();
@@ -59,7 +61,6 @@ fetchWishlistData();
            <ProductsPage key={id} product={product} openCart={openCart}/>
         ))
      }
-    
        </section>
       <WishlistDrawerPage  categories={categories} setCategories={setCategories} isOpen={isOpen} closeCart={closeCart} products={products}/>  
       <div>

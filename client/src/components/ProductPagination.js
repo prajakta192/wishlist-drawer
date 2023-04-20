@@ -1,77 +1,89 @@
-import React from 'react';
-import classnames from 'classnames';
-import { usePagination, DOTS } from './usePagination';
-import '../styles/pagination.scss';
+import React, {useState} from 'react'
+import {Row, Col, Button} from 'react-bootstrap'
+import SocialMediaIcons from './SocialMediaIcons';
+import '../styles/wishlistpagination.css'
 
-const ProductPagination = props => {
-  const {
-    onPageChange,
-    totalCount,
-    siblingCount = 1,
-    currentPage,
-    pageSize,
-    className
-  } = props;
+const ProductPagination  = ({ data, RenderComponent, isLoggedIn, pageLimit, dataLimit }) => {
+//console.log(data)
+//Functionality
 
-  const paginationRange = usePagination({
-    currentPage,
-    totalCount,
-    siblingCount,
-    pageSize
-  });
-
-  if (currentPage === 0 || paginationRange.length < 2) {
-    return null;
+  //states
+  const[pages] = useState(Math.round(data.length/ dataLimit))
+  const[currentPage, setCurrentPage] = useState(1)
+  
+  //next/ previous  page
+  function gotoNextPage() {
+    setCurrentPage((page) => page + 1)
+  }
+  function gotoPreviousPage(){
+    setCurrentPage((page) => page - 1)
   }
 
-  const onNext = () => {
-    onPageChange(currentPage + 1);
-  };
+  //change currentpage on click
+  function changePage(event){
+    const pageNumber = Number(event.target.textContent);
+    setCurrentPage(pageNumber)
+  }
 
-  const onPrevious = () => {
-    onPageChange(currentPage - 1);
-  };
+  //pagination data
+  function getPaginationData(){
+    debugger;
+    const startindex = currentPage * dataLimit - dataLimit;
+    const endIndex = startindex + dataLimit;
+    return data.slice(startindex, endIndex)
+  }
+const paginationData = getPaginationData();
+//console.log(paginationData);
 
-  let lastPage = paginationRange[paginationRange.length - 1];
-  
-  return (
-    <ul
-      className={classnames('pagination-container', { [className]: className })}
-    >
-      <li
-        className={classnames('pagination-item', {
-          disabled: currentPage === 1
-        })}
-        onClick={onPrevious}
-      >
-        <div className="arrow left" />
-      </li>
-      {paginationRange.map((pageNumber,index) => {
-        if (pageNumber === DOTS) {
-          return <li className="pagination-item dots">&#8230;</li>;
-        }
+//get group of page numbers in the pagination. 
+  function getPaginationGroup() {
+  debugger;
+    let start = Math.floor((currentPage - 1) / pageLimit) * pageLimit;
+    return new Array(pageLimit).fill().map((_, idx) => start + idx + 1);
+  }
+const paginationGroup = getPaginationGroup()
+//console.log(paginationGroup)
+  return(
+  <>
+      <div className = 'dataContainer'>
+      {
+        paginationData.map((product, id) => (
+            <RenderComponent key = {id} product = {product} id={id} isLoggedIn={isLoggedIn} paginationData={paginationData}/>
+          ))
+      }
+      <div className='stickToBottom'>
+      <Row>
+          <Col sm={12}>
+              <Button variant='outline-secondary btn-md text-uppercase w-100' className='addToCart'>Add All to cart</Button>
+          </Col>
+        </Row>
+        <Row className='align-items-center'>
+          <Col sm={6}>
+              <SocialMediaIcons/>
+          </Col>
+          <Col sm={6}>
+          <div className='pagination'>
+              <button onClick = {gotoPreviousPage} className ={`prev ${currentPage === 1 ? 'disabled' : ''}`}>
+             <div className="arrow left" />
+              </button>
 
-        return (
-          <li
-            className={classnames('pagination-item', {
-              selected: pageNumber === currentPage
-            })}
-            onClick={() => onPageChange(pageNumber)}  key={index}
-          >
-            {pageNumber}
-          </li>
-        );
-      })}
-      <li
-        className={classnames('pagination-item', {
-          disabled: currentPage === lastPage
-        })}
-        onClick={onNext}
-      >
-        <div className="arrow right" />
-      </li>
-    </ul>
-  );
-};
+              {/* show page numbers*/}
+               {paginationGroup.map((item, id) => (
+                  <button key={id} onClick={changePage} className={`paginationItem ${currentPage === item ? 'active' : null}`}>
+                  <span>{item}</span>
+                  </button>
+               ))}
 
-export default ProductPagination;
+              <button onClick = {gotoNextPage} className = {`next  ${currentPage === pages ? 'disabled' : ''}`}>
+                <div className="arrow right" />
+              </button>
+          </div>
+          </Col>
+       </Row>
+      </div>
+    </div>
+</>
+)
+}
+
+export default ProductPagination

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Button, Col, Dropdown, Row, Toast, ToastContainer } from "react-bootstrap";
 // import {BiPlus} from 'react-icons/bi'
-import {IconName} from 'react-icons/io'
 import{BiPlusCircle, BiXCircle} from 'react-icons/bi'
 
   const AddToCategory = ({ isLoggedIn,closeCart,products,setCategories,categories }) => {
@@ -94,7 +93,7 @@ const dropDownHandler = (curdropItem) => {
 const initialDropValue = () =>{
  setCurDropItem(initialDropVal)
 }
-const categoryName = localStorage.getItem('category_name');
+//const categoryName = localStorage.getItem('category_name');
 
   return (
     
@@ -141,12 +140,12 @@ const categoryName = localStorage.getItem('category_name');
                 {categories && categories.map((category,index) => (
 
                   <li key={index} id={index} className={`${!getCurState(index)}`}>
-                  {category.category_name === 'Main Wishlist' && 
+                  {category.category_name === 'Main Wishlist' &&   
                    <Col sm={10}>
                       <span style={{cursor:'pointer'}} onClick={initialDropValue}>Main Wishlist</span>
                   </Col>
                 }
-                  {category.category_name !== 'Main Wishlist' &&
+                  {category.category_name !== 'Main Wishlist' && 
                   <>
                     <Row>
                       <Col sm={10}>

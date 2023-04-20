@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 const Header = ({ openCart }) => {
  
-
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
   //console.log(innerWidth)
 
