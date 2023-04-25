@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, Button, ToastContainer, Toast } from "react-bootstrap";
 
-const ProductsPage = ({ product,openCart }) => {
+const ProductsPage = ({ product,openCart}) => {
   //const [showModal, setShowModal] = useState(false);
   const warning = false
 

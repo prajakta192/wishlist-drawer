@@ -4,27 +4,29 @@ import { BiTransfer} from "react-icons/bi";
 import {AiOutlineShoppingCart} from 'react-icons/ai'
 import {RiDeleteBin5Line} from 'react-icons/ri'
 
-const WishlistProducts = ({ isLoggedIn, product,id, paginationData}) => {
+const WishlistProducts = ({ isLoggedIn, product, id, paginationData}) => {
+
+
 	const[State, setCartHandler] = useState({
     cartState : true,
-    cartIndex : "0"
-  }
-    );
-console.log(paginationData)
+    cartIndex : 0
+  })
+
     const [transferPrdctState, setTrnsferPrdctState] = useState({
       productState : false,
       productIndex : 0
 })
    
   function cartHandler(id){
+    debugger;
         setCartHandler({
           cartState : !State.cartState,
           cartIndex:id
     })
 }
+
 // transfer Product
 function transferProductHandler(id){
-  debugger;
     //console.log(id)
     setTrnsferPrdctState({
       productState : !transferPrdctState.productState,
@@ -50,7 +52,7 @@ function transferProductHandler(id){
                     
                   </Row>
                 </Col>
-                 <Col sm={2}>
+                 <Col sm={2} className='text-center'>
                   <span className='fs-5'  onClick={() => window.removeFromWishlist(product.id, product.variant.id)}>
                    <RiDeleteBin5Line/>
                   </span>
@@ -64,7 +66,7 @@ function transferProductHandler(id){
                       <span className="pSize">XS</span>
                     </Col>
                     <Col sm={10}>
-                    <Dropdown className={`transferMenu ${transferPrdctState.productState && id=== transferPrdctState.productIndex ? 'display-b' : 'display-n'}`}>
+                    <Dropdown className={`transferMenu ${transferPrdctState.productState && product.variant.id=== transferPrdctState.productIndex ? 'display-b' : 'display-n'}`}>
                     <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
                           Main Wishlist
                       </Dropdown.Toggle>
@@ -79,8 +81,8 @@ function transferProductHandler(id){
                   </Row>
                 </Col>
                 {isLoggedIn && (
-                  <Col sm={2}>
-                    <span className='fs-5' onClick={() => {transferProductHandler(id)}}>
+                  <Col sm={2} className='text-center'>
+                    <span className='fs-5' onClick={() => {transferProductHandler(product.variant.id)}}>
                       <BiTransfer/>
                     </span>
                   </Col>
@@ -93,7 +95,7 @@ function transferProductHandler(id){
                     <span className="pPrice"> ₹{product.variant.price}</span>
                   </Col>
                   <Col sm={8} className="p-0">
-                      <div className={`${!State.cartState && id===State.cartIndex ? 'display-b':'display-n'}`}>
+                      <div className={`${!State.cartState && product.variant.id===State.cartIndex ? 'display-b':'display-n'}`}>
                         <div className='iwish_qty_box'>
                           <div className='qty_box'>
                             <span>
@@ -109,8 +111,8 @@ function transferProductHandler(id){
                     </Col>
                   </Row>
                 </Col>
-               <Col sm={2}>
-                  <span className="add_to_cart fs-5" onClick={() => cartHandler(id)}>
+               <Col sm={2} className='text-center'>
+                  <span className="add_to_cart fs-5" onClick={() => cartHandler(product.variant.id)}>
                    <AiOutlineShoppingCart/>
                   </span>
                 </Col>

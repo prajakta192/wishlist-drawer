@@ -9,7 +9,7 @@ import "../styles/wishlistdrawer.css";
 
 const WishlistDrawerPage = ({ isOpen, closeCart, products,setCategories,categories}) => {
   const isLoggedIn = true;
-//console.log(products)
+console.log(products)
   return (
     <>
       <Offcanvas show={isOpen} onHide={closeCart} placement="end" scroll="true">

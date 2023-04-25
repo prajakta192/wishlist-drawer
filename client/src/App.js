@@ -15,16 +15,16 @@ async function fetchWishlistData() {
     const data = await res.result
     setProducts(data)
 }
-
+ 
 //fetch category data
 async function fetchCategoryData() {
-    debugger;
+   // debugger;
     const res = await window.fetchCategory();
     const catData = res.result;
 
     const arr = [];
     catData.reduce((acc, curr) => {
-        debugger;
+        //debugger;
   if(acc.indexOf(curr.category_name) === -1) {
     acc.push(curr.category_name);
     arr.push(curr);
@@ -36,7 +36,7 @@ async function fetchCategoryData() {
 
 useEffect( () => {
 fetchWishlistData();
-
+console.log(window.Name)
  }, [])
 
   //State for cart drawer
@@ -57,12 +57,14 @@ fetchWishlistData();
       <section className='d-grid mt-5' style={{gridTemplateColumns:'repeat(2, 1fr)'}}>
         
      {
-      products.map((product,id) => (
+      products.map((product,id) => 
+        (
            <ProductsPage key={id} product={product} openCart={openCart}/>
+          
         ))
      }
        </section>
-      <WishlistDrawerPage  categories={categories} setCategories={setCategories} isOpen={isOpen} closeCart={closeCart} products={products}/>  
+      <WishlistDrawerPage categories={categories} setCategories={setCategories} isOpen={isOpen} closeCart={closeCart} products={products}/>  
       <div>
       
       </div>

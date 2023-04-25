@@ -40,9 +40,7 @@ import{BiPlusCircle, BiXCircle} from 'react-icons/bi'
 
   //change category name
   const catNameChange = (id, updatedTitle) => {
-    debugger;
     console.log(updatedTitle, id);
-   
     setCategories(
       categories.map((item) => {
         if(item.category_id === id){
@@ -70,7 +68,6 @@ const getCurState = (index) => {
 
 //edit category
 const editCat = (index,name) => {
-  debugger;
   setIsEdit(
    {status: !isEdit.status,index:index}
 )
@@ -85,7 +82,6 @@ const deleteCategory = (id) => {
 
 //handling drop down item
 const dropDownHandler = (curdropItem) => {
-  debugger;
   console.log(curdropItem);
   setCurDropItem(curdropItem)
   
@@ -130,7 +126,7 @@ const initialDropValue = () =>{
 
       {isLoggedIn && (
         <Row className="align-items-center">
-          <Col sm={11} className={!showCategory ? 'opacity-1' : 'opacity-0'}>
+          <Col sm={10} className={!showCategory ? 'opacity-1' : 'opacity-0'}>
             <Dropdown>
               <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
                 { curDropItem }
@@ -176,7 +172,7 @@ const initialDropValue = () =>{
               </Dropdown.Menu>
             </Dropdown>
           </Col>
-          <Col sm={1} className="text-center p-0"  onClick={addToCategory}>
+          <Col sm={2} className="text-center p-0"  onClick={addToCategory}>
           {showCategory ? <BiXCircle title='close category'/> : <BiPlusCircle title='Add to category'/>}
           {/*<BiPlus title='Add to category' />*/}
           

@@ -4,7 +4,7 @@ import SocialMediaIcons from './SocialMediaIcons';
 import '../styles/wishlistpagination.css'
 
 const ProductPagination  = ({ data, RenderComponent, isLoggedIn, pageLimit, dataLimit }) => {
-//console.log(data)
+
 //Functionality
 
   //states
@@ -27,7 +27,6 @@ const ProductPagination  = ({ data, RenderComponent, isLoggedIn, pageLimit, data
 
   //pagination data
   function getPaginationData(){
-    debugger;
     const startindex = currentPage * dataLimit - dataLimit;
     const endIndex = startindex + dataLimit;
     return data.slice(startindex, endIndex)
@@ -37,7 +36,6 @@ const paginationData = getPaginationData();
 
 //get group of page numbers in the pagination. 
   function getPaginationGroup() {
-  debugger;
     let start = Math.floor((currentPage - 1) / pageLimit) * pageLimit;
     return new Array(pageLimit).fill().map((_, idx) => start + idx + 1);
   }
@@ -68,6 +66,7 @@ const paginationGroup = getPaginationGroup()
               </button>
 
               {/* show page numbers*/}
+
                {paginationGroup.map((item, id) => (
                   <button key={id} onClick={changePage} className={`paginationItem ${currentPage === item ? 'active' : null}`}>
                   <span>{item}</span>

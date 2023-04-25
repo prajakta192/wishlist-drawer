@@ -1,3 +1,4 @@
+console.log('main loaded');
 
 const iWishUrl = "https://api.myshopapps.com/iwish/V1";
 var iWishlist = localStorage.iWishlist ? new Map(JSON.parse(localStorage.iWishlist)) : new Map();
@@ -31,9 +32,9 @@ async function requestToSever(page, body, method='POST')  {
 
 
 	function setWishlist() {
-		//debugger;
+		debugger;
 		localStorage.iWishlist = JSON.stringify(Array.from(iWishlist));
-		//console.log(localStorage.iWishlist);
+		console.log(localStorage.iWishlist);
 	}
 
 	function getCounter() {
@@ -41,12 +42,12 @@ async function requestToSever(page, body, method='POST')  {
 	}
 
 	function isInWishlist(vId) {
-		
+		debugger;
 		return iWishlist.has(vId) ? true : false;
 }
 
-	function addToWishlist(pId, vId, qty=1, catId=null, openCart) {
-		
+	function addToWishlist(pId, vId, qty=1, catId=0) {
+		//debugger;
 		if(!isInWishlist(vId)) {
 			iWishlist.set(vId, qty);
 			setWishlist(); // update storage
@@ -55,13 +56,11 @@ async function requestToSever(page, body, method='POST')  {
 			if(iWishCust>0) {
 				let data = "customer_id="+iWishCust+"&product_id="+pId+"&variant_id="+vId+"&product_qty="+qty+"&category_id="+catId;
 				return requestToSever("addToWishlist", data,'POST');
-				
 			}
 		}
-		openCart;
 }
 
-	function removeFromWishlist(pId, vId, catId=null) {
+	function removeFromWishlist(pId, vId, catId=0) {
 		//debugger;
 		if(isInWishlist(vId)) {
 			iWishlist.delete(vId);
@@ -76,16 +75,16 @@ async function requestToSever(page, body, method='POST')  {
 		
 	}
 
-	function fetchWishlist(limit=10, page=1, catId=null) {
+	function fetchWishlist(limit=10, page=1, catId=0) {
 		//debugger;
 	if(iWishCust>0) {
-		let data = catId!=null ? "category_id="+catId : '';
+		let data = catId!=0 ? "category_id="+catId : '';
 		return requestToSever("fetchWishlistData/"+iWishCust+"?page="+page+"&limit="+limit, data,'POST');
 	}
 }
 
 	function fetchCategory() {
-		debugger;
+		//debugger;
 		console.log('fetch cat')
 		let data = "";
 		return requestToSever("fetchCategory/"+iWishCust, data, 'POST');
@@ -98,7 +97,7 @@ async function requestToSever(page, body, method='POST')  {
 }
 
 	function updateCategory(catId, catName) {
-		debugger;
+		//debugger;
 		console.log(catId, catName)
 		let data = "category_id="+catId+"&category_name="+catName;
 		return requestToSever("updateCategory/"+iWishCust, data, 'POST');
