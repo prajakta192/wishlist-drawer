@@ -2,28 +2,79 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/heart_icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
       content="Web site created using create-react-app"
     />
-    
-  
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-   <script>
-     var iwish_shop = "testnewshopify.myshopify.com";
-     var iwish_cid = "3789951533090";
-   </script>
-   <script src="%PUBLIC_URL%/script/main.js" ></script>
-   <script src="%PUBLIC_URL%/script/classConst.js" ></script>
-    
+    <!-- <script>
+      var iwish_shop = 'testnewshopify.myshopify.com';
+      var iwish_cust = '3789951533090';
+    </script> -->
+    <script type="text/javascript">
+      var iwish = window.iwish || {};
+      iwish = {
+        ...iwish,
+        shop: 'testnewshopify.myshopify.com',
+        domain: 'testnewshopify.myshopify.com',
+        cust: '3789951533090',
+        currency: 'INR',
+        money_format:
+          '<span class="money conversion-bear-money">₹ {{amount}}</span>',
+        locale: 'en',
+        var_selector: '[name=id]',
+        opt_selector: '.single-option-selector',
+        checkiwish: '.sca-fancybox-close',
+        checkiwish_delay: '1000',
+        qv_button: '.sca-qv-button',
+        qv_wrapper: '.sca-fancybox-opened',
+      };
+      //console.log(iwish);
+
+      iwish = {
+        ...iwish,
+        old_cur_convertor: 'false',
+        multi_category: 'true',
+        open_drawer_on:
+          '.iWishView, .iwish-float-icon, .iWishAdd:not(.iwishAdded)',
+        drawer_title: 'My Wishlist',
+        drawer_login_msg:
+          'Wishlist is not saved permanently yet. Please &lt;a class=&quot;link-text&quot; href=&quot;/account/login&quot;&gt;log in&lt;/a&gt; or &lt;a class=&quot;link-text&quot; href=&quot;/account/register&quot;&gt;Create Account&lt;/a&gt; to save it.',
+        drawer_empty_msg:
+          '&lt;h4&gt;Your wishlist is empty!&lt;/h4&gt; &lt;p&gt;Explore more and shortlist some items&lt;/p&gt;',
+        main_cat: 'Main wishlist',
+        add_new: 'Add New List',
+        save: 'SAVE',
+        cat_name: 'Category name',
+        cat_save_msg: 'Catgegory saved successfully',
+        cat_exist_msg: 'Category name already exists',
+        cat_trasfer_note: 'Select category to tranfser',
+        cat_trasfer_msg: 'Product moved successfully',
+        add_to_cart: 'ADD TO CART',
+        sold_out: 'SOLD OUT',
+        added_to_cart: 'Added In Cart',
+        add_all_to_cart: 'ADD ALL TO CART',
+        continue_shopping: 'Continue Shopping',
+        cart_icon_cls: '.cart-count-bubble',
+      };
+      var currency = window.iwish.currency;
+      window.document.onload = function (e) {
+        if (window.Currency !== undefined) {
+          window.Currency.cookie.write(currency.active);
+        }
+      };
+    </script>
+    <script src="%PUBLIC_URL%/script/main.js"></script>
+
     <title>Wishlist Demo</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
 
+    <a href="#" class="iwish-float-icon">iwish-icon</a>
+    <a href="#" class="iWishAdd">add</a>
+    <a href="#" class="iwishAdded">remove</a>
   </body>
 </html>
